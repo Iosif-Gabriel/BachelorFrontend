@@ -1,0 +1,103 @@
+.loginDiv {
+  width: 250px;
+  padding: 40px;
+  border: 3px solid #ccc;
+  border-radius: 20px;
+  position: absolute;
+  top: 60%;
+  right: 10%;
+  transform: translateY(-50%);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 330px;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  overflow: hidden;
+}
+
+.welcomeTitle {
+  text-align: center;
+  font-size: 20px;
+}
+
+.loginDiv h5 {
+  text-align: center;
+  font-size: 20px;
+  color: gray;
+}
+
+.loginDiv p {
+  margin: 10px 0;
+  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.loginDiv input[type="text"],
+.loginDiv input[type="password"],
+.loginDiv button {
+  width: 100%;
+  padding: 15px; 
+  /* margin-bottom: 15px;  */
+  box-sizing: border-box;
+  border-radius: 20px; 
+  cursor: pointer;
+  font-size: 13px;
+}
+
+
+.loginDiv button {
+  width: 100%;
+  background-color: #b60606;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-top: 10px; 
+}
+
+.loginDiv button:hover {
+  background-color: #eb5d5d;
+}
+
+.loginDiv a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.loginDiv a:hover {
+  text-decoration: underline;
+}
+
+.closeButtonContainer {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+}
+
+.closeButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #000;
+  font-size: xx-large; 
+  width: 20px; 
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+}
+
+.closeButton:hover {
+  color: red;
+}
+
+.loginContent {
+  text-align: center;
+}
+
+

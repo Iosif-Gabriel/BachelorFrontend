@@ -1,0 +1,159 @@
+/* .contentGallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  position: fixed;
+  margin: auto;
+  width: 55vw;
+  height: 55vh;
+  left: 50%; 
+  transform: translateX(-50%);
+} */
+
+  .photo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* margin-top: 50px; */
+    margin-bottom: 50px;
+  }  
+
+  .main-photo {
+    width: 800px; /* Increase width */
+    height: 400px; 
+    margin: 5px;
+    position: relative;
+    
+  }
+
+  .small-photo {
+    width: 400px; /* Increase width */
+    height: 100%;
+    margin: 5px;
+    align-items: center;
+  }
+
+  .small-photo img,
+.main-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  overflow: clip;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;;
+  border-radius: 20px;
+}
+
+
+  .side-photos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+   
+  }
+
+
+.small-photo img:hover,
+.main-photo img:hover {
+  transform: scale(1.01); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.file-input-label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-input-label svg{
+  width: 70px;
+  height: 100px;
+  background-color: gray;
+}
+
+.buttonContainer{
+    position: absolute;
+    left: 50%;
+    margin-top: 10px;
+    transform: translateX(-50%);
+}
+
+.showPhotos {
+  padding: 15px 15px; /* Increase padding for a bigger button */
+  font-size: 20px; /* Increase font size for a bigger button */
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: rgb(207,207,207);
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 1000;
+  font-style: x-large;
+}
+
+
+.showPhotos:hover{
+  background-color: rgb(136, 136, 136);
+}
+
+
+@media only screen and (min-width: 1700px) {
+ 
+  .small-photo {
+    width: 250px; 
+    height: 200px; 
+    margin: 5px;
+  }
+
+  .main-photo {
+    width: 500px; 
+    height: 100%; 
+    margin: 5px;
+  }
+
+  .showPhotos{
+    font-size: 12px;
+  }
+}
+
+
+
+@media only screen and (max-width: 1400px) {
+ 
+  .small-photo {
+    width: 200px; 
+    height: 100%; 
+    margin: 5px;
+  }
+
+  .main-photo {
+    width: 500px; 
+    height: 100%; 
+    margin: 5px;
+  }
+
+  .showPhotos{
+    font-size: 12px;
+  }
+}
+
+
+@media only screen and (max-width: 620px) {
+ 
+  .small-photo {
+    width: 150px; 
+    height: auto; 
+    margin: 5px;
+  }
+
+  .main-photo {
+    width: 150px; 
+    height: 100%;
+    margin: 5px;
+  }
+
+  .showPhotos{
+    font-size: 15px;
+  }
+}

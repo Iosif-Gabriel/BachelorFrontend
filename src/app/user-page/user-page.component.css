@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-direction: column;
+  background: whitesmoke;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.side-nav{
+    background-color: var(--bg-primary);
+    transition: left 0.3s ease; /* optional: add transition effect */
+    overflow: hidden;
+    z-index: 1;
+}
+
+.eventList {
+  /* Styles for your event list */
+  /* Adjust width and other properties as needed */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 40px; /* Adjust the gap between items */
+  justify-content: center;
+}
+
+.navBar{
+  margin-top: 20px;
+}

@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+html,body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none;
+
+   
+}
+
+
+
+  .toolTipMy::before{
+    content:' ';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:transparent transparent #f1f1f1 transparent
+    
+  }
+
+  .toolTipMy.show{
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .toolTipMy{
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    visibility: visible;
+    width: 120px;
+    background-color: black;
+    color:#f1f1f1;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: normal;
+    font-size: small;
+
+  }

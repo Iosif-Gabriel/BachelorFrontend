@@ -1,0 +1,37 @@
+<!-- <body class="loginDiv">
+    <div class="closeButtonContainer" *ngIf="loginPopupOpen">
+        <button class="closeButton" (click)="closePopup()">X</button>
+    </div>
+    <div class="loginContent">
+        <div class="welcomeTitle">
+            <h2>Welcome to Event Maker</h2>
+        </div>
+        <h5>Travel around the world</h5>
+        <p>Username</p>
+        <input type="text" name="username" placeholder="Username" [(ngModel)]="authReq.username"> 
+        <p>Password</p>
+        <input type="password" name="password" placeholder="Password" [(ngModel)]="authReq.password">
+        <button type="submit" name="login" (click)="confirmLogin()" >Login</button>
+    </div>
+</body>
+ -->
+
+ <body class="loginDiv">
+    <div class="closeButtonContainer" *ngIf="loginPopupOpen">
+        <button class="closeButton" (click)="closePopup()">X</button>
+    </div>
+    <div class="loginContent">
+        <div class="welcomeTitle">
+            <h2>Welcome to Event Maker</h2>
+        </div>
+        <h5>Travel around the world</h5>
+        <form [formGroup]="loginForm" (ngSubmit)="confirmLogin()">
+            <p>Username</p>
+            <input type="text" formControlName="username" placeholder="Username">
+            <p>Password</p>
+            <input type="password" formControlName="password" placeholder="Password">
+            <button type="submit" name="login">Login</button>
+        </form>
+    </div>
+</body>
+

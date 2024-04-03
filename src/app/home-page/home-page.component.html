@@ -1,0 +1,48 @@
+<div class="container">
+<app-nav-component class="homePageNav"></app-nav-component>
+<div class="containerContent">
+ 
+  <section class="firstContainer">
+    <div class="firstPage">
+      <div class="animationsFirstPage">
+        <h1 class="blackText">
+          <span>Need a </span>
+          <span class="fadeIn">{{currentText}}</span>
+          <span>?</span>
+        </h1>
+        <h2 class="blackText fadeIn">Look no further!</h2>
+      </div>
+      <div class="backgroundImageFirst fadeIn"></div>
+      
+    </div>
+  </section>
+<!-- 
+  <section class="createContainer"></section> -->
+
+  <section class="loginContainer">
+    <div class="backgroundImage"></div>
+    <div *ngIf="!loginPopupOpen && !registerPopupOpen">
+    <div class="sign">
+      <h1 class="whiteText">
+        <span>Sign up to</span>
+        <span>make it happen!</span>
+      </h1>
+    </div>
+    <app-login-component></app-login-component>
+    </div>
+  </section>
+  
+  <div class="popup-overlay" *ngIf="loginPopupOpen || registerPopupOpen">
+    <div class="popup-wrapper">
+      <app-login-component class="overlayPoPup" *ngIf="loginPopupOpen"></app-login-component>
+      
+      <app-register-component class="overlayPoPup" *ngIf="registerPopupOpen" ></app-register-component>
+      
+      <div #modal></div>
+  
+    </div>
+  </div>
+  
+</div>
+
+<!-- <app-register-component ></app-register-component> -->

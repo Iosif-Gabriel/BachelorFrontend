@@ -1,0 +1,25 @@
+.event-list {
+  display: grid;
+  gap: 20px 20px;
+  grid-template-columns: repeat(5, 0.15fr); /* Five columns */
+  justify-content: center;
+}
+
+.event-card-container {
+  display: contents;
+}
+
+.app-event-card {
+  margin-bottom: 20px; /* Adjust the space between rows */
+  padding: 20px; /* Adjust padding to make cards more compact */
+  text-align: center; /* Center the content */
+  max-width: 300px; /* Limit the maximum width of the card */
+  width: 100%; /* Ensure the card occupies the entire width of the column */
+}
+
+
+@media only screen and (max-width: 1700px) {
+  .event-list {
+    grid-template-columns: repeat(3, 0.53fr); /* Three columns */
+  }
+}

@@ -1,0 +1,128 @@
+:root{
+    font-size: 50px !important;
+    font-family: "Josefin Sans", sans-serif;
+    --text-primary:#b6b6b6;
+    --text-secondary:#ececec;
+    --bg-primary:#23232e;
+    --bg-secondary:#141418;
+    border-radius: 20px;
+}
+
+body {
+    color: black;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  
+
+main{
+    margin-right: 5rem;
+    padding:1rem;
+}
+
+.navbar{
+    /* width: 5rem;
+    height: 100vh; */
+    left: 0;
+    position: fixed;
+    background-color: var(--bg-primary);
+    transition: width 600ms ease;
+    overflow: hidden;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 1000;
+    font-style:normal;
+    overflow: hidden;
+}
+
+.navbar-nav{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-color: rgb(207, 207, 207);
+}
+
+.nav-item{
+    width: 100%;
+    margin: 1rem;
+}
+
+.nav-item:last-child {
+    margin-top: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    height: 4.2rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition-speed);
+  }
+  
+  .nav-link:hover {
+    filter: grayscale(0%) opacity(1);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+  }
+
+  .link-text {
+    display: flex;
+    margin-left: 2rem;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: x-large;
+  }
+  
+  .nav-link svg {
+    width: 3rem;
+    min-width: 3rem;
+    margin: 0 0.5rem;
+  }
+
+  @media only screen and (min-width: 600px) {
+    .navbar {
+      top: 0;
+      width: 6rem;
+      height: 100vh;
+    }
+  
+    .navbar:hover {
+      width: 16rem;
+    }
+  
+    .navbar:hover .link-text {
+      display: inline;
+    }
+  
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    .navbar {
+      bottom: 0;
+      width: 100vw;
+      height: 5rem;
+    }
+
+    .navbar-nav {
+      flex-direction: row;
+    }
+  
+    .nav-link {
+      justify-content: center;
+    }
+  
+    main {
+      margin: 0;
+    }
+  }

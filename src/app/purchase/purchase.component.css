@@ -1,0 +1,63 @@
+
+.purchaseContainer2 {
+    position: relative; /* Ensure that the purchase container acts as a positioned ancestor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--card-height);
+  }
+
+  .purchaseButtonContainer {
+    margin-top: auto;
+  }
+
+.purchaseButton{
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-familiy);
+    font-weight: bolder;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.purchaseButton:hover{
+  background-color: rgb(226, 29, 29);
+}
+
+.card {
+    width: 290px;
+    height: var(--card-height);
+    border-radius: 30px;
+    background: lightgrey;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset; */
+    position: relative;
+}
+
+.priceContainer{
+    margin-right: auto;
+    margin-left: 20px;
+}
+
+.dateSelection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .dateSelection label {
+    margin: 5px;
+  }
+  
+  .dateSelection input[type="date"] {
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-family: var(--font-family);
+    font-size: 14px;
+  }
