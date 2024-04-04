@@ -1,15 +1,4 @@
-/* .contentGallery {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  position: fixed;
-  margin: auto;
-  width: 55vw;
-  height: 55vh;
-  left: 50%; 
-  transform: translateX(-50%);
-} */
+
 
   .photo-container {
     display: flex;
@@ -17,27 +6,48 @@
     align-items: center;
     /* margin-top: 50px; */
     margin-bottom: 50px;
+    /* width: 1000px;
+    height: 1000px; */
   }  
 
   .main-photo {
-    width: 800px; /* Increase width */
+    width: 600px; /* Increase width */
     height: 400px; 
     margin: 5px;
     position: relative;
+    background-color: antiquewhite;
+    align-content: center;
+    border-radius: 20px;
+    border: 4px dashed #ccc
     
   }
 
+  .side-photos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 300px;
+    height: 400px;
+    /* background-color: rgb(165, 149, 149); */
+    /* margin-top: 20px; */
+  }
+
   .small-photo {
-    width: 400px; /* Increase width */
+    width: 100%; 
     height: 100%;
-    margin: 5px;
+    padding: 5px;
+   margin-top: 5px; 
     align-items: center;
+    background-color: rgb(163, 163, 163);
+    align-content: center;
+    border-radius: 20px;
+    border: 2px dashed #ccc
   }
 
   .small-photo img,
 .main-photo img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%; /* Faceți imaginile să ocupe întregul container */
+  height: 100%;
   object-fit: cover;
   overflow: clip;
   cursor: pointer;
@@ -46,12 +56,6 @@
 }
 
 
-  .side-photos {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-   
-  }
 
 
 .small-photo img:hover,
@@ -64,12 +68,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .file-input-label svg{
   width: 70px;
   height: 100px;
-  background-color: gray;
+  /* background-color: gray; */
+  cursor: pointer;
+  transition: transform 0.3s ease,
+}
+
+.file-input-label svg:hover{
+  transform: scale(1.1); 
 }
 
 .buttonContainer{
@@ -97,7 +108,7 @@
   background-color: rgb(136, 136, 136);
 }
 
-
+/* 
 @media only screen and (min-width: 1700px) {
  
   .small-photo {
@@ -156,4 +167,5 @@
   .showPhotos{
     font-size: 15px;
   }
-}
+} */
+

@@ -10,19 +10,7 @@ export class PhotoGalleryComponent {
   uploadedImages: { file: File, url: string }[] = [];
   selectedImageUrl!: string;
   mainPhoto: any;
-  images: string[] = [
-    '../assets/images/poze/camping.jpg',
-    '../assets/images/poze/barca.jpg',
-    '../assets/images/poze/lala.jpg',
-    '../assets/images/poze/hihi.jpg',
-    '../assets/images/poze/haha.jpg',
-    '../assets/images/poze/tanti.jpg',
-    '../assets/images/poze/hihi.jpg',
-    '../assets/images/poze/lililala.jpg',
-    '../assets/images/poze/tanti.jpg',
-    '../assets/images/poze/barca.jpg'
-    // Add more images here
-  ];
+  
 
   constructor() { }
 
@@ -30,66 +18,113 @@ export class PhotoGalleryComponent {
     // Initialize component properties or perform other setup tasks here
   }
 
-  selectedImage: string = this.images[0];
 
-  selectImage(image: string): void {
-    this.selectedImage = image;
-  }
+  imageList: { path: string; file: File }[] = [];
 
-openImageUploader(position: number): void {
-    // Implementează funcționalitatea pentru încărcarea imaginilor și adăugarea lor în poziția specificată
-    // Poți utiliza un serviciu, o modalitate de încărcare de fișiere sau alte metode pentru a adăuga imaginile
-    console.log('Open image uploader for position:', position);
-  }
 
-  handleFileInput(event: any, position: number): void {
-    const fileInput = event.target as HTMLInputElement;
-    const files: FileList | null = fileInput.files;
+
+  addImage(event: any, position: number): void {
+    const imageInput = event.target as HTMLInputElement;
+    const images: FileList | null = imageInput.files;
   
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files.item(i)!;
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.classList.add('preview-image'); // Adăugăm clasa pentru stilizare
+    if (!images || images.length === 0) {
+      return;
+    }
   
-          // Setăm dimensiunile imaginii relativ la dimensiunile div-ului părinte
-          const parentDiv = position === 5 ? document.querySelector('.main-photo') : document.querySelectorAll('.small-photo')[position];
-          if (parentDiv) {
-            const parentRect = parentDiv.getBoundingClientRect();
-            img.style.width = `${parentRect.width}px`;
-            img.style.height = `${parentRect.height}px`+150;
-          }
+    const file = images.item(0)!;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.classList.add('preview-image');
+   
+      const parentDiv = document.getElementById(this.getPositionId(position));
+    
+      if (parentDiv) {
+        parentDiv.style.position = 'relative';
+        img.style.position = 'absolute';
+        img.style.top = '0';
+        img.style.left = '0'; 
+        img.style.width = '100%'; 
+        img.style.height = '100%'; 
+        img.style.objectFit = 'cover';
+        parentDiv.appendChild(img);
+        
+        const newName = `${this.getPositionId(position)}_${file.name}`;
+        console.log(newName);
+        const newFile = new File([file], newName, { type: file.type, lastModified: file.lastModified });
   
-          img.style.borderRadius = '20px';
-          img.style.margin = '10px';
-  
-          if (position === 5) {
-            const mainPhotoDiv = document.querySelector('.main-photo');
-            if (mainPhotoDiv) {
-              mainPhotoDiv.innerHTML = ''; // Ștergem orice conținut anterior al div-ului
-              mainPhotoDiv.appendChild(img); // Adăugăm imaginea încărcată în div-ul corespunzător
-            } else {
-              console.error('Elementul cu clasa "main-photo" nu a fost găsit.');
-            }
-          } else {
-            const smallPhotoDiv = document.querySelectorAll('.small-photo')[position];
-            if (smallPhotoDiv) {
-              smallPhotoDiv.innerHTML = ''; // Ștergem orice conținut anterior al div-ului
-              smallPhotoDiv.appendChild(img); // Adăugăm imaginea încărcată în div-ul corespunzător
-            } else {
-              console.error('Elementul cu clasa "small-photo" și poziția specificată nu a fost găsit.');
-            }
-          }
-  
-        };
-        reader.readAsDataURL(file);
+        
+        this.imageList.push({ path: e.target.result, file: newFile });
+        console.log(this.imageList);
       }
-    } else {
-      console.error('Nu s-au găsit fișiere pentru a fi încărcate.');
+    };
+    reader.readAsDataURL(file);
+}
+
+  
+  getPositionId(position: number): string {
+    switch (position) {
+      case 1:
+        return 'upLeft';
+      case 2:
+        return 'downLeft';
+      case 3:
+        return 'upRight';
+      case 4:
+        return 'downRight';
+      case 5:
+        return 'main';
+      default:
+        return '';
     }
   }
+  
+
+  createImageInput(id: string, position: number): HTMLInputElement {
+    const inputElement = document.createElement('input');
+    inputElement.type = 'file';
+    inputElement.id = id;
+    inputElement.name = id;
+    inputElement.accept = 'image/*';
+    inputElement.style.display = 'none';
+    inputElement.addEventListener('change', (event) => this.addImage(event, position));
+    return inputElement;
+  }
+  
+  activateInput(event: MouseEvent, position: number): void {
+    const positionId = this.getPositionId(position);
+    const querySelectorId = '#' + positionId + ' img';
+    
+    const previewImage = document.querySelector(querySelectorId) as HTMLImageElement | null;
+    if (previewImage) {
+      previewImage.remove();
+
+       this.imageList = this.imageList.filter(image => !image.file.name.includes(positionId));
+       console.log(this.imageList);
+
+      const inputElement = this.createImageInput(positionId + 'PhotoUpload', position);
+      const divMain = document.getElementById(positionId);
+      if (divMain) {
+        divMain.appendChild(inputElement);
+      }
+    }
+  }
+
+  triggerInputClick(position: number): void {
+     const positionId = this.getPositionId(position);
+     const querySelector=positionId+"Upload";
+    const inputElement = document.getElementById(querySelector) as HTMLInputElement | null;
+    if (inputElement) {
+      inputElement.click();
+    }
+  }
+  
+  
+  
+  
+
+
+
 
 }
