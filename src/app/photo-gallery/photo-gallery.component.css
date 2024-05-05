@@ -1,54 +1,52 @@
 
 
-  .photo-container {
+  .photo-container-gallery {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* margin-top: 50px; */
-    margin-bottom: 50px;
-    /* width: 1000px;
-    height: 1000px; */
+    max-width: auto;
+ 
   }  
 
-  .main-photo {
-    width: 600px; /* Increase width */
-    height: 400px; 
+  .main-gallery-photo {
+    width: 650px; /* Increase width */
+    height: 450px; 
     margin: 5px;
     position: relative;
     background-color: antiquewhite;
     align-content: center;
     border-radius: 20px;
-    border: 4px dashed #ccc
-    
+
   }
 
-  .side-photos {
+
+  .side-gallery-photos {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 300px;
-    height: 400px;
+    width: 350px;
+    height: 450px;
     /* background-color: rgb(165, 149, 149); */
     /* margin-top: 20px; */
   }
 
-  .small-photo {
-    width: 100%; 
+  .small-gallery-photo {
+    /* width: 100%;  */
     height: 100%;
     padding: 5px;
-   margin-top: 5px; 
+    margin-top: 5px; 
     align-items: center;
     background-color: rgb(163, 163, 163);
     align-content: center;
     border-radius: 20px;
-    border: 2px dashed #ccc
+ 
   }
 
-  .small-photo img,
-.main-photo img {
+  .small-gallery-photo img,
+.main-gallery-photo img {
   width: 100%; /* Faceți imaginile să ocupe întregul container */
   height: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
   overflow: clip;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;;
@@ -58,30 +56,14 @@
 
 
 
-.small-photo img:hover,
-.main-photo img:hover {
+.small-gallery-photo img:hover,
+.main-gallery-photo img:hover {
   transform: scale(1.01); 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.file-input-label{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
 
-.file-input-label svg{
-  width: 70px;
-  height: 100px;
-  /* background-color: gray; */
-  cursor: pointer;
-  transition: transform 0.3s ease,
-}
 
-.file-input-label svg:hover{
-  transform: scale(1.1); 
-}
 
 .buttonContainer{
     position: absolute;
@@ -108,16 +90,16 @@
   background-color: rgb(136, 136, 136);
 }
 
-/* 
-@media only screen and (min-width: 1700px) {
+
+/* @media only screen and (min-width: 1700px) {
  
-  .small-photo {
+  .small-gallery-photo {
     width: 250px; 
     height: 200px; 
     margin: 5px;
   }
 
-  .main-photo {
+  .main-gallery-photo {
     width: 500px; 
     height: 100%; 
     margin: 5px;
@@ -126,39 +108,40 @@
   .showPhotos{
     font-size: 12px;
   }
-}
+} */
 
 
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1600px) {
  
-  .small-photo {
-    width: 200px; 
-    height: 100%; 
-    margin: 5px;
+  .side-gallery-photos{
+    width: 250px;
+    height: 380px;
   }
 
-  .main-photo {
+  .main-gallery-photo {
     width: 500px; 
-    height: 100%; 
-    margin: 5px;
+    height: 375px; 
   }
 
   .showPhotos{
     font-size: 12px;
   }
+
+
+  
 }
 
 
-@media only screen and (max-width: 620px) {
+/* @media only screen and (max-width: 620px) {
  
-  .small-photo {
+  .small-gallery-photo {
     width: 150px; 
     height: auto; 
     margin: 5px;
   }
 
-  .main-photo {
+  .main-gallery-photo {
     width: 150px; 
     height: 100%;
     margin: 5px;
@@ -167,5 +150,5 @@
   .showPhotos{
     font-size: 15px;
   }
-} */
+}  */
 

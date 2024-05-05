@@ -11,12 +11,13 @@ export class ModalService {
   private componentRef!: ComponentRef<ModalComponent>;
   componentSubscriber!: Subject<string>;
   registerEvent = new Subject<string>();
-
+  
   constructor(private resolver: ComponentFactoryResolver,private popupService: PopupService) {
     
   }
   
 
+  
   openModal(entry: ViewContainerRef, modalTitle: string, modalBody: string, imagePath?: string): Observable<string> {
     const factory = this.resolver.resolveComponentFactory(ModalComponent);
     this.componentRef = entry.createComponent(factory);

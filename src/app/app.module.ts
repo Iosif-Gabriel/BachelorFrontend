@@ -31,6 +31,10 @@ import { CreateEventComponent } from './create-event/create-event.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AdminhomeComponent } from './adminhome/adminhome.component';
 import { ImageModalComponent } from './image-modal/image-modal.component';
+import { CreateCardComponent } from './create-card/create-card.component';
+import { CommonModule } from '@angular/common';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { CreatePhotoGalleryComponent } from './create-photo-gallery/create-photo-gallery.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,8 @@ import { ImageModalComponent } from './image-modal/image-modal.component';
     CreateEventComponent,
     AdminhomeComponent,
     ImageModalComponent,
+    CreateCardComponent,
+    CreatePhotoGalleryComponent,
     
   ],
   imports: [
@@ -68,7 +74,9 @@ import { ImageModalComponent } from './image-modal/image-modal.component';
     MatTooltipModule,
     MatInputModule,
     ReactiveFormsModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    CommonModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

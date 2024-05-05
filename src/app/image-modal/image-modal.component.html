@@ -1,3 +1,4 @@
+
 <div class="modalContentImage">
     <div class="closeButtonContainer">
         <button class="closeButton" (click)="closeImage()">X</button>
@@ -5,21 +6,22 @@
     <div class="custom-modal">
         <div class="modal-content">
             <div *ngIf="selectedOption === 'Gallery'" class="galleryChoose">
-                <app-photo-gallery></app-photo-gallery>
+                <app-create-photo-gallery></app-create-photo-gallery>
             </div>
             <div *ngIf="selectedOption === 'Cover'" class="cardChoose">
-                <app-event-card></app-event-card>
+                <app-create-card></app-create-card>
             </div>
         </div>
         <div class="createContainer">
             <div class="tag-input">
-                <select [(ngModel)]="selectedOption">
-                    <option value="Gallery">Gallery</option>
-                    <option value="Cover">Cover</option>
+                <select class="tag-input" [(ngModel)]="selectedOption">
+                    <option class="tag-input" value="Gallery">Gallery</option>
+                    <option class="tag-input" value="Cover">Cover</option>
                 </select>
             </div>
             <div class="saveButton">
-                <button (click)="saveTags()">Save</button>
+                <!-- <div class="overlay" *ngIf="save"></div> -->
+                <button (click)="saveEvent()">Save</button>
             </div>
         </div>
     </div>

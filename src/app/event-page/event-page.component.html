@@ -1,9 +1,11 @@
-<div class="eventContainer">
-    <app-nav-component></app-nav-component>
+<div class="eventContainer" *ngIf="event">
+    <div class="userNavBar">
+    <app-user-nav></app-user-nav>
+    </div>
     <div class="wrapper-main">
         <div class="eventContent1">
             <div class="titleContainer">
-                <h1 class="title">Trullo Amelia II Cozy Apulian Nature Sanctuary</h1>
+                <h1 class="title">{{event.eventName}}</h1>
             </div>
             <div class="photoGalleryContainer">
                 <app-photo-gallery></app-photo-gallery>
@@ -11,24 +13,14 @@
             <div class="descriptionContainer">
                 <div class="description">
                     <div class="locationContainer">
-                        <h3 class="subTitles">Honolulu, Hawai</h3>
+                        <h3 class="subTitles">{{event.idLocation}}</h3>
                     </div>
                     <div class="hostContainer">
                         <p>Host Name</p>
                     </div>
                     <div class="actualDesc">
                         <h3 class="subTitles">About this space</h3>
-                        <p> A beautiful treehouse, in the middle of nature. It overlooks a small pond which is full of
-                            fish and there's also a nearby river which you can hear from the porch, that adds to the
-                            beautiful nature scene.
-                            The space
-                            The place (Eagles' Nest) is situated in Moisei in the Nature Park Muntii Maramuresului, 20
-                            km away from the Borsa ski Slope, 12 km from the steam train in Viseu. It has a porch and a
-                            hammock where you can have a great up of coffee in the middle of nature. It can host up to 4
-                            guests.
-                            Guest access
-                            The place is 300m from the main road, easily accessible and has many parking spots. Being
-                            not in the main road it is also very quiet.
+                        <p>{{event.description}}
                         </p>
                     </div>
                     

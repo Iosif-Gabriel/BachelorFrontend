@@ -1,7 +1,7 @@
 
 :root {
-  --card-width: 300px;
-  --card-height: 500px;
+  --card-width: 250px;
+  --card-height: 400px;
 }
 
 @media only screen and (max-width: 1708px) {
@@ -11,7 +11,7 @@
   }
 }
 
-.container {
+.containerCard {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,15 +21,18 @@
   width: var(--card-width);
   height: var(--card-height);
   position: absolute;
-  background-image: url('src/assets/images/poze/lililala.jpg');
+  background-image: url('src/assets/images/poze/barca.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 16px;
+  height: 100%;
+  width: 100%;
+ 
 }
 
 .card {
-  width: var(--card-width);
-  height: var(--card-height);
+  /* width: var(--card-width);
+  height: var(--card-height); */
   background:rgb(207, 207, 207);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -51,7 +54,6 @@
 }
 
 .top {
-  position: relative;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -66,6 +68,7 @@
   font-weight: 1000;
   font-style: x-large;
   font-weight: bold;
+  position: relative;
 }
 
 .favCard {
@@ -100,11 +103,11 @@
   
 }
 
-.card .title {
+.card .titleC {
   text-shadow: 0 0 5px rgb(0, 0, 0);
 }
 
-.top .title {
+.top .titleC {
   color: #fff;
   font-weight: bolder;
   font-size: x-large;
@@ -116,6 +119,9 @@
   color:white;
   margin:20px;
   opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
 }
 
 .card .priceCard {
@@ -135,7 +141,7 @@
 }
 
 .detailsCard {
-  position: absolute;
+  
   color: #fff;
   opacity: 0;
   background: rgba(0, 0, 0, 0.7);
@@ -144,15 +150,16 @@
   box-sizing: border-box;
   font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
+ 
 }
 
 
 
-.card .detailsCard {
+.containerCard .detailsCard {
   opacity: 0;
   bottom: 0;
   left: 0;
-
+  position: absolute;
   width: 100%;
   padding: 30px;
   border-radius: 20px;
@@ -172,7 +179,7 @@
   text-shadow: 0 0 5px rgb(0, 0, 0);
 }
 
-.title {
+.titleC {
   color: #fff;
   font-weight: bold;
   font-size: x-large;
@@ -180,6 +187,34 @@
   margin-top: 10px;
   font-size: bold;
 }
+
+.disable-hover {
+  pointer-events: none;
+  
+}
+
+.myEventsOptions{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  gap:30px;
+}
+
+.buttonColor{
+  filter: grayscale(100%);
+}
+
+.buttonColor:hover{
+  filter: grayscale(0%);
+  transform: scale(1.1);
+  transition: transform 0.2s ease; 
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
+
 
 
 

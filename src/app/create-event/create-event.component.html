@@ -1,84 +1,50 @@
 <div class="biggerDiv">
-    <div class="closeButtonContainer" >
+    <div class="closeButtonContainer">
         <button class="closeButton" (click)="closeEventCreation()">X</button>
     </div>
-<div class="createEventContent">
-    <div class="contentCreate">
-    <div class="enterTitle">
-        <label for="eventTitle">Event Title:</label>
-        <input type="text" id="eventTitle" name="eventTitle" placeholder="Enter event title">
-    </div>
-    <div class="enterDescription">
-        <label for="eventDescription">Event Description:</label>
-        <textarea class="area" id="eventDescription" name="eventDescription"
-            placeholder="Enter event description"></textarea>
-    </div>
+    <div class="createEventContent">
+        <div class="contentCreate">
+            <div class="enterTitle">
+                <label for="eventTitle">Event Title:</label>
+                <input type="text" id="eventTitle" name="eventTitle" placeholder="Enter event title" [(ngModel)]="eventDTO.eventName">
+            </div>
+            <div class="enterDescription">
+                <label for="eventDescription">Event Description:</label>
+                <textarea class="area" id="eventDescription" name="eventDescription"
+                    placeholder="Enter event description" [(ngModel)]="eventDTO.description"></textarea>
+            </div>
 
-    <div class="enterType">
-        <label for="eventType">Select Event Type:</label>
-        <select id="eventType" name="eventType">
-            <option value="conference">Conference</option>
-            <option value="workshop">Workshop</option>
-            <option value="seminar">Seminar</option>
-            <option value="concert">Concert</option>
-        </select>
-    </div>
-    <div class="enterTicket">
-        <label for="ticketType">Ticket Type:</label>
-        <select id="ticketType" name="ticketType">
-            <option value="vip">VIP</option>
-            <option value="standard">Standard</option>
-        </select>
-        <label for="ticketPrice">Ticket Price:</label>
-        <input type="number" id="ticketPrice" name="ticketPrice" step="1" placeholder="Enter ticket price">
-    </div>
-    <div class="enterDate">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate">
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate">
-    </div>
-    <div class="enterLocation">
-        <label>Location</label>
-        <input type='text' ngx-google-places-autocomplete #placesRef="ngx-places"
-            (onAddressChange)="handleAddressChange($event)" />
-    </div>
-</div>
-<app-image-modal class="image-modal" *ngIf="this.isModalOpen" (closeModalEvent)="onCloseModal()"></app-image-modal>
-<!-- <div class="uploadPhotos right-column">
-    <label for="photoUpload">Upload Photos:</label>
-    <div class="previewButtons">
-        <button class="preview-button">Preview Card</button>
-        <button class="preview-button">Preview Page</button>
-    </div>
-    <div id="dropArea" class="drop-area">
-        
-        <div id="imagePreview" class="image-preview">
-            <label for="photoUpload" class="file-input-label">
-                <input type="file" id="photoUpload" name="photoUpload" multiple accept="image/*" style="display: none;"  (change)="handleFileInput($event)">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M15 21H9C6.17157 21 4.75736 21 3.87868 20.1213C3 19.2426 3 17.8284 3 15M21 15C21 17.8284 21 19.2426 20.1213 20.1213C19.8215 20.4211 19.4594 20.6186 19 20.7487"
-                            stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M12 16V3M12 3L16 7.375M12 3L8 7.375" stroke="#000000" stroke-width="1.5"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
-                </svg>
-                <br>
-                Choose Files
-            </label>
-            <img *ngFor="let image of uploadedImages" [src]="image.url">
+            <div class="enterType">
+                <label for="eventType">Select Event Type:</label>
+                <select id="eventType" name="eventType" (change)="onEventTypeChange($event)" required>
+                    <option value="" disabled selected>-Select Event Type-</option>
+                    <option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType">{{eventType.eventTypeName}}</option>
+                </select>
+            </div>
+
+            <div class="enterTicket">
+                <label for="ticketPrice">Price:</label>
+                <input type="number" id="ticketPrice" name="ticketPrice" step="1" placeholder="Enter ticket price" [(ngModel)]="eventDTO.price">
+            </div>
+            <div class="enterDate">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" [(ngModel)]="eventDTO.startTime">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" [(ngModel)]="eventDTO.endTime">
+            </div>
+            <div class="enterLocation">
+                <label>Location</label>
+                <input type='text' ngx-google-places-autocomplete #placesRef="ngx-places"
+                    (onAddressChange)="handleAddressChange($event)" />
+            </div>
         </div>
-        <app-image-modal class='image-modal'*ngIf="selectedImageUrl" [imageUrl]="selectedImageUrl"></app-image-modal>
-    </div>
-</div> -->
-  
-</div>
-<div class="previewPage">
-    <button class="preview-button" (click)="previewEvent()">Preview</button>
-</div>
-</div>
 
+    </div>
+    <div class="previewPage">
+        <div class="overlay" *ngIf="isModalOpen"></div>
+        <button class="preview-button" (click)="previewEvent()">Preview</button>
+    </div>
+</div>
+<div class="image-modal-container" *ngIf="this.isModalOpen">
+    <app-image-modal class="image-modal" (closeModalEvent)="onCloseModal()"></app-image-modal>
+  </div>

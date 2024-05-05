@@ -1,5 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { EventWithPicturesDTO } from '../dtos/EventWithPicturesDTO';
+import { ActivatedRoute } from '@angular/router';
+import { EventService } from '../service/event/event.service';
+import { ImageService } from '../service/image/image.service';
+import { PopupService } from '../service/popup/popup.service';
 
 @Component({
   selector: 'app-event-page',
@@ -19,22 +24,34 @@ import { Component, ViewEncapsulation } from '@angular/core';
   ]
 
 })
-export class EventPageComponent {
+export class EventPageComponent implements OnInit,OnDestroy{
 
-  images: string[] = [
-    '../assets/images/poze/drum.jpg',
-    '../assets/images/poze/lililala.jpg',
-    '../assets/images/poze/tanti.jpg',
-    '../assets/images/poze/drum.jpg',
-    '../assets/images/poze/lililala.jpg',
-    '../assets/images/poze/tanti.jpg',
-    '../assets/images/poze/drum.jpg',
-    '../assets/images/poze/lililala.jpg',
-    '../assets/images/poze/tanti.jpg',
-    '../assets/images/poze/barca.jpg',
+  event!: EventWithPicturesDTO;
+  pictureUrl!:{ [key: string]: string };
 
-    // Adaugă mai multe imagini aici
-  ];
+
+  constructor(
+    private route: ActivatedRoute,
+    private eventService: EventService,private imageService:ImageService,private popUpService:PopupService) {}
+
+  ngOnDestroy(): void {
+    this.popUpService.setisEventPageOpen(false);
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const eventId = params['id']; // Retrieve event ID from route parameters
+      
+      this.eventService.getEventById(eventId).subscribe(event => {
+        this.event = event;
+        this.popUpService.setisEventPageOpen(true);
+        this.pictureUrl=event.pictureUrls
+        this.imageService.setImageListPath(this.pictureUrl)
+       
+      });
+    });
+  }
+
 
   reviews: any[] = [
     { 
@@ -72,7 +89,7 @@ export class EventPageComponent {
     const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
     
     reviewList.scrollBy({
-      left: -scrollDistance + 20, // Adăugați un mic decalaj pentru a compensa animația
+      left: -scrollDistance + 30, // Adăugați un mic decalaj pentru a compensa animația
       behavior: 'smooth' // Folosiți scroll smooth
     });
   }
@@ -82,7 +99,7 @@ export class EventPageComponent {
     const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
     
     reviewList.scrollBy({
-      left: scrollDistance - 20, // Adăugați un mic decalaj pentru a compensa animația
+      left: scrollDistance - 30, // Adăugați un mic decalaj pentru a compensa animația
       behavior: 'smooth' // Folosiți scroll smooth
     });
   }

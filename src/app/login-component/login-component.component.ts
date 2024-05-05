@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { PopupService } from '../service/popup/popup.service';
 import { AuthenticationRequest } from '../dtos/AuthenticationRequest';
 import { LoginServiceService } from '../service/login/login-service.service';
@@ -8,6 +8,7 @@ import { AuthenticationResponse } from '../dtos/AuthenticationResponse';
 import { UserService } from '../service/user/user.service';
 import { UserDTO } from '../dtos/UserDTO';
 import { Router } from '@angular/router';
+import { ModalService } from '../service/modal/modal.service';
 
 @Component({
   selector: 'app-login-component',
@@ -18,7 +19,7 @@ export class LoginComponentComponent implements OnInit{
 
   loginPopupOpen: boolean = false;
   loginForm!: FormGroup;
-  constructor(private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private userService:UserService) {}
+  constructor(private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {}
 
   authReq:AuthenticationRequest ={
     username: '',
@@ -33,8 +34,8 @@ export class LoginComponentComponent implements OnInit{
     });
 
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required], // Utilizați Validators.required pentru a face câmpul obligatoriu
-      password: ['', Validators.required]  // Utilizați Validators.required pentru a face câmpul obligatoriu
+      username: ['', Validators.required], 
+      password: ['', Validators.required]
     });
 
   }
@@ -43,19 +44,6 @@ export class LoginComponentComponent implements OnInit{
     this.popUpSerivce.closePopup();
   }
 
-  // confirmLogin(){
-
-  //   this.loginService.login(this.authReq).subscribe(
-  //     (response) => {
-  //      this.tokenService.saveToken(response.token);
-  //      console.log('logat');
-  //     },
-  //     (error) => {
-  //       console.error('Error during login:', error);
-  //     }
-  //   );
-  //   this.closePopup();
-  // }
 
 
   confirmLogin():void{
@@ -69,7 +57,7 @@ export class LoginComponentComponent implements OnInit{
     user.password = this.loginForm.get('password')?.value;
     this.loginService.login(user).subscribe({
       next:(token:AuthenticationResponse)=>{
-        console.log("Login token " + token);
+        console.log("Login token " + token.tokenType);
         this.tokenService.saveToken(token.token);
         if(token.tokenType=="TOKEN"){
           this.userService.getByToken().subscribe({
@@ -86,6 +74,9 @@ export class LoginComponentComponent implements OnInit{
           })
         }else if(token.tokenType=='VERIFICATION_EXPIRED'){
           this.userService.verifyToken(token.tokenType);
+
+        }else if (token.tokenType=='WRONG_PASSWORD'){
+          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','./assets/images/icons/cancel.png');
         } 
       }
     })

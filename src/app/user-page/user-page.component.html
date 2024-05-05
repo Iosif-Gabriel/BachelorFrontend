@@ -1,12 +1,30 @@
-<div class="container">
-    <app-side-nav class="side-nav"></app-side-nav>
-    <!-- <app-nav-component class="navBar"></app-nav-component> -->
-    <div class="content">
+<div class="containerUser">
+    <div class="navbars">
+        <app-user-nav class="navBar"></app-user-nav>
+    </div>
+    <div class="allEventsContainer" *ngIf="!userOrgEvents">
+    <div class="contentUser">
         <div class="imageSlider">
             <app-image-slider></app-image-slider>
+        </div>
+        <div class="listTitleEventsContainer">
+            <h2 class="listTitleEvents">Checkout this events:</h2>
         </div>
         <div class="eventList">
             <app-event-list></app-event-list>
         </div>
     </div>
+    </div>
+    <div *ngIf="createPop" class="popup-overlayUser">
+        <div class="popup-wrapperUser">
+          <app-create-event class="smth"></app-create-event>
+        </div>
+    </div>
+    <div class="userOrgEvents" *ngIf="userOrgEvents">
+        <h2 class="listTitleEvents myEventsTitle" > My Events: <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i></h2>
+        <div class="eventList">
+            <app-event-list></app-event-list>
+        </div>
+    </div>
+   
 </div>

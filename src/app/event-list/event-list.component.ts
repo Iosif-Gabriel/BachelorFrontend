@@ -1,115 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { EventDTO } from '../dtos/EventDTO';
+import { EventService } from '../service/event/event.service';
+import { EventWithPicturesDTO } from '../dtos/EventWithPicturesDTO';
+import { Router } from '@angular/router';
+import { PopupService } from '../service/popup/popup.service';
+import { TokenService } from '../service/token/token.service';
 
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.css'],
 })
-export class EventListComponent {
+export class EventListComponent implements OnInit {
 
-   events: EventDTO[] = [
-    {
-      eventName: "WorldTour",
-      description: "WorldTour with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
+   events: EventDTO[] = [];
+   eventsWithPictures: EventWithPicturesDTO[] = [];
+   orgEvetnsOn:boolean=false;
 
-    {
-      eventName: "LALA",
-      description: "LALA with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
-    {
-      eventName: "WorldTour",
-      description: "WorldTour with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
+  constructor(private tokenService:TokenService,private popUp:PopupService,private eventService:EventService,private router: Router){}
 
-    {
-      eventName: "LALA",
-      description: "LALA with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
-   
-    {
-      eventName: "WorldTour",
-      description: "WorldTour with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
+  ngOnInit(): void {
+   this.eventService.getCoverPhotos().subscribe(response=>{
+    this.eventsWithPictures = response;
+  
+   })
+   this.popUp.isUserOrgEventsOpen.subscribe(org=>{
+   console.log(org);
+    if(org){
+      const user=this.tokenService.getUser();
+      console.log(user);
 
-    {
-      eventName: "LALA",
-      description: "LALA with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
-   
-    {
-      eventName: "WorldTour",
-      description: "WorldTour with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
+      this.eventService.getOrganizerEvents(user.id).subscribe(list=>{
+        this.eventsWithPictures=list;
+        console.log(this.eventsWithPictures);
+      })
+     }
+   })
 
-    {
-      eventName: "LALA",
-      description: "LALA with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
-   
-    {
-      eventName: "WorldTour",
-      description: "WorldTour with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
+  
+  }
 
-    {
-      eventName: "LALA",
-      description: "LALA with luxury cars",
-      startTime: "2023-11-15T08:30:00",
-      endTime: "2024-06-15T08:30:00",
-      idLocation: "1",
-      idOrganizer: "1",
-      idEventType: "1"
-    },
-   
-   
-  ];
+
+
 
 }

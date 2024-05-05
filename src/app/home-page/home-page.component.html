@@ -1,4 +1,4 @@
-<div class="container">
+<div class="containerMainPage">
 <app-nav-component class="homePageNav"></app-nav-component>
 <div class="containerContent">
  
@@ -21,7 +21,7 @@
 
   <section class="loginContainer">
     <div class="backgroundImage"></div>
-    <div *ngIf="!loginPopupOpen && !registerPopupOpen">
+    <div id="popUpdiv" class="popUpdiv" *ngIf="!loginPopupOpen && !registerPopupOpen">
     <div class="sign">
       <h1 class="whiteText">
         <span>Sign up to</span>

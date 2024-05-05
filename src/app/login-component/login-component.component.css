@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 330px;
+  height: 340px;
   font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
   overflow: hidden;
@@ -45,6 +45,8 @@
   border-radius: 20px; 
   cursor: pointer;
   font-size: 13px;
+  font-family: "Josefin Sans", sans-serif;
+  
 }
 
 
@@ -99,5 +101,6 @@
 .loginContent {
   text-align: center;
 }
+
 
 

@@ -6,5 +6,6 @@ export interface EventDTO{
     endTime:string;
     idLocation:string;
     idEventType:string;
-    idOrganizer:string;
+    idUser:string;
+    price:number;
 }

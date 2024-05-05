@@ -7,13 +7,14 @@
 .slider-wrapper{
     position: relative;
     max-width: auto;
-    width: 80rem;
+    width: 70rem;
     margin: auto auto;
 }
 
 @media only screen and (max-width: 1700px) {
     .slider-wrapper {
-        width: 60rem; 
+        width: 50rem; 
+        height: auto;
     }
   }
 
@@ -39,7 +40,7 @@
     flex: 1 0 100%;
     scroll-snap-align: start;
     object-fit: cover;
-    image-rendering: optimizeQuality; /* Use better image rendering */
+    /* image-rendering: optimizeQuality;  */
     width: 100%; /* Ensure images fill the container */
     height: auto; /* Maintain aspect ratio */
     max-width: none; /* Allow images to exceed their intrinsic width */
