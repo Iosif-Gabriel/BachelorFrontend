@@ -8,4 +8,5 @@ export interface EventDTO{
     idEventType:string;
     idUser:string;
     price:number;
+    nrGuests:number;
 }

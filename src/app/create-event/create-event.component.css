@@ -73,7 +73,7 @@
 
 .createEventContent .enterType select,
 .createEventContent .enterTicket input[type="number"] {
-    width: calc(50% - 5px); /* Shared width */
+    width: calc(50% - 5px); 
 }
 
 .createEventContent input[type="submit"] {
@@ -180,7 +180,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9999; /* Valoarea z-index */
+    z-index: 9999; 
   }
 
   .overlay {
@@ -189,8 +189,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    z-index: 999; /* Ensure overlay appears on top of other content */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999;
   }
 
 
@@ -198,11 +198,17 @@
  
     .biggerDiv {
         width: 400px;
-        height: 500px; /* sau altă înălțime fixă */
+        height: 500px; 
         overflow-y: auto;
-        position: relative; /* Asigură că z-index va funcționa corect */
+        position: relative; 
         scrollbar-width: none;
       }
    
 
+  }
+
+
+  .preview-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
   }

@@ -1,0 +1,42 @@
+.orderTableContainer{
+    font-family: "Josefin Sans", sans-serif;
+    
+    width:1200px;
+    background-color: rgb(207,207,207);
+    border-radius: 20px;
+}
+
+
+  
+.orderTableContainer th, .orderTableContainer td {
+    font-family: "Josefin Sans", sans-serif;
+    text-align: center;
+    
+}
+
+.orderTableContainer tr{
+    border-radius: 20px;
+     
+}
+
+.orderTableContainer table {
+    border-collapse: collapse; /* Collapse borders into a single border */
+    width: 100%; /* Ensure the table fills its container */
+    
+  }
+  
+  /* .orderTableContainer th, .orderTableContainer td {
+    border: 1px solid #000000;
+    padding: 8px; 
+   
+  } */
+
+  .orderTableContainer tr:hover {
+    background-color: #757575; /* Change background color when row is hovered over */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+    color:white;
+  }
+
+  .orderTableContainer ng-container:hover{
+    border-radius: 20px;
+  }

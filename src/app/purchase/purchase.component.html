@@ -1,17 +1,28 @@
 <div class="cardPurchase">
-    <div class="purchaseContainer2">
-      <div class="priceContainer">
-        <h3 class="price">Price:</h3>
-      </div>
-      <div class="dateSelection">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate">
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate">
-      </div>
-      <div class="purchaseButtonContainer">
-        <button class="purchaseButton">Purchase</button>
+  <div class="purchaseContainer2" [formGroup]="purchaseForm">
+    <div class="priceContainer">
+      <h3 class="price">{{ event?.price }}$ per night</h3>
+    </div>
+    <div class="dateSelection">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" formControlName="startDate" >
+
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" formControlName="endDate">
+      <!-- Afisarea mesajului de eroare pentru endDate -->
+      <div *ngIf="this.invalidRange" class="error-message">
+        Invalid date range
       </div>
     </div>
+    <div class="nrGuests dateSelection">
+      <label for="nrGuests">Number of Guests:</label>
+      <input type="number" id="nrGuests" name="nrGuests" formControlName="nrGuests" step="1" min="1" placeholder="Enter number of Guests..."  (input)="checkMaxValue($event)">
+      <div *ngIf="tooManyGuests && inputHasValue" class="error-message">
+        Too many guests..
+      </div>
+    </div>
+    <div class="purchaseButtonContainer">
+      <button class="purchaseButton" [disabled]="!purchaseForm.valid" (click)="purchase()">Purchase</button>
+    </div>
   </div>
-  
+</div>

@@ -33,8 +33,15 @@ import { AdminhomeComponent } from './adminhome/adminhome.component';
 import { ImageModalComponent } from './image-modal/image-modal.component';
 import { CreateCardComponent } from './create-card/create-card.component';
 import { CommonModule } from '@angular/common';
-import { MatMenu, MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { CreatePhotoGalleryComponent } from './create-photo-gallery/create-photo-gallery.component';
+import { OrderPageComponent } from './order-page/order-page.component';
+import { MatTableModule } from '@angular/material/table';
+import { CreateReviewComponent } from './create-review/create-review.component';
+import {  StarRatingModule } from 'angular-star-rating';
+import {MatCardModule} from '@angular/material/card';
+import { StarRatingComponent } from './star-rating/star-rating.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +68,9 @@ import { CreatePhotoGalleryComponent } from './create-photo-gallery/create-photo
     ImageModalComponent,
     CreateCardComponent,
     CreatePhotoGalleryComponent,
+    OrderPageComponent,
+    CreateReviewComponent,
+    StarRatingComponent,
     
   ],
   imports: [
@@ -77,6 +87,12 @@ import { CreatePhotoGalleryComponent } from './create-photo-gallery/create-photo
     GooglePlaceModule,
     CommonModule,
     MatMenuModule,
+    MatTableModule,
+    StarRatingModule,
+    MatCardModule,
+
+  
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

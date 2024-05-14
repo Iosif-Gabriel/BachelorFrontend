@@ -11,8 +11,8 @@ import { EventTypeDTO } from 'src/app/dtos/EventTypeDTO';
 export class EventService {
 
   private eventDTO!: EventDTO;
+  private eventWithPicturesDTO!:EventWithPicturesDTO;
   createEventPop!:boolean;
-  private getAllEventsURL="http://localhost:8080/event/getAllEvents";
   private getAllEventTypesURL="http://localhost:8080/eventType/getAllEventTypes"
   private createEventURL="http://localhost:8080/event/createEvent";
   private getCoverPhotosURL="http://localhost:8080/event/getAllEventsWithPictures";
@@ -28,9 +28,12 @@ export class EventService {
     return this.eventDTO;
   }
 
-  getAllEvents():Observable<EventDTO[]>{
+  setEventWithPictures(event:EventWithPicturesDTO){
+    this.eventWithPicturesDTO=event;
+  }
 
-    return this.http.get<EventDTO[]>(this.getAllEventsURL);
+  getEventWithPictures():EventWithPicturesDTO{
+    return this.eventWithPicturesDTO;
   }
 
   getCoverPhotos():Observable<EventWithPicturesDTO[]>{
@@ -73,7 +76,24 @@ export class EventService {
 
     return this.http.get<EventWithPicturesDTO[]>(getOrgEvents);
   }
+
+  getEventsByEventType(eventType:string):Observable<EventWithPicturesDTO[]>{
+    const getfiltereEvents=`http://localhost:8080/event/getEventsByType/${eventType}`
+    return this.http.get<EventWithPicturesDTO[]>(getfiltereEvents);
+  }
   
+  addEventToFav(eventId:string,userId:string){
+    const addFavEventURL=`http://localhost:8080/favEvent/addToFav?eventId=${eventId}&userId=${userId}`
+
+    return this.http.post(addFavEventURL,null);
+  }
+
+  getUserFavEvents(userId:string):Observable<EventWithPicturesDTO[]>{
+    const getUserFavEventsURL=`http://localhost:8080/favEvent/getUserFav?&userId=${userId}`
+    
+    return this.http.get<EventWithPicturesDTO[]>(getUserFavEventsURL);
+
+  }
 
   
 

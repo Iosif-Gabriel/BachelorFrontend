@@ -6,43 +6,49 @@
         <div class="contentCreate">
             <div class="enterTitle">
                 <label for="eventTitle">Event Title:</label>
-                <input type="text" id="eventTitle" name="eventTitle" placeholder="Enter event title" [(ngModel)]="eventDTO.eventName">
+                <input type="text" id="eventTitle" name="eventTitle" placeholder="Enter event title" [(ngModel)]="eventDTO.eventName" required>
             </div>
             <div class="enterDescription">
                 <label for="eventDescription">Event Description:</label>
-                <textarea class="area" id="eventDescription" name="eventDescription"
-                    placeholder="Enter event description" [(ngModel)]="eventDTO.description"></textarea>
+                <textarea class="area" id="eventDescription" name="eventDescription" placeholder="Enter event description" [(ngModel)]="eventDTO.description" required></textarea>
             </div>
-
+            
             <div class="enterType">
                 <label for="eventType">Select Event Type:</label>
-                <select id="eventType" name="eventType" (change)="onEventTypeChange($event)" required>
+                <select id="eventType" name="eventType" [(ngModel)]="eventDTO.idEventType" required>
                     <option value="" disabled selected>-Select Event Type-</option>
                     <option *ngFor="let eventType of eventTypes" [value]="eventType.idEventType">{{eventType.eventTypeName}}</option>
                 </select>
             </div>
-
+            
+            <div class="enterNrGuests">
+                <label for="nrGuests">Number of Guests:</label>
+                <input type="number" id="nrGuests" name="nrGuests" step="1" min="1" placeholder="Enter number of guests" [(ngModel)]="eventDTO.nrGuests" required>
+            </div>
+            
             <div class="enterTicket">
-                <label for="ticketPrice">Price:</label>
-                <input type="number" id="ticketPrice" name="ticketPrice" step="1" placeholder="Enter ticket price" [(ngModel)]="eventDTO.price">
+                <label for="ticketPrice">Price per day:</label>
+                <input type="number" id="ticketPrice" name="ticketPrice" step="1" min="0" placeholder="Enter ticket price" [(ngModel)]="eventDTO.price" required>
             </div>
             <div class="enterDate">
                 <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate" [(ngModel)]="eventDTO.startTime">
+                <input type="date" id="startDate" name="startDate" [(ngModel)]="eventDTO.startTime" required>
                 <label for="endDate">End Date:</label>
-                <input type="date" id="endDate" name="endDate" [(ngModel)]="eventDTO.endTime">
+                <input type="date" id="endDate" name="endDate" [(ngModel)]="eventDTO.endTime" required>
             </div>
+            
             <div class="enterLocation">
                 <label>Location</label>
                 <input type='text' ngx-google-places-autocomplete #placesRef="ngx-places"
-                    (onAddressChange)="handleAddressChange($event)" />
+                    (onAddressChange)="handleAddressChange($event)" required />
             </div>
         </div>
 
     </div>
     <div class="previewPage">
         <div class="overlay" *ngIf="isModalOpen"></div>
-        <button class="preview-button" (click)="previewEvent()">Preview</button>
+        <button  *ngIf="!editEvent" class="preview-button"  [disabled]="!isFormValid()"  (click)="previewEvent()">Preview</button>
+        <button *ngIf="editEvent" class="preview-button"  [disabled]="!isFormValid()"  (click)="previewEvent()">Edit</button>
     </div>
 </div>
 <div class="image-modal-container" *ngIf="this.isModalOpen">

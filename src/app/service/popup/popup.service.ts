@@ -12,17 +12,9 @@ export class PopupService {
   private _isCreatEventOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isEventPageOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isUserOrgEventsOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private _go2UserHome:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
-
+ 
   constructor() { }
 
-  get go2UserHome():Observable<boolean>{
-    return this._go2UserHome.asObservable();
-  }
-
-  setgo2UserHome(value:boolean):void{
-    this._go2UserHome.next(value);
-  }
 
   get isUserOrgEventsOpen():Observable<boolean>{
     return this._isUserOrgEventsOpen.asObservable();

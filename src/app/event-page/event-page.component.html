@@ -12,15 +12,25 @@
             </div>
             <div class="descriptionContainer">
                 <div class="description">
+                    <div class="classguests">
+                       Participants: {{event.nrGuests}}
+                    </div>
+                    <div class="eventDate">
+                        <h3 class="subTitles">Event Duration</h3>
+                        <p class="dateInfo">Start:{{event.startTime}}</p>
+                        <p class="dateInfo">End:{{event.endTime}}</p>
+                    </div>
                     <div class="locationContainer">
-                        <h3 class="subTitles">{{event.idLocation}}</h3>
+                        <h3 class="subTitles">Location</h3>
+                        <p>{{event.idLocation}}</p>
                     </div>
                     <div class="hostContainer">
-                        <p>Host Name</p>
+                        <h3 class="subTitles">Host Name</h3>
+                        <p>{{event.organizerName}}</p>
                     </div>
                     <div class="actualDesc">
                         <h3 class="subTitles">About this space</h3>
-                        <p>{{event.description}}
+                        <p class="acutalEventDesc">{{event.description}}
                         </p>
                     </div>
                     
@@ -60,9 +70,11 @@
                     </div>
                 </div>
                 <div class="purchaseContainer">
-                    <app-purchase></app-purchase>
-                </div>
-                </div>
+                    <form [formGroup]="purchaseForm" >
+                      <app-purchase [event]="event" [purchaseForm]="purchaseForm"></app-purchase>
+                    </form>
+                  </div>
+                  
                 
                 
         </div>

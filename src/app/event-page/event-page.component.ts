@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../service/event/event.service';
 import { ImageService } from '../service/image/image.service';
 import { PopupService } from '../service/popup/popup.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-event-page',
@@ -28,9 +29,12 @@ export class EventPageComponent implements OnInit,OnDestroy{
 
   event!: EventWithPicturesDTO;
   pictureUrl!:{ [key: string]: string };
+  purchaseForm!: FormGroup;
+
 
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private eventService: EventService,private imageService:ImageService,private popUpService:PopupService) {}
 
@@ -39,15 +43,25 @@ export class EventPageComponent implements OnInit,OnDestroy{
   }
 
   ngOnInit(): void {
+    this.purchaseForm = this.fb.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
+    });
+
     this.route.params.subscribe(params => {
-      const eventId = params['id']; // Retrieve event ID from route parameters
-      
+      const eventId = params['id'];
+
       this.eventService.getEventById(eventId).subscribe(event => {
         this.event = event;
         this.popUpService.setisEventPageOpen(true);
-        this.pictureUrl=event.pictureUrls
-        this.imageService.setImageListPath(this.pictureUrl)
-       
+        this.pictureUrl = event.pictureUrls;
+        this.imageService.setImageListPath(this.pictureUrl);
+
+        // Actualizați valorile formularului cu valorile de start și de sfârșit ale evenimentului
+        this.purchaseForm.patchValue({
+          startDate: this.event.startTime,
+          endDate: this.event.endTime
+        });
       });
     });
   }

@@ -1,0 +1,21 @@
+<div class="createReviewContainer">
+    <div class="closeButtonReviewContainer">
+        <button class="closeButtonReview" (click)="closePopup()">X</button> <!-- Close button -->
+    </div>
+    <h4>Give rating:</h4>
+    <app-star-rating></app-star-rating>
+    <div class="titleReviewContainer">
+        <h4>Title:</h4>
+        <input placeholder="Enter title..." type="text">
+    </div>
+    <div class="descriptionReviewContainer">
+        <h4>Description:</h4>
+        <textarea placeholder="Enter honest opinion..." name="reviewDescription" id=""></textarea>
+    </div>
+
+   
+    <div class="submitbutton">
+        <button type="button">Submit Review</button>
+    </div>
+
+</div>

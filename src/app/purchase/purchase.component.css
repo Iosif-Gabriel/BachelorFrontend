@@ -1,70 +1,72 @@
-
 .purchaseContainer2 {
-    position: relative; /* Ensure that the purchase container acts as a positioned ancestor */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: var(--card-height);
-  }
-
-  .purchaseButtonContainer {
-    margin-top: auto;
-
-  }
-
-.purchaseButton{
-    width: 120px;
-    height: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: var(--font-familiy);
-    font-weight: bolder;
-    margin-bottom: 5px;
-    border: none;
-    background-color:rgb(184, 184, 184);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 20px;
 }
 
-.purchaseButton:hover{
+.purchaseButton {
+  width: 150px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: var(--font-familiy);
+  font-weight: bold;
+  border: none;
   background-color: rgb(226, 29, 29);
-  color:rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.3);
 }
 
-.cardPurchase {
-    width: 290px;
-    height: var(--card-height);
-    border-radius: 30px;
-    background: rgb(245, 245, 245);
-    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset; */
-    position: relative;
-    border: 2px solid rgb(141, 141, 141);
-    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.3);
-  
+.purchaseButton:hover {
+  background-color: rgb(255, 0, 0);
+  box-shadow: 0px 0px 8px 3px rgba(0, 0, 0, 0.5);
 }
 
-.priceContainer{
-    margin-right: auto;
-    margin-left: 20px;
+.cardPurchase {
+  min-width: 300px;
+  width: auto;
+  height: auto;
+  border-radius: 30px;
+  background: rgb(245, 245, 245);
+  border: 2px solid rgb(141, 141, 141);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.priceContainer {
+  margin-right: auto;
 }
 
 .dateSelection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .dateSelection label {
-    margin: 5px;
-  }
-  
-  .dateSelection input[type="date"] {
-    width: 150px;
-    height: 30px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 5px;
-    font-family: var(--font-family);
-    font-size: 14px;
-  }
+  margin-top: 20px;
+}
+
+.dateSelection label {
+  margin-bottom: 5px;
+}
+
+.dateSelection input[type="date"],
+.nrGuests input[type="number"] {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: larger;
+  margin-bottom: 10px;
+}
+
+.purchaseButton[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+

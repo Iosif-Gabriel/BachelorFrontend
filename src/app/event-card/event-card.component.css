@@ -76,12 +76,16 @@
   top: 11px; 
   right: 10px; 
   width: 30px;
-  height: 50px;
+  /* height: 50px; */
   cursor: pointer;
 }
 
 .price{
   font-size: 20px;
+}
+
+.svgheart{
+  filter: brightness(0) invert(1);
 }
 
 
@@ -210,9 +214,7 @@
   transition: transform 0.2s ease; 
 }
 
-.disable-click {
-  pointer-events: none;
-}
+
 
 
 

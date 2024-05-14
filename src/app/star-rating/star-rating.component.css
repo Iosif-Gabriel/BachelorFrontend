@@ -1,0 +1,21 @@
+.star-rating {
+    display: inline-block;
+  }
+  
+  .star-rating span {
+    color:white;
+ 
+    cursor: pointer;
+    font-size: 35px;
+    transition: color 0.6s, transform 0.6s ease; /* Add transition for color and transform */
+  }
+  
+  .star-rating span.active {
+    color: gold;
+  }
+  
+  /* Define hover animation */
+  .star-rating span:hover {
+    color:rgb(253, 0, 0)
+  }
+  

@@ -2,8 +2,8 @@
     <div class="navbars">
         <app-user-nav class="navBar"></app-user-nav>
     </div>
-    <div class="allEventsContainer" *ngIf="!userOrgEvents">
-    <div class="contentUser">
+    <div class="allEventsContainer"  *ngIf="isActiveSection('allEvents')">
+    <div class="contentUser wrapper-mainPage">
         <div class="imageSlider">
             <app-image-slider></app-image-slider>
         </div>
@@ -11,7 +11,14 @@
             <h2 class="listTitleEvents">Checkout this events:</h2>
         </div>
         <div class="eventList">
-            <app-event-list></app-event-list>
+            <app-event-list *ngIf="!getSeachMessage()"></app-event-list>
+            <div class="messageContainer">
+               <h2>{{ getEventMessage() }}</h2> 
+           
+            <div class="messageContainer"  *ngIf="getSeachMessage()">
+                <h2>No events found...</h2> 
+             </div>
+            </div>
         </div>
     </div>
     </div>
@@ -20,10 +27,33 @@
           <app-create-event class="smth"></app-create-event>
         </div>
     </div>
-    <div class="userOrgEvents" *ngIf="userOrgEvents">
+    <div class="userOrgEvents" *ngIf="isActiveSection('userOrgEvents')">
         <h2 class="listTitleEvents myEventsTitle" > My Events: <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i></h2>
         <div class="eventList">
-            <app-event-list></app-event-list>
+          
+            <div class="messageContainer">
+                <h2>{{ getMyEventsMessage() }}</h2> 
+             </div>
+             <app-event-list></app-event-list>
+        </div>
+    </div>
+    <div class="userOrders" *ngIf="isActiveSection('userOrdes')">
+        <h2 class="listTitleEvents myEventsTitle" > My Orders: <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i></h2>
+        <div class="eventList">
+            <div class="messageContainer">
+                <h2>{{ getMyOrdersMessage() }}</h2> 
+             </div>
+            <app-order-page></app-order-page>
+        </div>
+    </div>
+    <div class="userOrgEvents" *ngIf="isActiveSection('userFavEvents')">
+        <h2 class="listTitleEvents myEventsTitle" > My Favourite Events: <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i></h2>
+        <div class="eventList">
+           
+            <div class="messageContainer">
+                <h2>{{ getFavMessage() }}</h2> 
+             </div>
+             <app-event-list></app-event-list>
         </div>
     </div>
    

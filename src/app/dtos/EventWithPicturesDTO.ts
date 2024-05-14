@@ -10,4 +10,8 @@ export class EventWithPicturesDTO{
     idUser!:string;
     price!:number;
     pictureUrls!: { [key: string]: string };
+    favEventId!:number;
+    fav!:boolean;
+    organizerName!:string;
+    nrGuests!:number
 }
