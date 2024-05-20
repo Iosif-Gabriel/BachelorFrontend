@@ -1,0 +1,20 @@
+<div class="userOrgEventsContainer">
+    <div class="userNavBar">
+        <app-user-nav class="navBar"></app-user-nav>
+    </div>
+    <div class=" wrapperMain" *ngIf="isActiveSection('userOrgEvents')">
+        <h2 class=" myEventsTitle"> My Events: <i class="fa fa-info-circle" appToolTip
+                [appToolTip]="'Please enter only numbers'"></i></h2>
+        <div class="myEventList">
+            <div class="messageContainer" *ngIf="userOrgEvents.length === 0">
+                <h2>You haven't created any events yet...</h2> 
+              </div>
+            <app-event-list [userEvents]="userOrgEvents"></app-event-list>
+        </div>
+    </div>
+</div>
+<div *ngIf="createPop" class="createPop-overlay ">
+    <div class="popup-wrapperCreate">
+      <app-create-event class="smth"></app-create-event>
+    </div>
+</div>

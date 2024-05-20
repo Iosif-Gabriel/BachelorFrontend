@@ -1,11 +1,11 @@
 .reviewCard {
-    max-width: 300px;
+    width: 230px;
     background-color: #b1b1b1;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
-    height: 250px;
+    height: 230px;
   }
   
   .review-header {
@@ -48,13 +48,17 @@
     /* border-radius: 200px; */
   }
 
+  .rating{
+    pointer-events: none;
+  }
+
   @media only screen and (max-width: 1600px) {
  
     .reviewCard{
-      max-width: 250px; 
+      width: 250px; 
       margin: 0 auto;
       padding: 10px;
-      max-height: 250px;
+      height: 250px;
     }
   
    

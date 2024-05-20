@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { EventService } from '../service/event/event.service';
@@ -16,6 +16,7 @@ import { SearchService } from '../service/seach/seach.service';
 })
 export class EventListComponent implements OnInit {
 
+  @Input() userEvents:EventWithPicturesDTO[]=[];
    eventsWithPictures: EventWithPicturesDTO[] = [];
    searchResult:EventWithPicturesDTO[]=[];
    favEvents:EventWithPicturesDTO[]=[];
@@ -31,18 +32,16 @@ export class EventListComponent implements OnInit {
     const user = this.tokenService.getUser();
    
     if (this.sectionService.getActiveSection() === 'userOrgEvents') {
-  
-      this.eventService.getOrganizerEvents(user.id).subscribe(list => {
-        this.searchResult = list;
-        console.log(this.eventsWithPictures);
-        this.sectionService.setMyEvents(list);
-      });
+      
+        this.searchResult = this.userEvents;
+        this.sectionService.setMyEvents(this.searchResult);
+ 
     }else if(this.sectionService.getActiveSection() === 'userFavEvents'){
-      this.eventService.getUserFavEvents(user.id).subscribe(favEvents=>{
-        console.log(favEvents);
-        this.searchResult=favEvents;
-        this.sectionService.setFavEvents(favEvents);
-      })
+      
+        this.searchResult=this.userEvents;
+        this.sectionService.setFavEvents(this.searchResult);
+      
+  
     }else{
       this.searchService.searchTerm$.subscribe(searchTerm => {
         this.searchTerm = searchTerm;
@@ -50,18 +49,16 @@ export class EventListComponent implements OnInit {
         this.searchEvents();
       });
     }
-  
-   
-
     
     this.filterEvents()
 
-   
   }
 
   filterEvents(): void {
     this.searchService.filterItem$.subscribe(filterTerm => {
+     
       if (filterTerm) {
+        console.log(filterTerm);
         this.eventService.getEventsByEventType(filterTerm).pipe(
           switchMap(res => {
             if (res.length === 0 && filterTerm !== "All") {
@@ -71,14 +68,15 @@ export class EventListComponent implements OnInit {
             }
   
             if (filterTerm === "All") {
-              return of(this.getEvents());
+              console.log(this.eventsWithPictures)
+              return of(this.eventsWithPictures);
             } else {
               
               return this.tokenService.getUser() ? this.updateFavStatus(res, this.tokenService.getUser().id) : of(res);
             }
           })
         ).subscribe(updatedEvents => {
-          this.eventsWithPictures = updatedEvents;
+          this.searchResult = updatedEvents;
        
         });
       }
@@ -99,7 +97,8 @@ searchEvents(): void {
     this.noEventsFound = filteredEvents.length === 0;
     this.sectionService.setEventsFound(this.noEventsFound);
 
-    this.eventsWithPictures = filteredEvents;
+    this.searchResult = filteredEvents;
+   
   } else {
     this.noEventsFound = false; 
     this.sectionService.setEventsFound(this.noEventsFound);
@@ -112,24 +111,7 @@ getEvents():EventWithPicturesDTO[]{
   return this.searchResult;
 }
 
-  
-// loadAllEvents() {
-//   const user = this.tokenService.getUser();
-//   forkJoin([
-//     this.eventService.getCoverPhotos(),
-//     this.eventService.getUserFavEvents(user.id)
-//   ]).subscribe(([eventsResponse, favEvents]) => {
 
-//     this.eventsWithPictures = eventsResponse.map(event => {
-//       const isFav = favEvents.some(favEvent => favEvent.id === event.id);
-//       return { ...event, fav: isFav };
-//     });
-
-//     this.searchResult = this.eventsWithPictures;
-
-//     this.sectionService.setEvents(this.eventsWithPictures);
-//   });
-// }
 
 loadEvents() {
   this.eventService.getCoverPhotos().subscribe(res => {

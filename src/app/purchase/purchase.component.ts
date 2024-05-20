@@ -5,6 +5,8 @@ import { OrderDTO } from '../dtos/OrderDTO';
 import { TokenService } from '../service/token/token.service';
 import { OrderService } from '../service/order/order.service';
 import { ModalService } from '../service/modal/modal.service';
+import { WebSocketService } from '../service/websocket/web-socket.service';
+import { NotificationDTO } from '../dtos/NotificationDTO';
 
 @Component({
   selector: 'app-purchase',
@@ -20,7 +22,7 @@ export class PurchaseComponent implements OnInit {
   inputHasValue: boolean = false;
   guestsSelected: boolean = false;
 
-  constructor(private viewContainerRef: ViewContainerRef ,private modalService:ModalService,private orderService:OrderService,private tokenS:TokenService,private fb: FormBuilder) { }
+  constructor(private websocketService:WebSocketService,private viewContainerRef: ViewContainerRef ,private modalService:ModalService,private orderService:OrderService,private tokenS:TokenService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.purchaseForm = this.fb.group({
@@ -71,11 +73,11 @@ export class PurchaseComponent implements OnInit {
       this.tooManyGuests = false;
     }
 
-    // if (enteredValue > 0) {
-    //   this.guestsSelected = true;
-    // } else {
-    //   this.guestsSelected = false;
-    // }
+    if (enteredValue > 0) {
+      this.guestsSelected = true;
+    } else {
+      this.guestsSelected = false;
+    }
   }
   
   
@@ -92,20 +94,35 @@ export class PurchaseComponent implements OnInit {
         startDate: this.purchaseForm.value.startDate ?? 'Unknown Start Date', 
         endDate: this.purchaseForm.value.endDate ?? 'Unknown End Date',
         nrOfGuests: this.purchaseForm.value.nrGuests ?? 0, 
-        totalPrice: (this.purchaseForm.value.nrGuests ?? 0) * (this.event?.price ?? 0) 
+        totalPrice: (this.purchaseForm.value.nrGuests ?? 0) * (this.event?.price ?? 0) ,
+        isEditing:false
       };
 
       this.orderService.createOrder(order).subscribe(res => {
-        if (this.event && this.event.nrGuests !== undefined) {
-          this.event.nrGuests = (this.event.nrGuests - (this.purchaseForm.value.nrGuests ?? 0)) || 0;
-         
+        if(res){
+          if (this.event && this.event.nrGuests !== undefined) {
+            this.event.nrGuests = (this.event.nrGuests - (this.purchaseForm.value.nrGuests ?? 0)) || 0;
+          
+          }
+        
         }
+        
       }, (error) => {
-        this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect', './assets/images/icons/cancel.png');
+        this.modalService.openModal(this.viewContainerRef, 'Error', 'Purchaseing does not work at the moment!', './assets/images/icons/cancel.png');
       });
       
       
-     
+     if(this.event){
+      const notif:NotificationDTO={
+        userId: this.event?.idUser,
+        message: 'O noua comanda pentru evenimentul',
+        type: 'order',
+        eventName: this.event.eventName,
+        eventId: this.event.id,
+        seen:false
+      }
+      this.websocketService.sendNotification(this.event?.idUser,notif);
+     }
 
     } else {
       console.log("Formularul este invalid.");

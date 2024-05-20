@@ -1,6 +1,6 @@
 <div class="eventContainer" *ngIf="event">
     <div class="userNavBar">
-    <app-user-nav></app-user-nav>
+        <app-user-nav></app-user-nav>
     </div>
     <div class="wrapper-main">
         <div class="eventContent1">
@@ -13,7 +13,7 @@
             <div class="descriptionContainer">
                 <div class="description">
                     <div class="classguests">
-                       Participants: {{event.nrGuests}}
+                        Participants: {{event.nrGuests}}
                     </div>
                     <div class="eventDate">
                         <h3 class="subTitles">Event Duration</h3>
@@ -33,49 +33,22 @@
                         <p class="acutalEventDesc">{{event.description}}
                         </p>
                     </div>
-                    
+
                     <div class="ratingSlide">
                         <h3 class="subTitles">Reviews</h3>
-                        <div class="button-container">
-                            <button class="prev-button" (click)="prevSet()"><svg  class="icon-svg"viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M11 9L8 12M8 12L11 15M8 12H16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </g>
-                                </svg>
-                            </button>
-                            <div class="review-container">
-                                <div class="review-list snaps-inline" appScroll>
-                                    <ng-container class="media-scroller">
-                                        <app-review class='reviewItem' [review]="review" *ngFor="let review of reviews"></app-review>
-                                    </ng-container>
-                                </div>
-                            </div>
-                            <button class="next-button" (click)="nextSet()">
-                                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M13 15L16 12M16 12L13 9M16 12H8M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </g>
-                                </svg>
-                            </button>
-                        </div>
+                        <ng-container *ngIf="feedbacks.length > 0; else noReviews">
+                            <app-review-list [reviews]="feedbacks"></app-review-list>
+                        </ng-container>
+                        <!-- Mesajul afișat atunci când lista de recenzii este goală -->
+                        <ng-template #noReviews>
+                            <p>There are no reviews yet...</p>
+                        </ng-template>
                     </div>
                 </div>
-                <div class="purchaseContainer">
-                    <form [formGroup]="purchaseForm" >
-                      <app-purchase [event]="event" [purchaseForm]="purchaseForm"></app-purchase>
+                <div class="purchaseContainer" *ngIf="!myEvent">
+                    <form [formGroup]="purchaseForm">
+                        <app-purchase [event]="event" [purchaseForm]="purchaseForm"></app-purchase>
                     </form>
-                  </div>
-                  
-                
-                
+                </div>
+            </div>
         </div>
-    </div>

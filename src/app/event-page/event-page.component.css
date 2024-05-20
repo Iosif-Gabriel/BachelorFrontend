@@ -86,6 +86,7 @@ app-photo-gallery {
   max-width: auto;
   overflow: hidden; 
   max-height: auto;
+  justify-content: flex-end;
   /* border: 2px solid rgb(143, 143, 143); */
 }
 
@@ -117,73 +118,7 @@ app-photo-gallery {
   max-width:850px ;
 }
 
-.review-list{
-  display: grid;
-  gap:var(--size-3);
-  grid-auto-flow: column;
-  grid-auto-columns: 38%;
-  gap: 10px;
-  overflow-x: auto;
-  overflow: hidden;
-  overscroll-behavior-inline: contain;
-  scroll-behavior: smooth;
-}
 
-@keyframes smoothScroll {
-  0% {
-    transform: translateX(10%);
-    
-  }
-  100% {
-    transform: translateX(-10%);
-    
-  }
-} 
-
-@media (prefers-reduced-motion: reduce) {
-  .review-list {
-    scroll-behavior: auto; /* Dezactivează efectul de derulare pentru utilizatorii care preferă un conținut static */
-  }
-}
-
-.review-list {
-   /* Adjust the animation duration */
-  will-change: transform;
-}
-
-.button-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: auto;
-  /* border: 2px solid purple; */
-}
-
-.button-container button{
-  /* width: 100px; */
-  height: 60px;
-  /* margin: 20px; */
-   background-color: transparent; 
-  border: none; 
-  border-radius: 200px;
-  transition: transform 0.6s ease, box-shadow 0.3s ease;
-}
-
-.button-container button:hover{
-  transform: scale(1.1);
-
-}
-
-.icon-svg {
-  width: 60px; /* lățimea dorită */
-  height: auto; /* înălțimea dorită */
-  border-radius: 200px;
-}
-
-.icon-svg:hover{
-
-  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
-}
 
 @media only screen and (max-width: 1600px) {
  

@@ -1,0 +1,23 @@
+.userFavContainer{
+    display: flex;
+    flex-direction: row;
+    flex-direction: column;
+    background: whitesmoke;
+    font-family: "Josefin Sans", sans-serif;
+      font-optical-sizing: auto;
+      /* font-weight: 1000; */
+      font-style: xx-large;
+}
+
+.userNavBar{
+    margin-bottom: 120px;
+    width: auto;
+    height: auto;
+}
+
+
+.wrapperMain {
+    max-width: 1500px; 
+    margin: 0 auto;
+    padding: 10px;   
+  }

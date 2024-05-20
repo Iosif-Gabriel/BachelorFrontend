@@ -7,10 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class ReviewComponent {
   @Input() review!: {
-    author: string,
+    userName: string,
     date: string,
     rating: string,
-    title: string,
-    content: string
+    subject: string,
+    description: string
   };
+
+  getNumericRating(): number {
+    return parseInt(this.review.rating);
+  }
 }

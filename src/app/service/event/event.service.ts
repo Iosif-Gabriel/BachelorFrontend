@@ -4,6 +4,8 @@ import { Observable, switchMap } from 'rxjs';
 import { EventDTO } from 'src/app/dtos/EventDTO';
 import { EventWithPicturesDTO } from 'src/app/dtos/EventWithPicturesDTO';
 import { EventTypeDTO } from 'src/app/dtos/EventTypeDTO';
+import { TokenService } from '../token/token.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class EventService {
   private getCoverPhotosURL="http://localhost:8080/event/getAllEventsWithPictures";
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private auth:AuthService,private http:HttpClient) { }
+
 
   setEventDTO(eventDTO: EventDTO): void {
     this.eventDTO = eventDTO;
@@ -37,21 +40,23 @@ export class EventService {
   }
 
   getCoverPhotos():Observable<EventWithPicturesDTO[]>{
-
-    return this.http.get<EventWithPicturesDTO[]>(this.getCoverPhotosURL);
+    const headers = this.auth.createAuthHeaders();
+    return this.http.get<EventWithPicturesDTO[]>(this.getCoverPhotosURL,{headers});
   }
 
   getAllEventTypes():Observable<EventTypeDTO[]>{
-    return this.http.get<EventTypeDTO[]>(this.getAllEventTypesURL);
+    const headers = this.auth.createAuthHeaders();
+    return this.http.get<EventTypeDTO[]>(this.getAllEventTypesURL,{headers});
   }
 
   createEvent(eventDTO: EventDTO): Observable<EventDTO> {
-
+    const headers = this.auth.createAuthHeaders();
   
-    return this.http.post<EventDTO>(this.createEventURL, eventDTO);
+    return this.http.post<EventDTO>(this.createEventURL, eventDTO,{headers});
   }
 
   uploadImages(eventDTO: EventDTO, images: { path: string, file: File }[]): Observable<any> {
+    const headers = this.auth.createAuthHeaders();
     const formData = new FormData();
     images.forEach((image) => {
       formData.append("files", image.file);
@@ -60,38 +65,45 @@ export class EventService {
     return this.createEvent(eventDTO).pipe(
       switchMap((response) => {
         const uploadImagesEventURL = `http://localhost:8080/eventImages/uploadImagesForEvent/${response}`;
-        return this.http.post<any>(uploadImagesEventURL, formData);
+        return this.http.post<any>(uploadImagesEventURL, formData,{headers});
       })
     );
   }
 
   getEventById(eventId:string): Observable<EventWithPicturesDTO> {
-    const getEventWithGallery=`http://localhost:8080/event/getEventByIdWithGallery/${eventId}`;
+    const headers = this.auth.createAuthHeaders();
+   
+    const getEventWithGalleryURL=`http://localhost:8080/event/getEventByIdWithGallery/${eventId}`;
+
     
-    return this.http.get<EventWithPicturesDTO>(getEventWithGallery)
+    return this.http.get<EventWithPicturesDTO>(getEventWithGalleryURL,{headers})
   }
 
   getOrganizerEvents(organizerId:string):Observable<EventWithPicturesDTO[]>{
+    const headers = this.auth.createAuthHeaders();
     const getOrgEvents= `http://localhost:8080/event/getOrganizerEvents/${organizerId}`
 
-    return this.http.get<EventWithPicturesDTO[]>(getOrgEvents);
+    return this.http.get<EventWithPicturesDTO[]>(getOrgEvents,{headers});
   }
 
   getEventsByEventType(eventType:string):Observable<EventWithPicturesDTO[]>{
+    const headers = this.auth.createAuthHeaders();
     const getfiltereEvents=`http://localhost:8080/event/getEventsByType/${eventType}`
-    return this.http.get<EventWithPicturesDTO[]>(getfiltereEvents);
+    return this.http.get<EventWithPicturesDTO[]>(getfiltereEvents,{headers});
   }
   
   addEventToFav(eventId:string,userId:string){
+    const headers = this.auth.createAuthHeaders();
     const addFavEventURL=`http://localhost:8080/favEvent/addToFav?eventId=${eventId}&userId=${userId}`
 
-    return this.http.post(addFavEventURL,null);
+    return this.http.post(addFavEventURL,null,{headers});
   }
 
   getUserFavEvents(userId:string):Observable<EventWithPicturesDTO[]>{
+    const headers = this.auth.createAuthHeaders();
     const getUserFavEventsURL=`http://localhost:8080/favEvent/getUserFav?&userId=${userId}`
     
-    return this.http.get<EventWithPicturesDTO[]>(getUserFavEventsURL);
+    return this.http.get<EventWithPicturesDTO[]>(getUserFavEventsURL,{headers});
 
   }
 

@@ -1,0 +1,31 @@
+<div class="orderContainer">
+    <div class="userNavBar">
+        <app-user-nav class="navBar"></app-user-nav>
+    </div>
+<div class="userOrders wrapperMain" *ngIf="isActiveSection('userOrdes')">
+    <div class="optionsContainer">
+        <div class="titleOrderContainer" [ngClass]="selectedOrders === 'My Events Orders' ? 'myEventsTitle' : 'otherTitle'">
+            <h2 class="listTitleEvents"> 
+                {{ selectedOrders === 'My Events Orders' ? 'My Events Orders' : 'Atendee Orders' }}: 
+                <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i>
+            </h2>
+        </div>
+        
+        <select class="ordersTypesContainer" [(ngModel)]="selectedOrders" (ngModelChange)="onOrderTypeChange($event)">
+            <option class="tag-input" value="Attendee Orders">Attendee Orders</option>
+            <option class="tag-input" value="My Events Orders">My Events Orders</option>
+        </select>
+    </div>
+    <div class="eventList">
+        <div class="messageContainer" *ngIf="userOrders.length===0">
+            <h2>No Orders</h2> 
+         </div>
+         <div class="messageContainer" *ngIf="userOrders.length && selectedOrders=='My Events Orders'">
+            <app-order-page [selectedOrders]="userOrders" [type]="selectedOrders"></app-order-page>
+         </div>
+         <div class="messageContainer" *ngIf="attendeeOrders.length && selectedOrders==='Attendee Orders'">
+            <app-order-page [selectedOrders]="attendeeOrders" [type]="selectedOrders"></app-order-page>
+         </div>
+    </div>
+</div>
+</div>

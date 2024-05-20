@@ -1,0 +1,22 @@
+<div class="notificationContiner">
+    <div class="closeButtonNotificationContainer">
+        <button class="closeNotificationButton" (click)="closePopup()">X</button>
+    </div>
+    <div class="titleNotifications">
+        <h3>Notifications:</h3>
+    </div>
+    <div class="notificationsContent">
+        <div *ngIf="notifications.length === 0" class="notification">
+            <span class="notificationText">Nu există notificări disponibile.</span>
+        </div>
+        <div class="notification" *ngFor="let noti of notifications" (click)="clickOnNotification(noti)" [ngStyle]="{ 'background-color': noti.type === 'review' ? 'rgb(247, 68, 68,0.83)' : (noti.type === 'order' ? '#6ee16e' : '#ccc') }">
+            <span class="notificationText">{{noti.message}}</span>
+            <div class="checkContainer">
+                <button class="checkButton">✓</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="reviewC overlay-container" *ngIf="reviewB">
+    <app-create-review [eventData]="{ eventid: this.eventData.eventId, eventName: this.eventData.eventName }"></app-create-review>
+</div>

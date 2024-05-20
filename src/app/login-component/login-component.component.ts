@@ -9,6 +9,7 @@ import { UserService } from '../service/user/user.service';
 import { UserDTO } from '../dtos/UserDTO';
 import { Router } from '@angular/router';
 import { ModalService } from '../service/modal/modal.service';
+import { WebSocketService } from '../service/websocket/web-socket.service';
 
 @Component({
   selector: 'app-login-component',
@@ -19,7 +20,7 @@ export class LoginComponentComponent implements OnInit{
 
   loginPopupOpen: boolean = false;
   loginForm!: FormGroup;
-  constructor(private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {}
+  constructor(private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {}
 
   authReq:AuthenticationRequest ={
     username: '',
@@ -64,18 +65,19 @@ export class LoginComponentComponent implements OnInit{
             next: any => {
               user2 = any;
               this.tokenService.saveUser(any);
-              if (user2.role == "ADMIN") {
+              if (user2.role === "ADMIN") {
                 this.router.navigateByUrl("/adminHome");
               } else {
                  this.router.navigateByUrl("/userHome");
-             
+                 const user=this.tokenService.getUser();
+                 this.wesocketService.connectToWebSocket(user.id);
               }
             }
           })
-        }else if(token.tokenType=='VERIFICATION_EXPIRED'){
+        }else if(token.tokenType==='VERIFICATION_EXPIRED'){
           this.userService.verifyToken(token.tokenType);
 
-        }else if (token.tokenType=='WRONG_PASSWORD'){
+        }else if (token.tokenType==='WRONG_PASSWORD'){
           this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','./assets/images/icons/cancel.png');
         }
       },

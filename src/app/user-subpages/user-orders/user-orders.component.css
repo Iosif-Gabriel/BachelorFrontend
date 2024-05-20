@@ -1,0 +1,40 @@
+.orderContainer{
+    display: flex;
+    flex-direction: row;
+    flex-direction: column;
+    background: whitesmoke;
+    font-family: "Josefin Sans", sans-serif;
+      font-optical-sizing: auto;
+      /* font-weight: 1000; */
+      font-style: xx-large;
+}
+
+.optionsContainer{
+    display: ruby;
+}
+
+.ordersTypesContainer{
+    margin-left: 10px;
+    width: 135px;
+    height: 30px;
+}
+
+.userNavBar{
+    margin-bottom: 130px;
+    width: auto;
+    height: auto;
+}
+
+.wrapperMain {
+    max-width: 1500px; 
+    margin: 0 auto;
+    padding: 10px;   
+  }
+
+  
+.messageContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  

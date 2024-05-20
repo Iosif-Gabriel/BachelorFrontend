@@ -9,7 +9,11 @@
             <input class="searchBar" type="text" placeholder="Search for adventures..." [(ngModel)]="searchTerm" (input)="searchEvents()">
         </div>
         <div class="userImageContainer">
-            <div class="textContainer userButton"  (click)="createEvent()">
+            <div class="notificationIconContainer">
+                <fa-icon class="fa-solid fa-bell notifyIcon fa-2x" [style.transform]="'rotate(10deg)'" [style.fontWeight]="'lighter'" (click)="openNotifications()"></fa-icon>
+            </div>
+            
+            <div class="textContainer userButton" *ngIf="!isOnEventPage"  (click)="createEvent()">
                 <span >Create event</span>
             </div>
             <div class="userButton" (click)="openOptions()">
@@ -18,10 +22,11 @@
                     <mat-icon class="menuIcon">menu</mat-icon>
                     <!-- <button class="dropdown-toggle" ></button> -->
                     <ul class="dropdown-list" [class.show]="dropdownOpen">
-                      <li><a (click)="createEvent()">Create event</a></li>
+                      <!-- <li><a (click)="createEvent()">Create event</a></li> -->
                       <li><a (click)="openUserEvents()">My Events</a></li>
                       <li><a (click)="openUserOrders()">My Orders</a></li>
-                      <li><a (click)="openUserFav()">Favourites</a></li>
+                      <li><a (click)="openUserReviews()">My Reviews</a></li>
+                      <li><a (click)="openUserFav()">My Favourites</a></li>
                       <li><a (click)="openSettings()">Settings</a></li>
                       <li><a (click)="logoutUser()">Logout</a></li>
                       <li><a href="#">Help</a></li>
@@ -155,3 +160,10 @@
         </button>
     </div>
 </div>
+<ng-template #popupContent>
+    <div class="overlay-container"  *ngIf="openNotif">
+      <div class="popup-content">
+       <app-notification></app-notification>
+      </div>
+    </div>
+</ng-template>

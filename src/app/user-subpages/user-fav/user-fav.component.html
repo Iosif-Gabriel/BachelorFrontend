@@ -1,0 +1,14 @@
+<div class="userFavContainer">
+    <div class="userNavBar">
+        <app-user-nav class="navBar"></app-user-nav>
+    </div>
+    <div class="userOrgEvents wrapperMain" *ngIf="isActiveSection('userFavEvents')">
+        <h2 class="listTitleEvents myEventsTitle" > My Favourite Events: <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i></h2>
+        <div class="eventList">
+            <div class="messageContainer" *ngIf="userFavEvents.length === 0">
+                <h2>You have no favourite events...</h2> 
+              </div>
+             <app-event-list [userEvents]="userFavEvents"></app-event-list>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ export class RegisterService {
   private baseURL="http://localhost:8080/api/auth/register";
   
   register(registerReq:RegisterRequest):Observable<RegisterResponse>{
-    console.log(registerReq);
+   
     return this.http.post<RegisterResponse>(this.baseURL,registerReq);
   }
 }

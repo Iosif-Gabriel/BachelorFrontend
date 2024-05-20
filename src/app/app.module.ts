@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { RegisterComponentComponent } from './register-component/register-component.component';
 import { NavComponentComponent } from './nav-component/nav-component.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './modal/modal.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -41,6 +41,14 @@ import { CreateReviewComponent } from './create-review/create-review.component';
 import {  StarRatingModule } from 'angular-star-rating';
 import {MatCardModule} from '@angular/material/card';
 import { StarRatingComponent } from './star-rating/star-rating.component';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NotificationComponent } from './notification/notification.component';
+import { ReviewListComponent } from './review-list/review-list.component';
+import { UserOrdersComponent } from './user-subpages/user-orders/user-orders.component';
+import { UserEventsComponent } from './user-subpages/user-events/user-events.component';
+import { UserFavComponent } from './user-subpages/user-fav/user-fav.component';
+import { UserReviewsComponent } from './user-subpages/user-reviews/user-reviews.component';
 
 
 @NgModule({
@@ -71,6 +79,12 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     OrderPageComponent,
     CreateReviewComponent,
     StarRatingComponent,
+    NotificationComponent,
+    ReviewListComponent,
+    UserOrdersComponent,
+    UserEventsComponent,
+    UserFavComponent,
+    UserReviewsComponent,
     
   ],
   imports: [
@@ -90,11 +104,12 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     MatTableModule,
     StarRatingModule,
     MatCardModule,
-
-  
-    
+    FontAwesomeModule,  
   ],
-  providers: [],
+  exports: [
+    NotificationComponent
+  ],
+  providers: [RxStompService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

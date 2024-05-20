@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -11,9 +11,21 @@ export class PopupService {
   private _isRegisterButtonPressed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isCreatEventOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isEventPageOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  
+  closeNotification: EventEmitter<void> = new EventEmitter<void>();
+  closeCreateReview: EventEmitter<void> = new EventEmitter<void>();
   private _isUserOrgEventsOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _OrdersOpen:BehaviorSubject<string> = new BehaviorSubject<string>("My Events Orders");
  
   constructor() { }
+
+  get selectedOrders():Observable<string>{
+    return this._OrdersOpen.asObservable();
+  }
+
+  setOrdersOpen(ordersType:string){
+    this._OrdersOpen.next(ordersType);
+  }
 
 
   get isUserOrgEventsOpen():Observable<boolean>{

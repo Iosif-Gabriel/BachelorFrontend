@@ -1,25 +1,39 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 
 import { PopupService } from '../service/popup/popup.service';
 import { SectionService } from '../service/section/section.service';
+import { WebSocketService } from '../service/websocket/web-socket.service';
+import { TokenService } from '../service/token/token.service';
+import { LogoutService } from '../service/logout/logout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.css']
 })
-export class UserPageComponent implements OnInit {
-  
+export class UserPageComponent implements OnInit, OnDestroy {
   createPop:boolean=false;
   userOrgEvents:boolean=false;
   orderOpen:boolean=false;
 
-  constructor(private sectionService: SectionService,private popupService:PopupService) {}
+  constructor(private tokenService:TokenService,private wesocketService:WebSocketService,private sectionService: SectionService,private popupService:PopupService) {}
+  
+  ngOnDestroy(): void {
+  
+  }
 
   ngOnInit(): void {
-    this.popupService.isCreatEventOpen.subscribe(create=>{
-      this.createPop=create;
-    })
+    const user = this.tokenService.getUser();
+    if (user) {
+      this.popupService.isCreatEventOpen.subscribe(create => {
+        this.createPop = create;
+      });
+      this.wesocketService.receiveMessages(user.id).subscribe((mess: any) => {
+        console.log(mess);
+      });
+      this.popupService.setisEventPageOpen(false);
+    }
   }
 
 
@@ -42,9 +56,7 @@ export class UserPageComponent implements OnInit {
     return this.sectionService.getEventMessage();
   }
 
-  getMyEventsMessage():string{
-    return this.sectionService.getMyEventsMessage();
-  }
+
 
   getMyOrdersMessage():string{
     return this.sectionService.getOrdersMessage();

@@ -27,9 +27,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   constructor(private loginPopupService: PopupService) {}
 
   ngOnDestroy(): void {
-    // if (this.modalSubscription) {
-    //   this.modalSubscription.unsubscribe();
-    // }
+    
   }
 
 

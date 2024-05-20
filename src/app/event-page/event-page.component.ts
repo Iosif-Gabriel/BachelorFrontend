@@ -6,6 +6,10 @@ import { EventService } from '../service/event/event.service';
 import { ImageService } from '../service/image/image.service';
 import { PopupService } from '../service/popup/popup.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FeedbackDTO } from '../dtos/FeedbackDTO';
+import { FeedbackService } from '../service/feedback/feedback.service';
+import { NextRouteService } from '../service/next-route/next-route.service';
+import { TokenService } from '../service/token/token.service';
 
 @Component({
   selector: 'app-event-page',
@@ -30,19 +34,34 @@ export class EventPageComponent implements OnInit,OnDestroy{
   event!: EventWithPicturesDTO;
   pictureUrl!:{ [key: string]: string };
   purchaseForm!: FormGroup;
+  feedbacks: FeedbackDTO[] = [];
+  myEvent:boolean=false;
+  
 
 
 
-  constructor(
+  constructor(private tokenService:TokenService,
+    private feedbackService:FeedbackService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private eventService: EventService,private imageService:ImageService,private popUpService:PopupService) {}
+    private eventService: EventService,private imageService:ImageService,private popUpService:PopupService) {
+ 
+      
+    }
 
   ngOnDestroy(): void {
-    this.popUpService.setisEventPageOpen(false);
+    // const nextRoute = this.nextRouteService.getNextRoute();
+    // console.log(nextRoute);
+    // if(nextRoute==='/userCreatedEvents'){
+    //   this.popUpService.setisEventPageOpen(true);
+    // }else{
+    //   this.popUpService.setisEventPageOpen(false);
+    // }
+ 
   }
 
   ngOnInit(): void {
+
     this.purchaseForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required]
@@ -56,66 +75,31 @@ export class EventPageComponent implements OnInit,OnDestroy{
         this.popUpService.setisEventPageOpen(true);
         this.pictureUrl = event.pictureUrls;
         this.imageService.setImageListPath(this.pictureUrl);
+        const userId=this.tokenService.getUser().id;
 
-        // Actualizați valorile formularului cu valorile de start și de sfârșit ale evenimentului
+        if(this.event.idUser===userId){
+          this.myEvent=true;
+          console.log(this.myEvent+"myevent")
+        }
+
+       
         this.purchaseForm.patchValue({
           startDate: this.event.startTime,
           endDate: this.event.endTime
         });
       });
+
+      this.feedbackService.getEventFeedback(eventId).subscribe(feedback=>{
+        this.feedbacks=feedback;
+      })
     });
+
+   
   }
 
 
-  reviews: any[] = [
-    { 
-      author: 'John Doe',
-      date: 'June 1, 2000',
-      rating: '★★★★☆',
-      title: 'Great Experience!',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-    },
-    { 
-      author: 'LALA',
-      date: 'June 1, 2000',
-      rating: '★★★★☆',
-      title: 'Great Experience!',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-    },
-    { 
-      author: 'LILI',
-      date: 'June 1, 2000',
-      rating: '★★★★☆',
-      title: 'Great Experience!',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-    },
-    { 
-      author: 'John Doe',
-      date: 'June 1, 2000',
-      rating: '★★★★☆',
-      title: 'Foarte frumos frate',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-    },
-  ];
-
-  prevSet() {
-    const reviewList = document.querySelector('.review-list') as HTMLElement;
-    const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
-    
-    reviewList.scrollBy({
-      left: -scrollDistance + 30, // Adăugați un mic decalaj pentru a compensa animația
-      behavior: 'smooth' // Folosiți scroll smooth
-    });
-  }
+ 
   
-  nextSet() {
-    const reviewList = document.querySelector('.review-list') as HTMLElement;
-    const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
-    
-    reviewList.scrollBy({
-      left: scrollDistance - 30, // Adăugați un mic decalaj pentru a compensa animația
-      behavior: 'smooth' // Folosiți scroll smooth
-    });
-  }
+ 
 
 }

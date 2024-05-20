@@ -1,21 +1,21 @@
 <div class="createReviewContainer">
     <div class="closeButtonReviewContainer">
-        <button class="closeButtonReview" (click)="closePopup()">X</button> <!-- Close button -->
+        <button class="closeButtonReview" (click)="closePopup()">X</button>
     </div>
-    <h4>Give rating:</h4>
-    <app-star-rating></app-star-rating>
+    <h4>Give rating for {{eventData.eventName}}:</h4>
+    <app-star-rating [(rating)]="parentRating"></app-star-rating>
     <div class="titleReviewContainer">
         <h4>Title:</h4>
-        <input placeholder="Enter title..." type="text">
+        <input placeholder="Enter title..." type="text" [(ngModel)]="reviewDTO.subject">
     </div>
     <div class="descriptionReviewContainer">
         <h4>Description:</h4>
-        <textarea placeholder="Enter honest opinion..." name="reviewDescription" id=""></textarea>
+        <textarea placeholder="Enter honest opinion..." name="reviewDescription" id="" [(ngModel)]="reviewDTO.description"></textarea>
     </div>
 
    
     <div class="submitbutton">
-        <button type="button">Submit Review</button>
+        <button type="button" (click)="submitReview()">Submit Review</button>
     </div>
 
 </div>

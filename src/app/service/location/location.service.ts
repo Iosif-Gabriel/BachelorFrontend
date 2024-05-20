@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LocationDTO } from 'src/app/dtos/LocationDTO';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class LocationService {
   private locationDTO!: LocationDTO;
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private authService:AuthService) { }
 
   setLocationDTO(locationDTO:LocationDTO){
     this.locationDTO=locationDTO;
@@ -23,6 +24,7 @@ export class LocationService {
   private createLocationURL="http://localhost:8080/location/alreadyExists";
 
   createLocation(locationReq:LocationDTO):Observable<LocationDTO>{
-    return this.http.post<LocationDTO>(this.createLocationURL,locationReq);
+    const headers = this.authService.createAuthHeaders();
+    return this.http.post<LocationDTO>(this.createLocationURL,locationReq,{headers});
   }
 }

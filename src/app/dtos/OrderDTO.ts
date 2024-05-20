@@ -7,4 +7,5 @@ export interface OrderDTO {
     endDate: string;
     nrOfGuests: number;
     totalPrice: number;
+    isEditing:boolean;
   }
