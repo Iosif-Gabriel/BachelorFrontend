@@ -9,10 +9,11 @@
         <div *ngIf="notifications.length === 0" class="notification">
             <span class="notificationText">Nu există notificări disponibile.</span>
         </div>
-        <div class="notification" *ngFor="let noti of notifications" (click)="clickOnNotification(noti)" [ngStyle]="{ 'background-color': noti.type === 'review' ? 'rgb(247, 68, 68,0.83)' : (noti.type === 'order' ? '#6ee16e' : '#ccc') }">
-            <span class="notificationText">{{noti.message}}</span>
+        <div class="notification" *ngFor="let noti of notifications"  [ngStyle]="{ 'background-color': noti.type === 'review' ? 'rgb(247, 68, 68,0.83)' : (noti.type === 'order' ? '#6ee16e' : '#ccc') }">
+            <span class="notificationText" (click)="clickOnNotification(noti)">{{noti.message}}</span>
             <div class="checkContainer">
-                <button class="checkButton">✓</button>
+                <button class="checkButton" (click)="setSeenNotificaion(noti)">✓</button>
+                <i class="fa fa-trash trashButton" aria-hidden="true" (click)="deleteNotification(noti.id)"></i>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FeedbackDTO } from '../dtos/FeedbackDTO';
 
 @Component({
@@ -6,49 +6,42 @@ import { FeedbackDTO } from '../dtos/FeedbackDTO';
   templateUrl: './review-list.component.html',
   styleUrls: ['./review-list.component.css']
 })
-export class ReviewListComponent {
+export class ReviewListComponent implements OnInit{
+
   @ViewChild('reviewContainer') reviewContainer!: ElementRef;
    @Input() reviews!:FeedbackDTO[];
+   @Input() myRev:boolean=false;
+   @Output() editReview = new EventEmitter<any>();
 
-  // reviews: any[] = [
-  //   { 
-  //     userName: 'John Doe',
-  //     date: 'June 1, 2000',
-  //     rating: '5',
-  //     subject: 'Great Experience!',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-  //   },
-  //   { 
-  //     userName: 'LALA',
-  //     date: 'June 1, 2000',
-  //     rating: '4',
-  //     subject: 'Great Experience!',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-  //   },
-  //   { 
-  //     userName: 'LILI',
-  //     date: 'June 1, 2000',
-  //     rating: '2',
-  //     subject: 'Great Experience!',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-  //   },
-  //   { 
-  //     userName: 'John Doe',
-  //     date: 'June 1, 2000',
-  //     rating: '3',
-  //     subject: 'Foarte frumos frate',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur ipsum, sed dapibus eros.'
-  //   },
-  // ];
+   onEditReview(review: any) {
+    
+     this.editReview.emit(review);
+   }
 
+
+   ngOnInit(): void {
+   if(this.myRev==true){
+    this.changesize();
+   }
+  }
+
+  changesize() {
+    const reviewList = document.getElementsByClassName("review-list")[0] as HTMLElement;
+  
+    if (reviewList) {
+     reviewList.style.width='1000px'
+      reviewList.style.height = '430px'; 
+    }
+  }
+  
 
   prevSet() {
     const reviewList = document.querySelector('.review-list') as HTMLElement;
     const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
     
     reviewList.scrollBy({
-      left: -scrollDistance + 1, // Adăugați un mic decalaj pentru a compensa animația
-      behavior: 'smooth' // Folosiți scroll smooth
+      left: -scrollDistance + 1, 
+      behavior: 'smooth'
     });
   }
   
@@ -57,8 +50,8 @@ export class ReviewListComponent {
     const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
     
     reviewList.scrollBy({
-      left: scrollDistance - 1, // Adăugați un mic decalaj pentru a compensa animația
-      behavior: 'smooth' // Folosiți scroll smooth
+      left: scrollDistance - 1,
+      behavior: 'smooth'
     });
   }
 

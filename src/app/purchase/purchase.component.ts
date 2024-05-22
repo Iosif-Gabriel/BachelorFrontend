@@ -62,7 +62,7 @@ export class PurchaseComponent implements OnInit {
     const maxValue = this.event?.nrGuests;
     
     if (maxValue && event.target.value !== '') {
-      this.inputHasValue = true; // Setează inputHasValue pe true dacă utilizatorul a introdus o valoare
+      this.inputHasValue = true;  
       if (enteredValue > maxValue) {
         this.tooManyGuests = true;
       } else {
@@ -114,8 +114,9 @@ export class PurchaseComponent implements OnInit {
       
      if(this.event){
       const notif:NotificationDTO={
+        id:'',
         userId: this.event?.idUser,
-        message: 'O noua comanda pentru evenimentul',
+        message: 'A new order for ',
         type: 'order',
         eventName: this.event.eventName,
         eventId: this.event.id,

@@ -8,6 +8,7 @@ import { EventPageComponent } from './event-page/event-page.component';
 import { UserEventsComponent } from './user-subpages/user-events/user-events.component';
 import { UserFavComponent } from './user-subpages/user-fav/user-fav.component';
 import { UserOrdersComponent } from './user-subpages/user-orders/user-orders.component';
+import { UserReviewsComponent } from './user-subpages/user-reviews/user-reviews.component';
 
 const routes: Routes = [
   {path:'home',component:HomePageComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'userCreatedEvents',component:UserEventsComponent},
   {path:'userFavEvents',component:UserFavComponent},
   {path:'userOrders',component:UserOrdersComponent},
+  {path:'userFeedback',component:UserReviewsComponent},
   {path:'adminHome',component:AdminhomeComponent,canActivate: [AuthGuard]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '#', redirectTo: '/home', pathMatch: 'full' },

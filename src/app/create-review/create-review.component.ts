@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PopupService } from '../service/popup/popup.service';
 
 import { TokenService } from '../service/token/token.service';
@@ -17,8 +17,10 @@ export class CreateReviewComponent {
   
   @Input() eventData!: { eventid: string, eventName: string };
   parentRating: number = 0;
+  @Output() closeEdit = new EventEmitter<any>();
 
   reviewDTO:FeedbackDTO={
+      id:'',
       userId: '',
       date: '',
       rating: '',
@@ -26,24 +28,30 @@ export class CreateReviewComponent {
       description:'',
       eventId:'',
       userName:'',
+      eventName:''
   }
   constructor(private feedbackService:FeedbackService,private tokenService:TokenService,private popupService:PopupService){}
 
+
+  
   closePopup(){
     this.popupService.closeCreateReview.emit();
+    this.closeEdit.emit(true);
   }
 
   submitReview(){
    
     const user =this.tokenService.getUser();
     const feedback:FeedbackDTO={
+      id:'',
       userId: user.id,
       date: format(new Date(), 'yyyy-MM-dd'),
       rating: this.parentRating?.toString(),
       subject: this.reviewDTO.subject,
       description: this.reviewDTO.description,
       eventId:this.eventData.eventid,
-      userName:''
+      userName:'',
+      eventName:''
     }
     console.log(feedback)
    this.feedbackService.createFeedback(feedback).subscribe(res=>{

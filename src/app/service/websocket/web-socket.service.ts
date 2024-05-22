@@ -59,8 +59,10 @@ export class WebSocketService {
   
     return new Observable<any>((observer) => {
       this.stompService.subscribe(`/topic/check2/${userId}`).subscribe((message) => {
-        console.log(message.body);
-        observer.next(message.body);
+       
+        const notificationDTO: NotificationDTO = JSON.parse(message.body);
+
+        observer.next(notificationDTO);
       });
     });
   }

@@ -155,7 +155,7 @@ export class UserNavComponent implements OnInit {
   }
 
   openUserReviews(){
-
+    this.router.navigate(['/userFeedback']);
   }
 
   openSettings(){

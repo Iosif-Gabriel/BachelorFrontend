@@ -1,66 +1,112 @@
 .reviewCard {
-    width: 230px;
-    background-color: #b1b1b1;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    height: 230px;
-  }
-  
-  .review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .review-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .review-author {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .review-date {
-    font-size: 14px;
-    color: #000000;
-  }
-  
-  .review-rating {
-    font-size: 18px;
-  }
-  
-  .review-title {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
-  .review-content {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
-  .reviewCard:hover{
-    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
-    /* border-radius: 200px; */
-  }
+  position: relative;
+  width: 250px;
+  background-color: #b1b1b1;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  height: 280px;
+  overflow: hidden;
+}
 
-  .rating{
-    pointer-events: none;
-  }
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  @media only screen and (max-width: 1600px) {
- 
-    .reviewCard{
-      width: 250px; 
-      margin: 0 auto;
-      padding: 10px;
-      height: 250px;
-    }
-  
-   
-  
-  }
+.review-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-author {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.review-date {
+  font-size: 14px;
+  color: #000000;
+}
+
+.review-rating {
+  font-size: 18px;
+}
+
+.review-title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.review-content {
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-y: auto;
+}
+
+.reviewCard:hover {
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.rating {
+  pointer-events: none;
+}
+
+.myReviewOptions {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; 
+}
+
+.reviewCard:hover .myReviewOptions {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.buttonColor {
+  width: 50px;
+  filter: grayscale(100%);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.buttonColor:hover {
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 20px;
+  z-index: 1;
+  transition: background-color 0.3s ease; 
+}
+
+.reviewCard:hover .overlay {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* culoare semi-transparentă pentru overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002; /* asigură că overlay-ul este deasupra tuturor elementelor */
+
+}

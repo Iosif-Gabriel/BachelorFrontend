@@ -79,11 +79,12 @@
 
 
 .popup-wrapperUser {
-  position: relative;
+  position: fixed;
   width: 80%;
   max-width: 450px;
   z-index: 1990;
 }
+
 
 .listTitleEvents{
   margin-left:20px;

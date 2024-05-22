@@ -49,6 +49,7 @@ import { UserOrdersComponent } from './user-subpages/user-orders/user-orders.com
 import { UserEventsComponent } from './user-subpages/user-events/user-events.component';
 import { UserFavComponent } from './user-subpages/user-fav/user-fav.component';
 import { UserReviewsComponent } from './user-subpages/user-reviews/user-reviews.component';
+import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifications';
 
 
 @NgModule({
@@ -104,12 +105,14 @@ import { UserReviewsComponent } from './user-subpages/user-reviews/user-reviews.
     MatTableModule,
     StarRatingModule,
     MatCardModule,
-    FontAwesomeModule,  
+    FontAwesomeModule,
+    SimpleNotificationsModule.forRoot(),
+    
   ],
   exports: [
     NotificationComponent
   ],
-  providers: [RxStompService],
+  providers: [RxStompService,NotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { PopupService } from '../service/popup/popup.service';
 import { SectionService } from '../service/section/section.service';
 import { WebSocketService } from '../service/websocket/web-socket.service';
 import { TokenService } from '../service/token/token.service';
-import { LogoutService } from '../service/logout/logout.service';
-import { Router } from '@angular/router';
+import { NotificationService } from '../service/notification/notification.service';
+import { NotificationDTO } from '../dtos/NotificationDTO';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-user-page',
@@ -17,7 +18,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
   userOrgEvents:boolean=false;
   orderOpen:boolean=false;
 
-  constructor(private tokenService:TokenService,private wesocketService:WebSocketService,private sectionService: SectionService,private popupService:PopupService) {}
+  constructor(private _service: NotificationsService,private notService:NotificationService,private tokenService:TokenService,private wesocketService:WebSocketService,private sectionService: SectionService,private popupService:PopupService) {}
   
   ngOnDestroy(): void {
   
@@ -29,44 +30,34 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.popupService.isCreatEventOpen.subscribe(create => {
         this.createPop = create;
       });
-      this.wesocketService.receiveMessages(user.id).subscribe((mess: any) => {
-        console.log(mess);
-      });
+     this.wesocketService.receiveMessages(user.id).subscribe((mess: NotificationDTO) => {
+        this.notService.addNotificationDTO(mess);
+        this.createNot(mess.type,mess.message);
+      
+      }); 
       this.popupService.setisEventPageOpen(false);
     }
   }
 
+
+  createNot(title:string,content:string): void {
+   
+    this._service.create(title, content);
+  }
 
   isActiveSection(section: string): boolean {
     return this.sectionService.getActiveSection() === section;
   }
 
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
-    const navBar = document.querySelector('.navBar') as HTMLElement; // selectează bara de navigare
-    if (window.scrollY > 100) { // Schimbă 100 cu poziția la care vrei să apară animația
-        navBar.classList.add('hidden');
-    } else {
-        navBar.classList.remove('hidden');
-    }
-  }
-
+ 
   getEventMessage(): string {
     return this.sectionService.getEventMessage();
-  }
-
-
-
-  getMyOrdersMessage():string{
-    return this.sectionService.getOrdersMessage();
   }
 
   getSeachMessage():boolean{
     return this.sectionService.getEventsFound();
   }
 
-  getFavMessage():string{
-    return this.sectionService.getFavEvents();
-  }
+
 }

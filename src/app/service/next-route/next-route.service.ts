@@ -15,7 +15,7 @@ export class NextRouteService {
     ).subscribe((event: NavigationEnd) => {
       
       console.log('Următoarea rută:', event.urlAfterRedirects);
-      if(event.urlAfterRedirects==='/userCreatedEvents' || event.urlAfterRedirects==='/userFavEvents' || event.urlAfterRedirects==='/userOrders'){
+      if(event.urlAfterRedirects==='/userCreatedEvents' || event.urlAfterRedirects==='/userFavEvents' || event.urlAfterRedirects==='/userOrders' || event.urlAfterRedirects==='/userFeedback'){
 
         this.popupService.setisEventPageOpen(true);
 

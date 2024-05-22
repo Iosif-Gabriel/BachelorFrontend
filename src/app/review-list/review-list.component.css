@@ -1,7 +1,7 @@
 .reviewListContainer{
     display: flex;
-    justify-content: center; /* Centrează pe orizontală */
-    align-items: center; /* Centrează pe verticală */
+    justify-content: center; 
+    align-items: center;
     height: 100%;
 }
 
@@ -17,6 +17,7 @@
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
     width: 560px;
+    height: 330px;
   }
   
   @keyframes smoothScroll {
@@ -32,12 +33,12 @@
   
   @media (prefers-reduced-motion: reduce) {
     .review-list {
-      scroll-behavior: auto; /* Dezactivează efectul de derulare pentru utilizatorii care preferă un conținut static */
+      scroll-behavior: auto; 
     }
   }
   
   .review-list {
-     /* Adjust the animation duration */
+ 
     will-change: transform;
   }
   
@@ -51,10 +52,10 @@
   
   .button-container button{
     height: 60px;
-    background-color: transparent; /* Culori pentru butoane */
+    background-color: transparent; 
     color: white;
     border: none;
-    border-radius: 30px; /* Buton rotund */
+    border-radius: 30px;
     cursor: pointer;
     padding: 10px;
     font-size: 16px;
@@ -67,8 +68,8 @@
   }
   
   .icon-svg {
-    width: 50px; /* lățimea dorită */
-    height: auto; /* înălțimea dorită */
+    width: 50px; 
+    height: auto; 
     border-radius: 200px;
   }
   

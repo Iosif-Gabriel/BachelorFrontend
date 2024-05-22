@@ -28,12 +28,14 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user=this.tokenS.getUser();
-    this.notifyService.getUserNotifications(user.id).subscribe(notifys=>{
-      console.log(notifys);
-      this.notifications=notifys;
-    })
+    const user = this.tokenS.getUser();
+    this.notifyService.getUserNotifications(user.id).subscribe(notifys => {
+      this.notifyService.setNotificationDTO(notifys);
+    });
 
+    this.notifyService.notifications$.subscribe(notifications => {
+      this.notifications = notifications;
+    });
   }
 
   clickOnNotification(noti:any){
@@ -54,5 +56,24 @@ export class NotificationComponent implements OnInit {
   closeReview(){
     this.reviewB=false;
   }
+
+  setSeenNotificaion(noti:NotificationDTO){
+    console.log(noti.id);
+  }
+
+  deleteNotification(notiId: string) {
+    const index = this.notifications.findIndex(notification => notification.id === notiId);
+    if (index !== -1) {
+      this.notifications.splice(index, 1);
+    }
+  
+    // this.notifyService.deleteNotification(notiId).subscribe(response => {
+    //   if (!response.success) { // Check for error and handle it if needed
+    //     console.error("Error deleting notification:", response.error);
+    //     // Optionally, re-add the notification back to the array if deletion fails
+    //   }
+    // });
+  }
+  
 
 }
