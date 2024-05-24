@@ -13,5 +13,6 @@ export class EventWithPicturesDTO{
     favEventId!:number;
     fav!:boolean;
     organizerName!:string;
-    nrGuests!:number
+    nrGuests!:number;
+    available!:boolean;
 }

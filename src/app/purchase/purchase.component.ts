@@ -28,10 +28,12 @@ export class PurchaseComponent implements OnInit {
     this.purchaseForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      nrGuests:['',Validators.required]
-    }, { validators: this.dateRangeValidator });
-    
+      nrGuests: [{ value: '', disabled: this.invalidRange }, Validators.required] // Setați inițial starea controlului aici
+        }, { validators: this.dateRangeValidator });
+
   }
+
+
 
   dateRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const startDate = control.get('startDate')?.value;
@@ -46,7 +48,7 @@ export class PurchaseComponent implements OnInit {
       const start = new Date(startDate);
       const end = new Date(endDate);
       
-      if (start.getTime() < eventStartTime.getTime() || end.getTime() > eventEndTime.getTime()) {
+      if (start.getTime() < eventStartTime.getTime() || end.getTime() > eventEndTime.getTime() || start.getTime()>end.getTime() ) {
         this.invalidRange=true;
         return { 'invalidRange': true };
       }
@@ -55,6 +57,9 @@ export class PurchaseComponent implements OnInit {
     this.invalidRange=false;
     return null;
   }
+
+
+
   
   
   checkMaxValue(event: any) {
@@ -116,11 +121,11 @@ export class PurchaseComponent implements OnInit {
       const notif:NotificationDTO={
         id:'',
         userId: this.event?.idUser,
-        message: 'A new order for ',
+        message: 'A new order for ' +this.event.eventName,
         type: 'order',
-        eventName: this.event.eventName,
         eventId: this.event.id,
-        seen:false
+        seen:false,
+        sentAt:''
       }
       this.websocketService.sendNotification(this.event?.idUser,notif);
      }

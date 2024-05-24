@@ -10,8 +10,8 @@ import { AuthenticationResponse } from 'src/app/dtos/AuthenticationResponse';
 })
 export class UserService {
 
-  private userByToken='http://localhost:8080/user/getByToken'
-  private verifyTokenURL='http://localhost:8080/api/auth/verify'
+  private userByToken='https://localhost:8080/user/getByToken'
+  private verifyTokenURL='https://localhost:8080/api/auth/verify'
   constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
 
   getByToken():Observable<UserDTO>{

@@ -21,7 +21,7 @@ export class LocationService {
     return this.locationDTO;
   }
 
-  private createLocationURL="http://localhost:8080/location/alreadyExists";
+  private createLocationURL="https://localhost:8080/location/alreadyExists";
 
   createLocation(locationReq:LocationDTO):Observable<LocationDTO>{
     const headers = this.authService.createAuthHeaders();

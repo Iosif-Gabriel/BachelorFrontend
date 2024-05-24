@@ -11,7 +11,7 @@ export class RegisterService {
 
   constructor(private http: HttpClient,private router: Router) { }
 
-  private baseURL="http://localhost:8080/api/auth/register";
+  private baseURL="https://localhost:8080/api/auth/register";
   
   register(registerReq:RegisterRequest):Observable<RegisterResponse>{
    

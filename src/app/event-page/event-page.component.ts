@@ -36,6 +36,7 @@ export class EventPageComponent implements OnInit,OnDestroy{
   purchaseForm!: FormGroup;
   feedbacks: FeedbackDTO[] = [];
   myEvent:boolean=false;
+  available:boolean=false;
   
 
 
@@ -79,9 +80,8 @@ export class EventPageComponent implements OnInit,OnDestroy{
 
         if(this.event.idUser===userId){
           this.myEvent=true;
-          console.log(this.myEvent+"myevent")
+          
         }
-
        
         this.purchaseForm.patchValue({
           startDate: this.event.startTime,

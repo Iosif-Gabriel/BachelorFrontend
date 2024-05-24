@@ -14,7 +14,7 @@ export class LoginServiceService {
   
   constructor(private http: HttpClient,private router: Router) { }
 
-  private baseURL="http://localhost:8080/api/auth/authenticate";
+  private baseURL="https://localhost:8080/api/auth/authenticate";
   
   login(authReq:AuthenticationRequest):Observable<AuthenticationResponse>{
   

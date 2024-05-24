@@ -12,7 +12,7 @@ export class LogoutService {
 
 
 
-  private logoutUrl = 'http://localhost:8080/api/auth/logout';
+  private logoutUrl = 'https://localhost:8080/api/auth/logout';
 
   constructor(private httpClient: HttpClient, private tokenService: TokenService,private websocketService:WebSocketService) { }
 

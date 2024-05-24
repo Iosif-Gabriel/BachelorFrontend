@@ -15,7 +15,7 @@
         <div class="review-container" #reviewContainer>
             <div class="review-list snaps-inline" appScroll>
                 <ng-container class="media-scroller">
-                    <app-review class='reviewItems' [review]="review" *ngFor="let review of reviews" [myRev]="myRev"  (editReview)="onEditReview(review)"></app-review>
+                    <app-review class='reviewItems' [review]="review" *ngFor="let review of reviews" [myRev]="myRev"  (editReview)="onEditReview(review)" (deleteFeedbackEmitter)="deleteFeedback($event)"></app-review>
                 </ng-container>
             </div>
         </div>

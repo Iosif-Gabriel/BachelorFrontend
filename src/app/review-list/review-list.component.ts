@@ -1,5 +1,7 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FeedbackDTO } from '../dtos/FeedbackDTO';
+import { FeedbackService } from '../service/feedback/feedback.service';
+import { ModalService } from '../service/modal/modal.service';
 
 @Component({
   selector: 'app-review-list',
@@ -12,6 +14,8 @@ export class ReviewListComponent implements OnInit{
    @Input() reviews!:FeedbackDTO[];
    @Input() myRev:boolean=false;
    @Output() editReview = new EventEmitter<any>();
+
+   constructor(private viewContainerRef: ViewContainerRef,private modalService:ModalService,private feedbackService:FeedbackService ){}
 
    onEditReview(review: any) {
     
@@ -56,5 +60,24 @@ export class ReviewListComponent implements OnInit{
   }
 
 
+  deleteFeedback(feedbackId:string){
+    const index = this.reviews.findIndex(review => review.id === feedbackId);
+    if (index !== -1) {
+      this.reviews.splice(index, 1);
+    }
 
+    this.feedbackService.deleteUserFeedback(feedbackId).subscribe(
+      resp => {
+        console.log('Event deleted successfully:', resp);
+        this.modalService.openModal(this.viewContainerRef, 'Deletion Successful', 'Succes','./assets/images/icons/yes.png');
+        
+      },
+      error => {
+        console.error('Failed to delete event:', error);
+        this.modalService.openModal(this.viewContainerRef, 'Deletion Error', 'Error','./assets/images/icons/cancel.png');
+
+      }
+    );
+    console.log(feedbackId);
+  }
 }

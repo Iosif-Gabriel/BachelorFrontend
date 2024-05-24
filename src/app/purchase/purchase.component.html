@@ -16,7 +16,7 @@
     </div>
     <div class="nrGuests dateSelection">
       <label for="nrGuests">Number of Guests:</label>
-      <input type="number" id="nrGuests" name="nrGuests" formControlName="nrGuests" step="1" min="1" placeholder="Enter number of Guests..."  (input)="checkMaxValue($event)">
+      <input [attr.disabled]="!invalidRange ? false : true" type="number" id="nrGuests" name="nrGuests" formControlName="nrGuests" step="1" min="1" placeholder="Enter number of Guests..."  (input)="checkMaxValue($event)">
       <div *ngIf="tooManyGuests && inputHasValue" class="error-message">
         Too many guests..
       </div>

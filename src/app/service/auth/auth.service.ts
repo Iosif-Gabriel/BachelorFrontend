@@ -8,12 +8,11 @@ import { HttpHeaders } from '@angular/common/http';
 export class AuthService {
 
   constructor(private tokenService: TokenService) { }
-
   createAuthHeaders(): HttpHeaders {
     const token = this.tokenService.getToken();
     return new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
   }
+  
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { EventDTO } from '../dtos/EventDTO';
 import { EventWithPicturesDTO } from '../dtos/EventWithPicturesDTO';
 import { PopupService } from '../service/popup/popup.service';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SectionService } from '../service/section/section.service';
 import { TokenService } from '../service/token/token.service';
 import { EventService } from '../service/event/event.service';
+import { ModalService } from '../service/modal/modal.service';
 
 @Component({
   selector: 'app-event-card',
@@ -18,6 +19,7 @@ export class EventCardComponent implements OnInit,AfterViewInit {
   @Input() event: EventWithPicturesDTO | undefined;
   @Input() cardId:string | undefined;
   @Output() addToFavoritesEvent = new EventEmitter<string>();
+  @Output() deleteEventEmitter=new EventEmitter<string>();
   @ViewChild('favButton') favButton!: ElementRef;
   isFavorite: boolean = false;
   isOrgEventOpen:boolean=false;
@@ -84,10 +86,12 @@ export class EventCardComponent implements OnInit,AfterViewInit {
     
     return 'assets/images/poze/barca.jpg'
   }
-  
-  deleteEvent(eventId:string){
-    console.log(eventId);
+
+  deleteEvent(eventId: string) {
+    
+   this.deleteEventEmitter.emit(eventId);
   }
+  
 
   editEvent(event:any){
     this.section.setActiveActivity("editEvent");

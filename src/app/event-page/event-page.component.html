@@ -45,10 +45,20 @@
                         </ng-template>
                     </div>
                 </div>
-                <div class="purchaseContainer" *ngIf="!myEvent">
-                    <form [formGroup]="purchaseForm">
-                        <app-purchase [event]="event" [purchaseForm]="purchaseForm"></app-purchase>
-                    </form>
+                <div class="purchaseContainer">
+                    <ng-container *ngIf="!myEvent">
+                        <ng-container *ngIf="!event.available ||event.nrGuests<=0; else purchaseNotAvailable">
+                            <div class="availableContainer">
+                                <h2>The event is not available at the moment...</h2>
+                            </div>
+                        </ng-container>
+                        <ng-template #purchaseNotAvailable>
+                            <form *ngIf="event.available" [formGroup]="purchaseForm">
+                                <app-purchase [event]="event" [purchaseForm]="purchaseForm"></app-purchase>
+                            </form>
+                        </ng-template>
+                    </ng-container>
+                    
                 </div>
             </div>
         </div>

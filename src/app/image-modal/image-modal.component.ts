@@ -30,6 +30,7 @@ export class ImageModalComponent implements OnInit{
   saveEvent() {
     this.imageList = this.imageService.getImageList();
     this.eventDTO = this.eventService.getEventDTO();
+    console.log(this.imageList);
     this.save=true;
     this.eventService.uploadImages(this.eventDTO, this.imageList).subscribe(
       response => {

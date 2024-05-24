@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { forkJoin, of, switchMap } from 'rxjs';
 import { EventService } from '../service/event/event.service';
@@ -8,6 +8,7 @@ import { PopupService } from '../service/popup/popup.service';
 import { TokenService } from '../service/token/token.service';
 import { SectionService } from '../service/section/section.service';
 import { SearchService } from '../service/seach/seach.service';
+import { ModalService } from '../service/modal/modal.service';
 
 @Component({
   selector: 'app-event-list',
@@ -26,7 +27,7 @@ export class EventListComponent implements OnInit {
    noEventsFound: boolean = false;
   
 
-  constructor(private searchService: SearchService,private sectionService:SectionService,private tokenService:TokenService,private popUp:PopupService,private eventService:EventService,private router: Router){}
+  constructor(private viewContainerRef: ViewContainerRef,private modalService:ModalService,private searchService: SearchService,private sectionService:SectionService,private tokenService:TokenService,private popUp:PopupService,private eventService:EventService,private router: Router){}
 
   ngOnInit(): void {
     const user = this.tokenService.getUser();
@@ -106,6 +107,7 @@ searchEvents(): void {
   
   }
 }
+
 getEvents():EventWithPicturesDTO[]{
 
   return this.searchResult;
@@ -165,6 +167,28 @@ updateFavStatus(eventsList: any[], userId: string): Promise<any[]> {
      
     })
     }
+    
+  }
+
+  deleteEvent(eventId:string){
+    const index = this.searchResult.findIndex(event => event.id === eventId);
+    if (index !== -1) {
+      this.searchResult.splice(index, 1);
+    }
+
+    this.eventService.deleteEvent(eventId).subscribe(
+      resp => {
+        console.log('Event deleted successfully:', resp);
+        this.modalService.openModal(this.viewContainerRef, 'Deletion Successful', 'Succes','./assets/images/icons/yes.png');
+        
+      },
+      error => {
+        console.error('Failed to delete event:', error);
+        this.modalService.openModal(this.viewContainerRef, 'Deletion Error', 'Error','./assets/images/icons/cancel.png');
+
+      }
+    );
+    console.log(eventId);
     
   }
 

@@ -2,7 +2,7 @@
   <div class="eventNameContainer" *ngIf="myRev">
     <p>Review for: {{review.eventName}}</p>
     <div class="myReviewOptions">
-    <div class="buttonColor" (click)="deleteReview(review)">
+    <div class="buttonColor" (click)="deleteReview(review.id)">
       <svg viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"
          fill="#000000">
          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

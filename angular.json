@@ -62,10 +62,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "eventMaker:build:production"
+              "browserTarget": "eventMaker:build:production",
+              "ssl": true,
+              "sslKey": "src/certificate/key.pem",
+              "sslCert": "src/certificate/eventMaker.crt"
             },
             "development": {
-              "browserTarget": "eventMaker:build:development"
+              "browserTarget": "eventMaker:build:development",
+              "ssl": true,
+              "sslKey": "src/certificate/key.pem",
+              "sslCert": "src/certificate/eventMaker.crt"
             }
           },
           "defaultConfiguration": "development"

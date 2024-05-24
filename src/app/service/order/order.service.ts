@@ -13,21 +13,21 @@ export class OrderService {
 
   getUserOrders(idUser:string):Observable<OrderDTO[]>{
     const headers = this.authService.createAuthHeaders();
-    const orderURL=`http://localhost:8080/order/getUsersOrders/${idUser}`;
+    const orderURL=`https://localhost:8080/order/getUsersOrders/${idUser}`;
 
     return this.http.get<OrderDTO[]>(orderURL,{headers});
   }
 
   createOrder(orderDTO:OrderDTO){
     const headers = this.authService.createAuthHeaders();
-    const createOrderURL='http://localhost:8080/order/createOrder'
+    const createOrderURL='https://localhost:8080/order/createOrder'
 
     return this.http.post<OrderDTO>(createOrderURL,orderDTO,{headers});
   }
 
   getOrganizerOrders(idOrg:string):Observable<OrderDTO[]>{
     const headers = this.authService.createAuthHeaders();
-    const organizerOrdersURL=`http://localhost:8080/order/getOrganizerOrders/${idOrg}`
+    const organizerOrdersURL=`https://localhost:8080/order/getOrganizerOrders/${idOrg}`
 
     return this.http.get<OrderDTO[]>(organizerOrdersURL,{headers})
 

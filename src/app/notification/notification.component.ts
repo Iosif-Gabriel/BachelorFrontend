@@ -57,22 +57,24 @@ export class NotificationComponent implements OnInit {
     this.reviewB=false;
   }
 
-  setSeenNotificaion(noti:NotificationDTO){
-    console.log(noti.id);
+  setSeenNotification(event:Event,noti:NotificationDTO){
+    event.stopPropagation();
+    noti.seen=true;
   }
 
-  deleteNotification(notiId: string) {
+  deleteNotification(event:Event,notiId: string) {
+    event.stopPropagation();
     const index = this.notifications.findIndex(notification => notification.id === notiId);
     if (index !== -1) {
       this.notifications.splice(index, 1);
     }
   
-    // this.notifyService.deleteNotification(notiId).subscribe(response => {
-    //   if (!response.success) { // Check for error and handle it if needed
-    //     console.error("Error deleting notification:", response.error);
-    //     // Optionally, re-add the notification back to the array if deletion fails
-    //   }
-    // });
+    this.notifyService.deleteNotification(notiId).subscribe(response => {
+      if (!response.success) { // Check for error and handle it if needed
+        console.error("Error deleting notification:", response.error);
+        // Optionally, re-add the notification back to the array if deletion fails
+      }
+    });
   }
   
 

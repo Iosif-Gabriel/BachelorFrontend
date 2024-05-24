@@ -36,7 +36,7 @@ export class ImageService {
 
   getPositionFromFileName(fileName: string): string {
     const parts = fileName.split('_');
-    return parts[1];
+    return parts[0];
   }
   
   addImageToContainer(imagePath: string, container: HTMLElement): void {
@@ -109,7 +109,7 @@ export class ImageService {
         return 'upRight';
       case 4:
         return 'downRight';
-      case 5:{}
+      case 5:
         return 'main';
       case 6:
         return 'cover';

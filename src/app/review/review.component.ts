@@ -14,6 +14,7 @@ export class ReviewComponent implements OnInit{
   @Input() review!: FeedbackDTO;
   reviewB:boolean=false;
   @Output() editReview = new EventEmitter<FeedbackDTO>();
+  @Output() deleteFeedbackEmitter=new EventEmitter<string>();
 
   onEditClick() {
    
@@ -28,8 +29,8 @@ export class ReviewComponent implements OnInit{
     return parseInt(this.review.rating);
   }
 
-  deleteReview(review:any){
-    console.log("deletREv"+review.id);
+  deleteReview(reviewId:any){
+    this.deleteFeedbackEmitter.emit(reviewId);
   
   }
 

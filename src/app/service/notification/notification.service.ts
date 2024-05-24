@@ -33,23 +33,13 @@ export class NotificationService {
 
   getUserNotifications(userId:string):Observable<NotificationDTO[]>{
     const headers=this.auth.createAuthHeaders();
-    const getNotifiURL=`http://localhost:8080/notify/getUserNotifications/${userId}`
+    const getNotifiURL=`https://localhost:8080/notify/getUserNotifications/${userId}`
     return this.http.get<NotificationDTO[]>(getNotifiURL,{headers});
   }
 
-  deleteNotification(notiId: string) {
+  deleteNotification(notiId: string): Observable<any> {
     const headers = this.auth.createAuthHeaders();
-    const deleteNotificationUrl = `http://localhost:8080/notify/deleteUserNotification/${notiId}`;
-  
-    
-    this.http.delete(deleteNotificationUrl, { headers })
-      .subscribe(response => {
-       console.log(response);
-      },
-      error => {
-        console.error("Error deleting notification:", error);
-        
-      });
-  }
-  
+    const deleteNotificationUrl = `https://localhost:8080/notify/deleteUserNotification/${notiId}`;
+    return this.http.delete(deleteNotificationUrl, { headers });
+  }  
 }

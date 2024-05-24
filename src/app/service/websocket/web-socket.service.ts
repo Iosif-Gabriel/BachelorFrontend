@@ -12,7 +12,7 @@ export class WebSocketService {
   private stompService: StompService;
 
   constructor() { this.stompConfig = {
-    url: 'ws://localhost:8080/eventMaker',
+    url: 'wss://localhost:8080/eventMaker',
     headers: {},
     heartbeat_in: 0,
     heartbeat_out: 20000,
@@ -44,13 +44,7 @@ export class WebSocketService {
   }
 
   sendNotification(userId: string, message: NotificationDTO): void {
-    const noti={
-      userId:userId,
-      message:message,
-      type:"order",
-      seen:false
-    }
-   
+  
     const destination = `/app/sendNotification/${userId}`;
     this.stompService.publish({ destination, body: JSON.stringify(message) });
   }

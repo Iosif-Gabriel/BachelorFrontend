@@ -17,13 +17,21 @@ export class EventService {
   private eventDTO!: EventDTO;
   private eventWithPicturesDTO!:EventWithPicturesDTO;
   createEventPop!:boolean;
-  private getAllEventTypesURL="http://localhost:8080/eventType/getAllEventTypes"
-  private createEventURL="http://localhost:8080/event/createEvent";
-  private getCoverPhotosURL="http://localhost:8080/event/getAllEventsWithPictures";
+  private eventId!:string;
+  private getAllEventTypesURL="https://localhost:8080/eventType/getAllEventTypes"
+  private createEventURL="https://localhost:8080/event/createEvent";
+  private getCoverPhotosURL="https://localhost:8080/event/getAllEventsWithPictures";
 
 
   constructor(private tokenService:TokenService,private websocketService:WebSocketService,private logoutService:LogoutService,private auth:AuthService,private http:HttpClient) { }
 
+  setEventId(eventId:string):void{
+    this.eventId=eventId;
+  }
+
+  getEventId():string{
+    return this.eventId;
+  }
 
   setEventDTO(eventDTO: EventDTO): void {
     this.eventDTO = eventDTO;
@@ -47,14 +55,14 @@ export class EventService {
     return this.http.get<EventWithPicturesDTO[]>(this.getCoverPhotosURL, { headers })
       .pipe(
         catchError(error => {
-          if (error.status === 403 && error.url === 'http://localhost:8080/event/getAllEventsWithPictures') {
+          if (error.status === 403 && error.url === 'https://localhost:8080/event/getAllEventsWithPictures') {
             console.error("403 error on specific endpoint. Logging out.");
             this.logoutService.logoutUser().subscribe( {
               next: any => {
                 const user=this.tokenService.getUser();
                 this.tokenService.logout();
                 this.websocketService.disconnectWebSocket(user.id)
-                window.location.href = 'http://localhost:4200/home';
+                window.location.href = 'https://localhost:4200/home';
               }
             });
           }
@@ -81,11 +89,25 @@ export class EventService {
     images.forEach((image) => {
       formData.append("files", image.file);
     });
-    console.log(eventDTO);
+  
+
+  
+  
     return this.createEvent(eventDTO).pipe(
-      switchMap((response) => {
-        const uploadImagesEventURL = `http://localhost:8080/eventImages/uploadImagesForEvent/${response}`;
-        return this.http.post<any>(uploadImagesEventURL, formData,{headers});
+      catchError((error) => {
+        
+        return throwError(error);
+      }),
+      switchMap((eventId) => {
+       
+        const uploadImagesEventURL = `https://localhost:8080/eventImages/uploadImagesForEvent/${eventId}`;
+        
+        return this.http.post<any>(uploadImagesEventURL, formData, { headers }).pipe(
+          catchError((error) => {
+
+            return throwError(error);
+          })
+        );
       })
     );
   }
@@ -93,7 +115,7 @@ export class EventService {
   getEventById(eventId:string): Observable<EventWithPicturesDTO> {
     const headers = this.auth.createAuthHeaders();
    
-    const getEventWithGalleryURL=`http://localhost:8080/event/getEventByIdWithGallery/${eventId}`;
+    const getEventWithGalleryURL=`https://localhost:8080/event/getEventByIdWithGallery/${eventId}`;
 
     
     return this.http.get<EventWithPicturesDTO>(getEventWithGalleryURL,{headers})
@@ -101,32 +123,45 @@ export class EventService {
 
   getOrganizerEvents(organizerId:string):Observable<EventWithPicturesDTO[]>{
     const headers = this.auth.createAuthHeaders();
-    const getOrgEvents= `http://localhost:8080/event/getOrganizerEvents/${organizerId}`
+    const getOrgEvents= `https://localhost:8080/event/getOrganizerEvents/${organizerId}`
 
     return this.http.get<EventWithPicturesDTO[]>(getOrgEvents,{headers});
   }
 
   getEventsByEventType(eventType:string):Observable<EventWithPicturesDTO[]>{
     const headers = this.auth.createAuthHeaders();
-    const getfiltereEvents=`http://localhost:8080/event/getEventsByType/${eventType}`
+    const getfiltereEvents=`https://localhost:8080/event/getEventsByType/${eventType}`
     return this.http.get<EventWithPicturesDTO[]>(getfiltereEvents,{headers});
   }
   
   addEventToFav(eventId:string,userId:string){
     const headers = this.auth.createAuthHeaders();
-    const addFavEventURL=`http://localhost:8080/favEvent/addToFav?eventId=${eventId}&userId=${userId}`
+    const addFavEventURL=`https://localhost:8080/favEvent/addToFav?eventId=${eventId}&userId=${userId}`
 
     return this.http.post(addFavEventURL,null,{headers});
   }
 
   getUserFavEvents(userId:string):Observable<EventWithPicturesDTO[]>{
     const headers = this.auth.createAuthHeaders();
-    const getUserFavEventsURL=`http://localhost:8080/favEvent/getUserFav?&userId=${userId}`
+    const getUserFavEventsURL=`https://localhost:8080/favEvent/getUserFav?&userId=${userId}`
     
     return this.http.get<EventWithPicturesDTO[]>(getUserFavEventsURL,{headers});
 
   }
 
+ 
+deleteEvent(eventId: string): Observable<any> {
+  const headers = this.auth.createAuthHeaders();
+  const deleteEventURL = `https://localhost:8080/event/deleteEvent/${eventId}`;
+
+  return this.http.delete(deleteEventURL, { headers }).pipe(
+    catchError(error => {
+     
+      console.error('An error occurred:', error);
+      return throwError('Something went wrong while deleting the event.');
+    })
+  );
+}
   
 
   

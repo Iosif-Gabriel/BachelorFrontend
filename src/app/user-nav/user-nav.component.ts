@@ -83,7 +83,7 @@ export class UserNavComponent implements OnInit {
         const user=this.tokenService.getUser();
         this.tokenService.logout();
         this.websocketService.disconnectWebSocket(user.id)
-        window.location.href = 'http://localhost:4200/home';
+        window.location.href = 'https://localhost:4200/home';
       }
     });
   }
