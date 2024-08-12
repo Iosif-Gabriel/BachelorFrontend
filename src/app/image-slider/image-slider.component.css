@@ -7,7 +7,7 @@
 .slider-wrapper{
     position: relative;
     max-width: auto;
-    width: 70rem;
+    width: 60rem;
     margin: auto auto;
 }
 
@@ -33,6 +33,7 @@
     box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
     border-radius: 20px;
     scrollbar-width: none;
+    height: 80%;
 }
 
 
@@ -41,9 +42,9 @@
     scroll-snap-align: start;
     object-fit: cover;
     /* image-rendering: optimizeQuality;  */
-    width: 100%; /* Ensure images fill the container */
-    height: auto; /* Maintain aspect ratio */
-    max-width: none; /* Allow images to exceed their intrinsic width */
+    width: 100%; 
+    height: auto; 
+    max-width: none; 
 }
 
 .slider-nav{

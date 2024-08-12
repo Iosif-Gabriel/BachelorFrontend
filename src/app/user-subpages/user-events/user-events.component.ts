@@ -16,16 +16,14 @@ export class UserEventsComponent implements OnInit,OnDestroy {
   createPop:boolean=false;
   
   constructor(private tokenService:TokenService,private eventService:EventService,private sectionService: SectionService,private popupService:PopupService){
-
+ 
   }
-
-
    
   ngOnInit(): void {
   
     const user = this.tokenService.getUser();
     this.eventService.getOrganizerEvents(user.id).subscribe(list => {
-     
+   
       this.userOrgEvents=list; 
       this.popupService.setisEventPageOpen(true);
       this.sectionService.setActiveSection("userOrgEvents");

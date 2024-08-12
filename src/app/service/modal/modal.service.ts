@@ -16,8 +16,6 @@ export class ModalService {
     
   }
   
-
-  
   openModal(entry: ViewContainerRef, modalTitle: string, modalBody: string, imagePath?: string): Observable<string> {
     const factory = this.resolver.resolveComponentFactory(ModalComponent);
     this.componentRef = entry.createComponent(factory);
@@ -25,7 +23,7 @@ export class ModalService {
     this.componentRef.instance.body = modalBody;
     this.componentRef.instance.imagePath = imagePath || '';
     this.componentRef.instance.closeMeEvent.subscribe(() => this.closeModal());
-    this.componentRef.instance.confirmEvent.subscribe(() => this.confirm());
+    
     return this.registerEvent.asObservable();
   }
   
@@ -33,18 +31,31 @@ export class ModalService {
   closeModal() {
     this.registerEvent.complete();
     this.componentRef.destroy();
-    this.popupService.closeRegisterPopup();
+  
 
+    if(this.componentRef.instance.title==='Registration Successful' ){
+
+      this.popupService.closeRegisterPopup();
+
+    }else if(this.componentRef.instance.title==='Thank you for your Feedback!'){
+     
+      this.popupService.closeCreateReview.emit();
+
+    }else if(this.componentRef.instance.title==='Event edited succesfully!'){
+      this.popupService.setCreatEventOpen(false);
+    }
+
+    
   }
 
   confirm() {
     this.componentSubscriber.next('confirm');
-    this.closeModal();
+    //this.closeModal();
   }
 
-  emitEvent(eventName: string) {
-    if(this.registerEvent){
-      this.registerEvent.next(eventName);
-    }
-  }
+  // emitEvent(eventName: string) {
+  //   if(this.registerEvent){
+  //     this.registerEvent.next(eventName);
+  //   }
+  // }
 }

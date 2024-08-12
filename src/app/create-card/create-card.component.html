@@ -26,8 +26,8 @@
                         (change)="addImage($event,6)">
                 </div>
                 <div *ngIf="isBackground" class="titleCreateCard">
-                    <p class="title ">
-                        {{this.eventDTO.eventName}}
+                    <p class="titleCreate ">
+                        {{getShortEventName()}}
                     </p>
                     <div class="createPriceCard">
                         <!-- <h3 class="price">${{this.eventDTO.price}}</h3> -->
@@ -37,7 +37,7 @@
         </div>
         <div *ngIf="isBackground" class="detailsCreateCard">
             <p class="descCreate">
-                {{this.eventDTO.description}}
+                {{getShortDescription()}}
             </p>
         </div>
     </div>

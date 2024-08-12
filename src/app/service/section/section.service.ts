@@ -7,7 +7,7 @@ import { EventWithPicturesDTO } from 'src/app/dtos/EventWithPicturesDTO';
 export class SectionService {
 
   private activeSection: string = 'allEvents';
-  private activeActivity: string ='';
+  private activeActivity: string ='allEvents';
   events: any[] = [];
   myEvents: any[] = [];
   orders: any[] = [];
@@ -55,6 +55,7 @@ export class SectionService {
   getEventsFound(): boolean {
     return this.noEventsFound;
   }
+
   
   getEventMessage(): string {
     return this.events.length > 0 ? '' : 'No events available...';

@@ -39,13 +39,16 @@ export class NotificationComponent implements OnInit {
   }
 
   clickOnNotification(noti:any){
-   if(noti.type==='review'){
-    this.reviewB=true;
-    this.eventData={
-      eventId:noti.eventId,
-      eventName:noti.eventName
+    if(noti.seen!==true){
+      if(noti.type==='review'){
+        this.reviewB=true;
+        this.eventData={
+          eventId:noti.eventId,
+          eventName:noti.eventName
+        }
+       }
     }
-   }
+  
   }
 
   closePopup(){
@@ -60,6 +63,9 @@ export class NotificationComponent implements OnInit {
   setSeenNotification(event:Event,noti:NotificationDTO){
     event.stopPropagation();
     noti.seen=true;
+    this.notifyService.setSeenNotification(noti.id).subscribe(response=>{
+      console.log(response);
+    })
   }
 
   deleteNotification(event:Event,notiId: string) {
@@ -70,9 +76,9 @@ export class NotificationComponent implements OnInit {
     }
   
     this.notifyService.deleteNotification(notiId).subscribe(response => {
-      if (!response.success) { // Check for error and handle it if needed
-        console.error("Error deleting notification:", response.error);
-        // Optionally, re-add the notification back to the array if deletion fails
+      if (!response.success) {
+        console.log("Error deleting notification:", response.error);
+        
       }
     });
   }

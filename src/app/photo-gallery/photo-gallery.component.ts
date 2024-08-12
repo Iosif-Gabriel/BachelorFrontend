@@ -29,7 +29,7 @@ export class PhotoGalleryComponent {
       const relativePath = url.replace("E:\\Facultate\\Anul4\\Licenta\\Front\\eventMaker\\src\\", "").replace(/\\/g, '/');
       const parts = relativePath.split("/");
       const filename = parts && parts.length > 0 ? parts[parts.length - 1] : '';
-      const position = this.imageService.getPositionFromFileName(filename);
+      const position = this.imageService.getPositionFromFileNameIndex(filename,1);
       const parentDiv = document.getElementById(position);
    
       if (parentDiv) {

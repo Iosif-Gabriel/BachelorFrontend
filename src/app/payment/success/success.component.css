@@ -1,0 +1,25 @@
+
+.success-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.svgContainer {
+    margin: 20px 0;
+    width: 150px;
+}
+
+.successful-payment {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+

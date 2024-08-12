@@ -66,7 +66,7 @@ export class EventService {
               }
             });
           }
-          return throwError(error); // Re-throw other errors
+          return throwError(error); 
         })
       );
   }
@@ -89,10 +89,7 @@ export class EventService {
     images.forEach((image) => {
       formData.append("files", image.file);
     });
-  
 
-  
-  
     return this.createEvent(eventDTO).pipe(
       catchError((error) => {
         
@@ -149,20 +146,51 @@ export class EventService {
 
   }
 
- 
-deleteEvent(eventId: string): Observable<any> {
-  const headers = this.auth.createAuthHeaders();
-  const deleteEventURL = `https://localhost:8080/event/deleteEvent/${eventId}`;
+  checkFavEvent(eventId:string,userId:string):Observable<any>{
+    const headers = this.auth.createAuthHeaders();
+    const checkFavEventURL=`https://localhost:8080/favEvent/checkIfFav?eventId=${eventId}&userId=${userId}`
 
-  return this.http.delete(deleteEventURL, { headers }).pipe(
-    catchError(error => {
-     
-      console.error('An error occurred:', error);
-      return throwError('Something went wrong while deleting the event.');
-    })
-  );
-}
-  
+    return this.http.get<any>(checkFavEventURL,{headers});
+  }
+ 
+  deleteEvent(eventId: string): Observable<any> {
+    const headers = this.auth.createAuthHeaders();
+    const deleteEventURL = `https://localhost:8080/event/deleteEvent/${eventId}`;
+
+    return this.http.delete(deleteEventURL, { headers }).pipe(
+      catchError(error => {
+      
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong while deleting the event.');
+      })
+    );
+  }
+
+  patchEvent(eventDTO:EventDTO,images: { path: string, file: File }[]):Observable<any>{
+    const headers = this.auth.createAuthHeaders();
+    const patchEventURL = `https://localhost:8080/event/patchEvent/${eventDTO.id}`;
+    console.log(images);
+    if(images.length!==0){
+      const patchImagesEventURL = `https://localhost:8080/eventImages/updateEventPictures/${eventDTO.id}`;
+      const formData = new FormData();
+      images.forEach((image) => {
+        formData.append("files", image.file);
+      });
+      return this.http.patch(patchImagesEventURL,formData,{headers,responseType: 'text' });
+    }
+    
+
+    return this.http.patch(patchEventURL,eventDTO,{headers,responseType: 'text' });
+  }
+
+
+  getEventPictures(eventId:string):Observable<any>{
+    const headers = this.auth.createAuthHeaders();
+    const getEventPicturesURL = `https://localhost:8080/eventImages/getPicturesForEvent/${eventId}`;
+
+    return this.http.get(getEventPicturesURL,{headers});
+  }
+    
 
   
 }

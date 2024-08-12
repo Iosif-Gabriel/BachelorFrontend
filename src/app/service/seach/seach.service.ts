@@ -13,7 +13,7 @@ export class SearchService {
   constructor() { }
 
   setFilterTerm(filterTerm: string): void {
-
+    
     this.filterItemSubject.next(filterTerm);
   }
 

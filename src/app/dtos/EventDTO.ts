@@ -1,5 +1,5 @@
 export interface EventDTO{
-
+    id:string;
     eventName:string;
     description:string;
     startTime:string;
@@ -9,4 +9,5 @@ export interface EventDTO{
     idUser:string;
     price:number;
     nrGuests:number;
+    available:boolean;
 }

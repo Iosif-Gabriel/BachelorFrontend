@@ -50,6 +50,10 @@ import { UserEventsComponent } from './user-subpages/user-events/user-events.com
 import { UserFavComponent } from './user-subpages/user-fav/user-fav.component';
 import { UserReviewsComponent } from './user-subpages/user-reviews/user-reviews.component';
 import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifications';
+import { NgxStripeModule } from 'ngx-stripe';
+import { CancelComponent } from './payment/cancel/cancel.component';
+import { SuccessComponent } from './payment/success/success.component';
+import { VerifyComponent } from './verify/verify.component';
 
 
 @NgModule({
@@ -86,6 +90,10 @@ import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifi
     UserEventsComponent,
     UserFavComponent,
     UserReviewsComponent,
+ 
+    CancelComponent,
+    SuccessComponent,
+    VerifyComponent,
     
   ],
   imports: [
@@ -107,6 +115,7 @@ import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifi
     MatCardModule,
     FontAwesomeModule,
     SimpleNotificationsModule.forRoot(),
+    NgxStripeModule.forRoot(),
     
   ],
   exports: [

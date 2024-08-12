@@ -9,8 +9,7 @@ import { LogoutService } from '../service/logout/logout.service';
 import { WebSocketService } from '../service/websocket/web-socket.service';
 import { TokenService } from '../service/token/token.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Subject, debounceTime } from 'rxjs';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-user-nav',
@@ -43,9 +42,9 @@ export class UserNavComponent implements OnInit {
   ngOnInit(): void {
     
     this.popupService.isEventPageOpen.subscribe((isOpen: boolean) => {
-      console.log('isOpen:', isOpen); // Adaugă acest console.log pentru a verifica valorile observabilului
+      console.log('isOpen:', isOpen);
       this.open = isOpen;
-      this.updateNavbarSize(); // Actualizează dimensiunile navbar-ului numai dacă starea s-a schimbat
+      this.updateNavbarSize(); 
     });
   }
   
@@ -89,7 +88,10 @@ export class UserNavComponent implements OnInit {
   }
 
   searchEvents(){
+   
     this.searchService.setSearchTerm(this.searchTerm)
+    
+
   }
 
   openOptions(){
@@ -105,7 +107,8 @@ export class UserNavComponent implements OnInit {
 
       this.filterTerm=span.textContent as string;
       this.searchService.setFilterTerm(this.filterTerm)
-      console.log(span.textContent);
+     
+     
     }
   }
 
@@ -122,6 +125,7 @@ export class UserNavComponent implements OnInit {
     this.openNotif = !this.openNotif;
     this.viewContainerRef.clear();
     this.viewContainerRef.createEmbeddedView(this.popupContent);
+    this.sectionService.setActiveActivity('');
   }
 
   togglePopup(): void {
@@ -138,20 +142,21 @@ export class UserNavComponent implements OnInit {
 
   
   openUserEvents(){
+    this.searchService.setSearchTerm("")
     this.router.navigate(['/userCreatedEvents'])
   }
 
   openUserFav(){
    
-    // this.sectionService.setActiveSection("userFavEvents");
+    this.searchService.setSearchTerm("")
     this.router.navigate(['/userFavEvents'])
-    //this.changeSizeNav('small');
+    
   }
 
   openUserOrders(){
-   // this.sectionService.setActiveSection("userOrdes");
+ 
    this.router.navigate(['/userOrders'])
-    //this.changeSizeNav('small');
+   
   }
 
   openUserReviews(){
@@ -163,8 +168,12 @@ export class UserNavComponent implements OnInit {
   }
 
   go2UserPage(){
-    this.router.navigate(['/userHome']);
+
     this.sectionService.setActiveSection("allEvents");
+    this.router.navigate(['/userHome']);
+    this.searchService.setFilterTerm("All")
+    this.searchService.setSearchTerm("")
+    this.searchTerm=''
     this.open=false;
   }
 

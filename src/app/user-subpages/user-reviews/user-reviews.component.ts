@@ -14,7 +14,11 @@ export class UserReviewsComponent implements OnInit {
   myFeedback:FeedbackDTO[]=[];
   reviewB:boolean=false;
   selectedReview?: FeedbackDTO|null;
-  constructor(private tokenService:TokenService,private popupService:PopupService,private feedbackService:FeedbackService){}
+  constructor(private tokenService:TokenService,private popupService:PopupService,private feedbackService:FeedbackService){
+    this.popupService.closeCreateReview.subscribe(()=>{
+      this.closeReview();
+    })
+  }
 
   ngOnInit(): void {
     
@@ -31,7 +35,7 @@ export class UserReviewsComponent implements OnInit {
    
     this.selectedReview = review;
     this.reviewB = true;
-    console.log(this.selectedReview);
+    
   }
 
   closeReview(): void {

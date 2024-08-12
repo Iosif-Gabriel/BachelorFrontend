@@ -8,8 +8,8 @@
   align-items: center;
   z-index: 999;
   display: flex;
-  flex-direction: column; /* Așează elementele pe coloane */
-   justify-content: space-between; /* Distribuie spațiul între elemente */
+  flex-direction: column; 
+   justify-content: space-between; 
 }
 
 
@@ -37,8 +37,8 @@
 }
 
 .icon-svg {
-  width: 30px; /* lățimea dorită */
-  height: auto; /* înălțimea dorită */
+  width: 30px; 
+  height: auto; 
   border-radius: 200px;
   align-self: center;
 }
@@ -311,11 +311,11 @@ font-weight: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* culoare semi-transparentă pentru overlay */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* asigură că overlay-ul este deasupra tuturor elementelor */
+  z-index: 1000; 
 }
 
 

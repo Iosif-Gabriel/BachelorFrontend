@@ -78,12 +78,12 @@ export class LoginComponentComponent implements OnInit{
           this.userService.verifyToken(token.tokenType);
 
         }else if (token.tokenType==='WRONG_PASSWORD'){
-          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','./assets/images/icons/cancel.png');
+          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
         }
       },
       error: (error) => {
        
-          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','./assets/images/icons/cancel.png');
+          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
         
       }
     })

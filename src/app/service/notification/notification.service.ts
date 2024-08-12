@@ -40,6 +40,14 @@ export class NotificationService {
   deleteNotification(notiId: string): Observable<any> {
     const headers = this.auth.createAuthHeaders();
     const deleteNotificationUrl = `https://localhost:8080/notify/deleteUserNotification/${notiId}`;
-    return this.http.delete(deleteNotificationUrl, { headers });
-  }  
+    return this.http.delete(deleteNotificationUrl, { headers,responseType: 'text' });
+  }
+  
+  setSeenNotification(notiID:string):Observable<any>{
+    const headers=this.auth.createAuthHeaders();  
+    
+    const setSeenNotificationURL=`https://localhost:8080/notify/setSeenNotification/${notiID}`;
+
+    return this.http.patch(setSeenNotificationURL,{},{ headers,responseType: 'text' });
+  }
 }

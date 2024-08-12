@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { PopupService } from '../service/popup/popup.service';
 import { SectionService } from '../service/section/section.service';
 import { WebSocketService } from '../service/websocket/web-socket.service';
@@ -7,6 +6,7 @@ import { TokenService } from '../service/token/token.service';
 import { NotificationService } from '../service/notification/notification.service';
 import { NotificationDTO } from '../dtos/NotificationDTO';
 import { NotificationsService } from 'angular2-notifications';
+import { LocationService } from '../service/location/location.service';
 
 @Component({
   selector: 'app-user-page',
@@ -14,15 +14,23 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit, OnDestroy {
-  createPop:boolean=false;
-  userOrgEvents:boolean=false;
-  orderOpen:boolean=false;
+  createPop: boolean = false;
+  userOrgEvents: boolean = false;
+  orderOpen: boolean = false;
+  eventsFound: boolean = false;
 
-  constructor(private _service: NotificationsService,private notService:NotificationService,private tokenService:TokenService,private wesocketService:WebSocketService,private sectionService: SectionService,private popupService:PopupService) {}
-  
-  ngOnDestroy(): void {
-  
-  }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private locationService: LocationService,
+    private _service: NotificationsService,
+    private notService: NotificationService,
+    private tokenService: TokenService,
+    private wesocketService: WebSocketService,
+    private sectionService: SectionService,
+    private popupService: PopupService
+  ) {}
+
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
     const user = this.tokenService.getUser();
@@ -30,18 +38,20 @@ export class UserPageComponent implements OnInit, OnDestroy {
       this.popupService.isCreatEventOpen.subscribe(create => {
         this.createPop = create;
       });
-     this.wesocketService.receiveMessages(user.id).subscribe((mess: NotificationDTO) => {
+
+      this.wesocketService.receiveMessages(user.id).subscribe((mess: NotificationDTO) => {
         this.notService.addNotificationDTO(mess);
-        this.createNot(mess.type,mess.message);
-      
-      }); 
+        this.createNot(mess.type, mess.message);
+      });
+
       this.popupService.setisEventPageOpen(false);
+
+      //this.locationService.requestUserLocation();
+     
     }
   }
 
-
-  createNot(title:string,content:string): void {
-   
+  createNot(title: string, content: string): void {
     this._service.create(title, content);
   }
 
@@ -49,15 +59,13 @@ export class UserPageComponent implements OnInit, OnDestroy {
     return this.sectionService.getActiveSection() === section;
   }
 
-
- 
   getEventMessage(): string {
     return this.sectionService.getEventMessage();
   }
 
-  getSeachMessage():boolean{
+
+  getEventsFound():boolean{
+ 
     return this.sectionService.getEventsFound();
   }
-
-
 }

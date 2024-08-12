@@ -17,8 +17,14 @@
         </select>
     </div>
     <div class="eventList">
-        <div class="messageContainer" *ngIf="userOrders.length===0">
-            <h2>No Orders</h2> 
+        <div class="messageContainer">
+            <div class="messageContainer" *ngIf="selectedOrders === 'Attendee Orders' && attendeeOrders.length === 0">
+                <h2>No Attendee Orders</h2> 
+            </div>
+            
+            <div class="messageContainer" *ngIf="selectedOrders === 'My Events Orders' && userOrders.length === 0">
+                <h2>No My Events Orders</h2> 
+            </div>
          </div>
          <div class="messageContainer" *ngIf="userOrders.length && selectedOrders=='My Events Orders'">
             <app-order-page [selectedOrders]="userOrders" [type]="selectedOrders"></app-order-page>

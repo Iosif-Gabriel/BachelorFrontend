@@ -1,9 +1,11 @@
 // order-page.component.ts
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { OrderDTO } from '../dtos/OrderDTO';
 import { TokenService } from '../service/token/token.service';
 import { OrderService } from '../service/order/order.service';
 import { SectionService } from '../service/section/section.service';
+import { ModalService } from '../service/modal/modal.service';
+import { formatDate } from 'date-fns';
 
 @Component({
   selector: 'app-order-page',
@@ -19,7 +21,7 @@ export class OrderPageComponent implements OnInit {
   orders!: OrderDTO[];
   displayedColumns: string[] = [ 'eventId', 'orderedAt', 'startDate', 'endDate', 'nrOfGuests', 'totalPrice', 'actions'];
   
-  constructor(private sectionService: SectionService,private tokenService:TokenService,private orderService:OrderService){}
+  constructor(  private cdr: ChangeDetectorRef,private viewContainerRef: ViewContainerRef,private modalService:ModalService,private sectionService: SectionService,private tokenService:TokenService,private orderService:OrderService){}
 
   ngOnInit(): void {
     const user=this.tokenService.getUser();
@@ -28,30 +30,61 @@ export class OrderPageComponent implements OnInit {
     //this.orderService.getOrganizerOrders(id).subscribe(order=>{
      
       this.orders=this.selectedOrders;
-     
+     console.log(this.orders);
       this.sectionService.setOrders(this.orders);
    // })
   }
 
+  formatDateTable(dateTime: string, type:string): string {
+    
+    if(type==='orderedAt'){
+      return formatDate(dateTime, 'dd/MM/yyyy, HH:mm:ss');
+
+    }
+    return formatDate(dateTime,'dd/MM/yyyy');
+  }
+
   editOrder(order: OrderDTO) {
-    // Implement edit functionality here
+    
    console.log('Edit order:', order);
     this.isEditOpen=true;
   }
   
   saveOrder(order: OrderDTO): void {
-    // Salvează modificările făcute în comanda selectată
-    // Apoi dezactivează modul de editare
+  
     order.isEditing = false;
   }
   
+
   deleteOrder(order: OrderDTO): void {
-    // Șterge comanda din listă
+    console.log(order);
+    this.orderService.deleteOrder(order.id).subscribe(
+      resp => {
+        console.log('Event deleted successfully:', resp);
+        
+        const index = this.orders.findIndex(or => or.id === order.id);
+        if (index !== -1) {
+          this.orders.splice(index, 1);
+          this.orders = [...this.orders]; 
+          this.cdr.detectChanges();
+        }
+  
+        
+        this.modalService.openModal(this.viewContainerRef, 'Deletion Successful', 'Success', 'Success');
+      },
+      error => {
+        console.error('Failed to delete event:', error);
+        
+        this.modalService.openModal(this.viewContainerRef, 'Deletion Error', 'Error', 'Error');
+      }
+    );
   }
+  
+  
 
   toggleEdit(order:OrderDTO){
     this.orders.forEach(o => o.isEditing = false);
-    // Activează modul de editare doar pentru comanda selectată
+    
     order.isEditing = true;
     console.log(order)
   }

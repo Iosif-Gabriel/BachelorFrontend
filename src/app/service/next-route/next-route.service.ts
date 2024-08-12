@@ -9,22 +9,22 @@ import { PopupService } from '../popup/popup.service';
 export class NextRouteService {
   private nextRoute: string = '';
 
-  constructor(private router: Router,private popupService:PopupService) {
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+  // constructor(private router: Router,private popupService:PopupService) {
+  //   this.router.events.pipe(
+  //     filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+  //   ).subscribe((event: NavigationEnd) => {
       
-      console.log('Următoarea rută:', event.urlAfterRedirects);
-      if(event.urlAfterRedirects==='/userCreatedEvents' || event.urlAfterRedirects==='/userFavEvents' || event.urlAfterRedirects==='/userOrders' || event.urlAfterRedirects==='/userFeedback'){
+  //     console.log('Următoarea rută:', event.urlAfterRedirects);
+  //     if(event.urlAfterRedirects==='/userCreatedEvents' || event.urlAfterRedirects==='/userFavEvents' || event.urlAfterRedirects==='/userOrders' || event.urlAfterRedirects==='/userFeedback'){
 
-        this.popupService.setisEventPageOpen(true);
+  //       this.popupService.setisEventPageOpen(true);
 
-      }else if(event.urlAfterRedirects==='/userHome'){
+  //     }else if(event.urlAfterRedirects==='/userHome'){
 
-        this.popupService.setisEventPageOpen(false);
-      }
-    });
-  }
+  //       this.popupService.setisEventPageOpen(false);
+  //     }
+  //   });
+  // }
 
   getNextRoute(): string {
     // Returnează următoarea rută

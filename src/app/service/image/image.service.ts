@@ -13,11 +13,33 @@ export class ImageService {
 
   setImageListPath(pictureUrls:{ [key: string]: string }) {
     this.pictureUrls = pictureUrls;
-    console.log(this.pictureUrls);
+    //console.log(this.pictureUrls);
   }
 
   getImagesListPath(){
     return this.pictureUrls;
+  }
+
+  setPicturesInGallery(pictureUrls:{ [key: string]: string }){
+    const keys = Object.keys(pictureUrls);
+      for (const key of keys) {
+        const url = pictureUrls[key];
+        if (url) {
+          
+          const relativePath = url.replace("E:\\Facultate\\Anul4\\Licenta\\Front\\eventMaker\\src\\", "").replace(/\\/g, '/');
+          const parts = relativePath.split("/");
+          const filename = parts && parts.length > 0 ? parts[parts.length - 1] : '';
+          const position = this.getPositionFromFileNameIndex(filename,1);
+          const parentDiv = document.getElementById(position);
+    
+          if (parentDiv) {
+            this.addImageToContainer(relativePath, parentDiv);
+          }
+         
+        }
+      }
+
+     
   }
 
 
@@ -33,11 +55,15 @@ export class ImageService {
     return this.imageList;
   }
 
+  public setImageList(images: { path: string; file: File }[]): void {
+    this.imageList = images;
+}
 
-  getPositionFromFileName(fileName: string): string {
+
+  getPositionFromFileNameIndex(fileName: string, index: number): string {
     const parts = fileName.split('_');
-    return parts[0];
-  }
+    return parts[index];
+}
   
   addImageToContainer(imagePath: string, container: HTMLElement): void {
     const img = document.createElement('img');

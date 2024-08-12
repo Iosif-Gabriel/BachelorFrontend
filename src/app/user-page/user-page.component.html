@@ -2,31 +2,30 @@
     <div class="navbars">
         <app-user-nav class="navBar"></app-user-nav>
     </div>
-    <div class="allEventsContainer"  *ngIf="isActiveSection('allEvents')">
-    <div class="contentUser wrapper-mainPage">
-        <div class="imageSlider">
-            <app-image-slider></app-image-slider>
-        </div>
-        <div class="listTitleEventsContainer">
-            <h2 class="listTitleEvents">Checkout this events:</h2>
-        </div>
-        <div class="eventList">
-            <div class="" *ngIf="!getSeachMessage()">
-            <app-event-list ></app-event-list>
-        </div>
-            <div class="messageContainer">
-               <h2>{{ getEventMessage() }}</h2> 
-           
-            <div class="messageContainer"  *ngIf="getSeachMessage()">
-                <h2>No events found...</h2> 
-             </div>
+    <div class="allEventsContainer" *ngIf="isActiveSection('allEvents')">
+        <div class="contentUser wrapper-mainPage">
+            <div class="imageSlider">
+                <app-image-slider></app-image-slider>
             </div>
+            <div class="listTitleEventsContainer">
+                <h2 class="listTitleEvents">Checkout this events:</h2>
+            </div>
+            <div class="eventList">
+                <div *ngIf="!eventsFound">
+                  <app-event-list></app-event-list>
+                </div>
+                <div class="messageContainer">
+                  <h2>{{ getEventMessage() }}</h2>
+                </div>
+                <div class="messageContainer" *ngIf="getEventsFound()">
+                  <h2>No events found...</h2>
+                </div>
+              </div> 
         </div>
-    </div>
     </div>
     <div *ngIf="createPop" class="popup-overlayUser">
         <div class="popup-wrapperUser">
-          <app-create-event class="smth"></app-create-event>
+            <app-create-event class="smth"></app-create-event>
         </div>
-    </div>  
+    </div>
 </div>

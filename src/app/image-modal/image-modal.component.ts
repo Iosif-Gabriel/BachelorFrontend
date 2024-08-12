@@ -4,6 +4,8 @@ import { EventService } from '../service/event/event.service';
 import { EventDTO } from '../dtos/EventDTO';
 import { ImageService } from '../service/image/image.service';
 import { ModalService } from '../service/modal/modal.service';
+import { SectionService } from '../service/section/section.service';
+import { PopupService } from '../service/popup/popup.service';
 
 @Component({
   selector: 'app-image-modal',
@@ -11,16 +13,17 @@ import { ModalService } from '../service/modal/modal.service';
   styleUrls: ['./image-modal.component.css']
 })
 export class ImageModalComponent implements OnInit{
-  @Input() imageUrl: string | undefined; // Image URL
+  @Input() imageUrl: string | undefined; 
   @Output() closeModalEvent = new EventEmitter<void>();
   @Output() openModalEvent = new EventEmitter<void>();
   selectedOption: string = "Gallery";
   isGallery:boolean=false;
   eventDTO!:EventDTO;
- imageList: { path: string; file: File }[] = [];
- save=false;
+  imageList: { path: string; file: File }[] = [];
+  pictureUrls: { [key: string]: string; }={};
+  save=false;
 
-  constructor(private modalService: ImageModalService,private eventService:EventService,private imageService:ImageService,private modalMessage:ModalService,private viewContainerRef: ViewContainerRef) {} // Inject the ModalService
+  constructor(private popupService:PopupService,private sectionService:SectionService,private modalService: ImageModalService,private eventService:EventService,private imageService:ImageService,private modalMessage:ModalService,private viewContainerRef: ViewContainerRef) {} // Inject the ModalService
   
   ngOnInit(): void {
     
@@ -30,24 +33,47 @@ export class ImageModalComponent implements OnInit{
   saveEvent() {
     this.imageList = this.imageService.getImageList();
     this.eventDTO = this.eventService.getEventDTO();
-    console.log(this.imageList);
+    const eventId=this.eventService.getEventId();
+    this.eventDTO.id=eventId;
     this.save=true;
+
+    if(this.sectionService.getActiveActivity()==='editEvent'){
+      console.log(this.imageList);
+
+      this.eventService.patchEvent(this.eventDTO,this.imageList).subscribe(
+          (response)=>{
+            
+            if(response){
+              this.modalMessage.openModal(this.viewContainerRef, 'Event edited succesfully!', "", 'Success');
+              this.imageService.setImageListPath({});
+              this.imageService.setImageList([]);
+
+            }
+            
+          },
+          error => {
+            console.error('Error uploading images:', error);
+            
+            this.modalMessage.openModal(this.viewContainerRef, 'Error', 'Error updating event. Please try again later.', 'Error');
+          }
+      )
+      
+    }else{
     this.eventService.uploadImages(this.eventDTO, this.imageList).subscribe(
       response => {
-        console.log(response); 
-        console.log(response.message); 
       
         if (response.message) {
           
-          this.modalMessage.openModal(this.viewContainerRef, 'Success', response.message, './assets/images/icons/yes.png');
+          this.modalMessage.openModal(this.viewContainerRef, 'Success', response.message, 'Success');
         }
       },
       error => {
         console.error('Error uploading images:', error);
         
-        this.modalMessage.openModal(this.viewContainerRef, 'Error', 'Error uploading images. Please try again later.', './assets/images/icons/cancel.png');
+        this.modalMessage.openModal(this.viewContainerRef, 'Error', 'Error uploading images. Please try again later.', 'Error');
       }
     );
+  }
   }
   
   
@@ -58,6 +84,7 @@ export class ImageModalComponent implements OnInit{
 
   closeImage(){
     this.closeModalEvent.emit();
+    //this.popupService.setCreatEventOpen(false);
    
   }
 

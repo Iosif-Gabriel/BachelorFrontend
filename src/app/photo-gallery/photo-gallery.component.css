@@ -9,8 +9,8 @@
   }  
 
   .main-gallery-photo {
-    width: 650px; /* Increase width */
-    height: 450px; 
+    width: 610px; /* Increase width */
+    height: 410px; 
     margin: 5px;
     position: relative;
     background-color: antiquewhite;
@@ -24,8 +24,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 350px;
-    height: 450px;
+    width: 310px;
+    height: 420px;
     /* background-color: rgb(165, 149, 149); */
     /* margin-top: 20px; */
   }
@@ -44,7 +44,7 @@
 
   .small-gallery-photo img,
 .main-gallery-photo img {
-  width: 100%; /* Faceți imaginile să ocupe întregul container */
+  width: 100%; 
   height: 100%;
   /* object-fit: cover; */
   overflow: clip;
@@ -94,15 +94,15 @@
 /* @media only screen and (min-width: 1700px) {
  
   .small-gallery-photo {
-    width: 250px; 
-    height: 200px; 
-    margin: 5px;
+    width: 250px;
+    height: 380px;
+    
   }
 
   .main-gallery-photo {
-    width: 500px; 
-    height: 100%; 
-    margin: 5px;
+    width: 600px; 
+    height: 375px; 
+   
   }
 
   .showPhotos{

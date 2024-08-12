@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ImageService } from '../service/image/image.service';
+import { SectionService } from '../service/section/section.service';
+import { EventService } from '../service/event/event.service';
 
 @Component({
   selector: 'app-create-photo-gallery',
@@ -13,20 +15,28 @@ export class CreatePhotoGalleryComponent {
   imageList: { path: string; file: File }[] = [];
   isMain:boolean=false;
 
-  constructor(private imageService: ImageService) { }
+  constructor(private sectionService:SectionService,private imageService: ImageService) { }
 
 
   ngOnInit(): void {
-    
-    this.imageList=this.imageService.getImageList();
+    if (this.sectionService.getActiveActivity() === 'editEvent') {
+      this.imageService.setPicturesInGallery(this.imageService.getImagesListPath());
+    }
+  
+    this.imageList = this.imageService.getImageList();
+    this.processImages();
+  }
+  
+  private processImages(): void {
     this.imageList.forEach(image => {
-      const position = this.imageService.getPositionFromFileName(image.file.name);
+      const position = this.imageService.getPositionFromFileNameIndex(image.file.name, 0);
       const parentDiv = document.getElementById(position);
       if (parentDiv) {
         this.imageService.addImageToContainer(image.path, parentDiv);
       }
     });
   }
+  
 
     
   removeImage(positionId: string): void {

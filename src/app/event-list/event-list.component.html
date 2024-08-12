@@ -1,6 +1,6 @@
 <div class="event-list">
     <div class="event-card-container">
-      <app-event-card *ngFor="let event of searchResult" [event]="event" [cardId]="event.id" (addToFavoritesEvent)="addToFavorites($event)" (deleteEventEmitter)="deleteEvent($event)"></app-event-card>
+      <app-event-card *ngFor="let event of eventsWithPictures" [event]="event" [cardId]="event.id" (addToFavoritesEvent)="addToFavorites($event)" (deleteEventEmitter)="deleteEvent($event)"></app-event-card>
     </div>
   </div>
   

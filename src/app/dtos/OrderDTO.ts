@@ -1,4 +1,5 @@
 export interface OrderDTO {
+    id:string;
     userId: number;
     eventId: number;
     eventName:string;

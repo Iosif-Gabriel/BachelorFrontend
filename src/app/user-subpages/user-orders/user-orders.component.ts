@@ -20,7 +20,7 @@ export class UserOrdersComponent implements OnInit {
 
 onOrderTypeChange(selectedValue: string): void {
   const userId = this.tokenService.getUser().id;
-
+  this.sectionService.setActiveSection("userOrdes");
   if (selectedValue === 'My Events Orders') {
     this.orderService.getOrganizerOrders(userId).subscribe(orders => {
     
@@ -34,7 +34,7 @@ onOrderTypeChange(selectedValue: string): void {
       this.attendeeOrders = orders;
       
       this.popupService.setisEventPageOpen(true);
-      this.sectionService.setActiveSection("userOrdes");
+      
     });
   }
 }

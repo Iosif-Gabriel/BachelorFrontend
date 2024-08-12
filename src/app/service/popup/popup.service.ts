@@ -14,6 +14,7 @@ export class PopupService {
   
   closeNotification: EventEmitter<void> = new EventEmitter<void>();
   closeCreateReview: EventEmitter<void> = new EventEmitter<void>();
+  closeCreateEvent: EventEmitter<void>=new EventEmitter<void>();
   private _isUserOrgEventsOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _OrdersOpen:BehaviorSubject<string> = new BehaviorSubject<string>("My Events Orders");
  

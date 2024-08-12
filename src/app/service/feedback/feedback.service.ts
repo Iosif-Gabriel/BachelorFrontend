@@ -11,8 +11,16 @@ import { FeedbackDTO } from 'src/app/dtos/FeedbackDTO';
 export class FeedbackService {
 
  
-
+  private editFeedback!:FeedbackDTO;
   constructor(private auth:AuthService,private http:HttpClient) { }
+
+  setFeedback(feedback:FeedbackDTO){
+    this.editFeedback=feedback;
+  }
+
+  getFeedback():FeedbackDTO{
+    return this.editFeedback;
+  }
 
 
   createFeedback(feedback:FeedbackDTO):Observable<FeedbackDTO>{
@@ -48,4 +56,12 @@ export class FeedbackService {
       })
     );
   }
+
+  patchFeedback(feedback:FeedbackDTO){
+    const headers=this.auth.createAuthHeaders();
+    const patchFeedbackURL=`https://localhost:8080/feedback/patchUserFeedback/${feedback.id}`
+
+    return this.http.patch(patchFeedbackURL,feedback,{headers,responseType: 'text' });
+  }
+
 }

@@ -15,7 +15,7 @@ import { ModalService } from '../service/modal/modal.service';
 export class RegisterComponentComponent implements OnInit {
 
   registerPopupOpen: boolean = false;
-  registerReq: RegisterRequest = { // Initialize registerReq with an empty object
+  registerReq: RegisterRequest = {
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -55,25 +55,30 @@ export class RegisterComponentComponent implements OnInit {
   }
 
   confirmRegister(): void {
-    this.popUpService.setRegisterButtonPressed(true);
   
     if (!this.validateRegisterRequest(this.registerReq)) {
       console.error('Invalid registerReq. Registration aborted.');
-      this.modalService.openModal(this.viewContainerRef, 'Registration Error', 'Please complete all the boxes','./assets/images/icons/cancel.png');
+      this.modalService.openModal(this.viewContainerRef, 'Registration Error', 'Please complete all the boxes','Error');
       return;
     }
-    // this.modalService.openModal(this.entry, 'Account created successfully!', '', './assets/images/icons/yes.png');
-  
+   
     this.registerRequest.register(this.registerReq).subscribe(
       (response) => {
-        console.log('Register successful:', response);
-        this.modalService.openModal(this.viewContainerRef, 'Registration Successful', 'Congratulations! Your registration was successful.','./assets/images/icons/yes.png');
+       
+        if (response.tokenType === 'ALREADY_EXISTING_USERNAME') {
+          this.modalService.openModal(this.viewContainerRef, 'Registration Error', 'Username already exists. Please choose a different username.', 'Error');
+        } else {
+          console.log('Register successful:', response);
+          this.modalService.openModal(this.viewContainerRef, 'Registration Successful', 'Congratulations! Your registration was successful.', 'Success');
+          
+        }
       },
       (error) => {
         console.error('Error during registration:', error);
-        this.modalService.openModal(this.viewContainerRef, 'Registration Error', 'An error occurred during registration. Please try again later.','./assets/images/icons/cancel.png');
+        this.modalService.openModal(this.viewContainerRef, 'Registration Error', 'An error occurred during registration. Please try again later.', 'Error');
       }
     );
+    
   }
   
  
@@ -127,9 +132,8 @@ export class RegisterComponentComponent implements OnInit {
   keyPressLetters(event: KeyboardEvent) {
     const charCode = event.which || event.keyCode;
   
-    // Doar literele mici și mari
-    if ((charCode < 65 || charCode > 90) && // Litere mari
-        (charCode < 97 || charCode > 122)) { // Litere mici
+    if ((charCode < 65 || charCode > 90) && 
+        (charCode < 97 || charCode > 122)) { 
       event.preventDefault();
       return false;
     } else {

@@ -26,6 +26,8 @@
 .contentCreate{
     /* border: 2px solid red ; */
     width: 100%;
+    display: grid;
+    gap: 25px;
 }
 
 .left-column,
@@ -111,6 +113,7 @@
     cursor: pointer;
     font-family: "Josefin Sans", sans-serif;
     font-size: large;
+    margin-top: 10px;
 }
 
 .preview-button:hover {
@@ -211,4 +214,14 @@
   .preview-button[disabled] {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  .invalid-input input {
+    border: 1px solid red;
+    background-color: #e80000a1;
+    color: white;
+  }
+  
+  .errorText{
+    color: #ca2626;
   }

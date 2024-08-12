@@ -7,6 +7,8 @@ import { SectionService } from '../service/section/section.service';
 import { TokenService } from '../service/token/token.service';
 import { EventService } from '../service/event/event.service';
 import { ModalService } from '../service/modal/modal.service';
+import { ImageService } from '../service/image/image.service';
+import { FavService } from '../service/favourite/fav.service';
 
 @Component({
   selector: 'app-event-card',
@@ -18,16 +20,14 @@ export class EventCardComponent implements OnInit,AfterViewInit {
 
   @Input() event: EventWithPicturesDTO | undefined;
   @Input() cardId:string | undefined;
-  @Output() addToFavoritesEvent = new EventEmitter<string>();
   @Output() deleteEventEmitter=new EventEmitter<string>();
+  @Output() addToFavoritesEvent = new EventEmitter<string>();
   @ViewChild('favButton') favButton!: ElementRef;
-  isFavorite: boolean = false;
+
   isOrgEventOpen:boolean=false;
 
-  constructor(private eventService:EventService,private section:SectionService,private router:Router,private popUpService:PopupService){}
-  ngAfterViewInit(): void {
-    this.isfavouritee(this.event)
-  }
+  constructor(private favService:FavService,private imageService:ImageService,private eventService:EventService,private section:SectionService,private router:Router,private popUpService:PopupService){}
+  
 
   ngOnInit(): void {
     if(this.section.getActiveSection()!='allEvents' && this.section.getActiveSection()!='userFavEvents'){
@@ -36,37 +36,26 @@ export class EventCardComponent implements OnInit,AfterViewInit {
   
   }
 
-  isfavouritee(event: any) {
+  ngAfterViewInit(): void {
+    this.favService.setFavButton(this.favButton);
+    this.isfavouritee(this.event)
+  }
 
-    if (this.favButton) {
-     
-      if (event.fav === true) {
-        this.favButton.nativeElement.classList.remove("svgheart");
-      } else if (event.fav === false) {
-        this.favButton.nativeElement.classList.add("svgheart");
-      }
-    }
+  isfavouritee(event: any) {
+    this.favService.isfavouritee(event,"svgheart");
   }
 
   
   addToFavorites(event: any) {
-    const buttonId = 'fav_' + event.id;
-    const favButton = document.getElementById(buttonId);
-   
-    if (favButton) {
-      if (event.fav === false) {
-        favButton.classList.remove("svgheart");
-      } else if(event.fav===true) {
-        favButton.classList.add("svgheart");
-      }
-    }
+    this.favService.addToFavorites(event,"svgheart");
     this.addToFavoritesEvent.emit(event.id);
   }
   
 
   openEventPage(eventId:string){
-    if(this.section.getActiveSection()=='allEvents'){
+    if(this.section.getActiveSection()=='allEvents' || this.section.getActiveSection()==='userFavEvents'){
         this.router.navigate(['/event', eventId]);
+        this.section.setActiveActivity(String(this.event?.fav));
       }
   }
 
@@ -78,7 +67,7 @@ export class EventCardComponent implements OnInit,AfterViewInit {
         if (url) {
           
           const relativePath = url.replace("E:\\Facultate\\Anul4\\Licenta\\Front\\eventMaker\\src\\", "").replace(/\\/g, '/');
-        //  console.log(relativePath);
+    
           return relativePath;
         }
       }
@@ -93,10 +82,18 @@ export class EventCardComponent implements OnInit,AfterViewInit {
   }
   
 
-  editEvent(event:any){
+  editEvent(event: any) {
     this.section.setActiveActivity("editEvent");
+
+    this.eventService.getEventPictures(event.id).subscribe((pictures)=>{
+     
+         this.imageService.setImageListPath(pictures);
+    })
+   
+    this.eventService.setEventId(event.id);
     this.eventService.setEventWithPictures(event);
     this.popUpService.setCreatEventOpen(true);
+    
   }
 
   getShortDescription(): string {
@@ -106,6 +103,11 @@ export class EventCardComponent implements OnInit,AfterViewInit {
     return this.event?.description || '';
   }
   
-  
+  getShortEventName(): string {
+    if (this.event?.eventName && this.event.eventName.length > 13) {
+      return this.event.eventName.substring(0, 11) + '...';
+    }
+    return this.event?.eventName || '';
+  }
   
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
@@ -12,13 +12,14 @@ import { TicketDTO } from '../dtos/TicketDTO';
 import { PopupService } from '../service/popup/popup.service';
 import { TokenService } from '../service/token/token.service';
 import { SectionService } from '../service/section/section.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-event',
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.css']
 })
-export class CreateEventComponent implements OnInit {
+export class CreateEventComponent implements OnInit,AfterContentChecked   {
  
   @Input() eventData: any;
   isModalOpen:boolean=false;
@@ -26,6 +27,7 @@ export class CreateEventComponent implements OnInit {
   createPopEvent:boolean=false;
   editEvent:boolean=false;
   eventDTO:EventDTO ={
+    id:'',
     eventName: '',
     description: '',
     startTime: '',
@@ -34,7 +36,8 @@ export class CreateEventComponent implements OnInit {
     idEventType: '',
     idUser: ' ',
     price:0,
-    nrGuests:0
+    nrGuests:0,
+    available:false,
   }
 
   locationDTO:LocationDTO={
@@ -44,9 +47,25 @@ export class CreateEventComponent implements OnInit {
   }
 
   eventTypes!:EventTypeDTO[];
+  eventForm!: FormGroup;
 
+  constructor(private cdr: ChangeDetectorRef,private sectionService:SectionService,private tokenService:TokenService,private popService:PopupService, private eventService:EventService, private locationService:LocationService){
+    this.eventForm = new FormGroup({
+      eventTitle: new FormControl('', Validators.required),
+      eventDescription: new FormControl('', Validators.required),
+      eventType: new FormControl('', Validators.required),
+      nrGuests: new FormControl('', [Validators.required, Validators.min(1)]),
+      ticketPrice: new FormControl('', [Validators.required, Validators.min(0)]),
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl('', Validators.required),
+      location: new FormControl('', Validators.required)
+    });
+ 
+  }
 
-  constructor(private sectionService:SectionService,private tokenService:TokenService,private popService:PopupService, private eventService:EventService, private locationService:LocationService){}
+  ngAfterContentChecked(): void {
+    this.cdr.detectChanges();
+  }
   
   ngOnInit(): void {
     this.eventService.getAllEventTypes().subscribe(types => {
@@ -54,39 +73,46 @@ export class CreateEventComponent implements OnInit {
     });
     const user=this.tokenService.getUser();
     this.eventDTO.idUser=user.id;
+
+   
    
     if(this.sectionService.getActiveSection()==='userOrgEvents'){
       
       if(this.sectionService.getActiveActivity()==='editEvent'){
-        const eventWithPictures=this.eventService.getEventWithPictures()
-        if(eventWithPictures){
        
-        this.eventDTO.description=eventWithPictures.description;
-        this.eventDTO.eventName=eventWithPictures.eventName;
-        this.eventDTO.price=eventWithPictures.price;
-        this.eventDTO.startTime=eventWithPictures.startTime;
-        this.eventDTO.endTime=eventWithPictures.endTime;
-        this.eventDTO.idEventType=eventWithPictures.idEventType;
-        this.eventDTO.idLocation=eventWithPictures.idLocation;
-        this.eventDTO.nrGuests=eventWithPictures.nrGuests;
+        const eventWithPictures=this.eventService.getEventWithPictures()
+       
+        if(eventWithPictures){
+          this.editEvent=true;
+        this.eventForm.get("eventDescription")?.setValue(eventWithPictures.description);
+        this.eventForm.get("eventTitle")?.setValue(eventWithPictures.eventName);
+        this.eventForm.get("ticketPrice")?.setValue(eventWithPictures.price);
+        this.eventForm.get("startDate")?.setValue(eventWithPictures.startTime);
+        this.eventForm.get("endDate")?.setValue(eventWithPictures.endTime);
+        this.eventForm.get("eventType")?.setValue(eventWithPictures.idEventType);
+        this.eventForm.get("location")?.setValue(eventWithPictures.idLocation);
+        this.eventForm.get("nrGuests")?.setValue(eventWithPictures.nrGuests);
+       
         }
       }else{
         this.editEvent=false;
-        this.eventDTO.description=''
-        this.eventDTO.eventName=''
-        this.eventDTO.price=0;
-        this.eventDTO.startTime=''
-        this.eventDTO.endTime=''
-        this.eventDTO.idEventType=''
-        this.eventDTO.idLocation=''
-        this.eventDTO.nrGuests=0;
+        this.eventDTO.description=this.eventForm.get("eventDescription")?.value;
+        this.eventDTO.eventName=this.eventForm.get("eventTitle")?.value;
+        this.eventDTO.price=this.eventForm.get("ticketPrice")?.value;
+        this.eventDTO.startTime=this.eventForm.get("startDate")?.value;
+        this.eventDTO.endTime=this.eventForm.get("endDate")?.value;
+        this.eventDTO.idEventType=this.eventForm.get("eventType")?.value;
+        this.eventDTO.idLocation=this.eventForm.get("location")?.value;
+        this.eventDTO.nrGuests=this.eventForm.get("nrGuests")?.value;
       }
-    
+      
+      
     
     }
-   
+
+
   }
-  
+
 
   onEventTypeChange(event: any) {
     if (event && event.target && event.target.value) {
@@ -122,11 +148,14 @@ export class CreateEventComponent implements OnInit {
 
 
     closeEventCreation():void{
+      this.isModalOpen = false;
       this.popService.setCreatEventOpen(false);
+      //this.popService.closeCreateEvent.emit();
     }
 
     onOpenModal(): void {
       this.isModalOpen = true;
+      this.popService.setCreatEventOpen(true);
       this.eventService.setEventDTO(this.eventDTO);
 
     }
@@ -134,35 +163,74 @@ export class CreateEventComponent implements OnInit {
     
     previewEvent(): void {
       this.onOpenModal();
-      
+    
       this.locationService.createLocation(this.locationDTO).subscribe(
         id => {
           console.log('Locația a fost inserată cu succes în baza de date:', id);
-          this.eventDTO.idLocation=String(id);
+          this.eventDTO.idLocation = String(id);
+        
+          this.populateEventDTO();
         },
         error => {
           console.error('Eroare la inserarea locației:', error);
-         
         }
       );
-     
     }
+    
+
+    populateEventDTO(): void {
+      if(this.isFormValid()){
+        this.eventDTO.description = this.eventForm.get("eventDescription")?.value;
+        this.eventDTO.eventName = this.eventForm.get("eventTitle")?.value;
+        this.eventDTO.price = this.eventForm.get("ticketPrice")?.value;
+        this.eventDTO.startTime = this.eventForm.get("startDate")?.value;
+        this.eventDTO.endTime = this.eventForm.get("endDate")?.value;
+        this.eventDTO.idEventType = this.eventForm.get("eventType")?.value;
+        this.eventDTO.nrGuests = this.eventForm.get("nrGuests")?.value;
+      }
+   
+    }
+    
 
     onCloseModal(): void {
       this.isModalOpen = false; 
     }
 
     isFormValid(): boolean {
+      const startDate = new Date(this.eventForm.value.startDate);
+      const endDate = new Date(this.eventForm.value.endDate);
+      const currentDate = new Date();
+    
+      let formErrors: { [key: string]: boolean } = {};
+    
+      if (this.eventForm.get('startDate')?.value && startDate > endDate ) {
+        formErrors = { ...formErrors, 'invalidRange': true };
+      }
+    
+      if (this.eventForm.get('startDate')?.value && startDate < currentDate) {
+        formErrors = { ...formErrors, 'invalidStartDate': true };
+      }
+
+      if(this.eventForm.get('endDate')?.value && endDate < currentDate || endDate < startDate){
+        formErrors = { ...formErrors, 'invalidRange': true };
+      }
+    
+      this.eventForm.get('endDate')?.setErrors(formErrors['invalidRange'] ? { 'invalidRange': true } : null);
+      this.eventForm.get('startDate')?.setErrors(formErrors['invalidStartDate'] ? { 'invalidStartDate': true } : null);
+    
       return !!(
-        this.eventDTO.eventName &&
-        this.eventDTO.description &&
-        this.eventDTO.idEventType &&
-        this.eventDTO.nrGuests !== undefined &&
-        this.eventDTO.price !== undefined &&
-        this.eventDTO.startTime &&
-        this.eventDTO.endTime
+        this.eventForm.get('eventTitle')?.value &&
+        this.eventForm.get('eventDescription')?.value &&
+        this.eventForm.get('eventType')?.value &&
+        this.eventForm.get('nrGuests')?.value !== undefined &&
+        this.eventForm.get('ticketPrice')?.value !== undefined &&
+        this.eventForm.get('startDate')?.value &&
+        this.eventForm.get('endDate')?.value
       );
     }
+    
+    
+    
     
   
   

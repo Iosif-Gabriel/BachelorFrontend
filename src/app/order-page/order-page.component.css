@@ -2,8 +2,8 @@
     font-family: "Josefin Sans", sans-serif;
     
     max-height: 400px; /* Setați înălțimea maximă a containerului */
-  overflow-y: auto; /* Permite scroll vertical */
-  width: 1200px;
+  overflow: auto; /* Permite scroll vertical */
+  width: 100%;
     background-color: rgb(207,207,207);
     border-radius: 20px;
     scrollbar-width: none;
@@ -49,12 +49,14 @@
   .table{
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto;
   }
 
   th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    white-space: nowrap;
   }
   
   th {
@@ -62,4 +64,38 @@
     position: sticky;
     top: 0;
     z-index: 1; /* Asigură că antetul rămâne deasupra celorlalte rânduri */
+  }
+
+
+  .tableContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .responsive-table {
+    width: 100%;
+    display: table;
+  }
+
+
+  .mat-header-cell, .mat-cell {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    th, td {
+      padding: 4px;
+    }
+  
+    .mat-header-cell, .mat-cell {
+      font-size: 12px;
+    }
+  
+    /* Ascunde coloane mai puțin importante pe ecrane mici */
+    .mat-column-totalPrice,
+    .mat-column-nrOfGuests {
+      display: none;
+    }
   }

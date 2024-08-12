@@ -10,7 +10,12 @@
         <input type="text" name="Last Name" [(ngModel)]="registerReq.lastName" (keypress)="keyPressLetters($event)" />
         <p>Phone Number <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter only numbers'"></i></p>
         <input type="text" name="Phone Number" [(ngModel)]="registerReq.phoneNumber"
-            (keypress)="keyPressNumbers($event)" [ngStyle]="{'background-color':(registerReq.phoneNumber.length==0) ? 'white':(registerReq.phoneNumber.length<10) ? '#FFCCCC':'lightgreen'}"/>
+            (keypress)="keyPressNumbers($event)" [ngStyle]="{
+                'background-color': (registerReq.phoneNumber.length === 0) ? 'white' : 
+                                    (registerReq.phoneNumber.length < 10) ? '#FFCCCC' : 
+                                    (registerReq.phoneNumber.length > 10) ? 'red' : 
+                                    'lightgreen'
+              }">
         <p>Email</p>
         <input type="text" name="Email" [(ngModel)]="registerReq.email">
         <p>Address</p>

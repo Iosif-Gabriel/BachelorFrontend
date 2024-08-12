@@ -92,6 +92,7 @@ export class PurchaseComponent implements OnInit {
       const user = this.tokenS.getUser();
       const eventId = this.event?.id;
       const order: OrderDTO = {
+        id:'',
         userId: user?.id ?? 0,
         eventId: typeof eventId === 'string' ? parseInt(eventId, 10) : eventId ?? 0,
         eventName: this.event?.eventName ?? 'Unknown Event', 
@@ -103,18 +104,21 @@ export class PurchaseComponent implements OnInit {
         isEditing:false
       };
 
-      this.orderService.createOrder(order).subscribe(res => {
-        if(res){
-          if (this.event && this.event.nrGuests !== undefined) {
-            this.event.nrGuests = (this.event.nrGuests - (this.purchaseForm.value.nrGuests ?? 0)) || 0;
-          
+      this.orderService.createOrder(order).subscribe(
+        (res: string) => {
+          console.log('Order created successfully', res);
+          if (res) {
+            window.open(res, '_blank', 'width=800,height=600,top=100,left=100');
+            if (this.event && this.event.nrGuests !== undefined) {
+              this.event.nrGuests = (this.event.nrGuests - (this.purchaseForm.value.nrGuests ?? 0)) || 0;
+            }
           }
-        
+        },
+        (error) => {
+          console.log('Error creating order', error);
+          this.modalService.openModal(this.viewContainerRef, 'Error', 'Purchasing does not work at the moment!', 'Error');
         }
-        
-      }, (error) => {
-        this.modalService.openModal(this.viewContainerRef, 'Error', 'Purchaseing does not work at the moment!', './assets/images/icons/cancel.png');
-      });
+      );
       
       
      if(this.event){

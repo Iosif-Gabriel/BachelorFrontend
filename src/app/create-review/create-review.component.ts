@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { PopupService } from '../service/popup/popup.service';
 
 import { TokenService } from '../service/token/token.service';
@@ -6,6 +6,8 @@ import { format } from 'date-fns';
 
 import { FeedbackService } from '../service/feedback/feedback.service';
 import { FeedbackDTO } from '../dtos/FeedbackDTO';
+import { ModalService } from '../service/modal/modal.service';
+import { SectionService } from '../service/section/section.service';
 
 
 @Component({
@@ -13,12 +15,12 @@ import { FeedbackDTO } from '../dtos/FeedbackDTO';
   templateUrl: './create-review.component.html',
   styleUrls: ['./create-review.component.css']
 })
-export class CreateReviewComponent {
+export class CreateReviewComponent implements OnInit{
   
   @Input() eventData!: { eventid: string, eventName: string };
   parentRating: number = 0;
   @Output() closeEdit = new EventEmitter<any>();
-
+  editfeedback!:FeedbackDTO;
   reviewDTO:FeedbackDTO={
       id:'',
       userId: '',
@@ -30,8 +32,22 @@ export class CreateReviewComponent {
       userName:'',
       eventName:''
   }
-  constructor(private feedbackService:FeedbackService,private tokenService:TokenService,private popupService:PopupService){}
-
+  constructor(private sectionService:SectionService,private feedbackService:FeedbackService,private tokenService:TokenService,private popupService:PopupService,private modalService:ModalService,private viewContainerRef: ViewContainerRef){}
+  
+  
+  ngOnInit(): void {
+    if(this.sectionService.getActiveActivity()==="editReview"){
+       this.editfeedback=this.feedbackService.getFeedback()
+    
+      if(this.editfeedback.id){
+        this.reviewDTO.description=this.editfeedback.description;
+        this.parentRating=Number(this.editfeedback.rating);
+        this.reviewDTO.subject=this.editfeedback.subject;
+      }
+    }
+   
+  
+  }
 
   
   closePopup(){
@@ -42,6 +58,7 @@ export class CreateReviewComponent {
   submitReview(){
    
     const user =this.tokenService.getUser();
+
     const feedback:FeedbackDTO={
       id:'',
       userId: user.id,
@@ -53,10 +70,37 @@ export class CreateReviewComponent {
       userName:'',
       eventName:''
     }
-    console.log(feedback)
+    if(this.sectionService.getActiveActivity()==="editReview"){
+      feedback.id=this.editfeedback.id;
+      
+      this.feedbackService.patchFeedback(feedback).subscribe(res=>{
+       
+        if(res){
+        
+          this.modalService.openModal(this.viewContainerRef, 'Thank you for your Feedback!', 'Review patched succesfully','Success');
+         
+        }else{
+          this.modalService.openModal(this.viewContainerRef, 'Thank you for your time!', 'Error, try again later!','Error');
+          
+        }
+      })
+    }else{
+
+
    this.feedbackService.createFeedback(feedback).subscribe(res=>{
-    console.log(res);
+      if(res){
+        
+        this.modalService.openModal(this.viewContainerRef, 'Thank you for your Feedback!', 'Review added succesfully','Success');
+       
+      }else{
+        this.modalService.openModal(this.viewContainerRef, 'Thank you for your time!', 'Error, try again later!','Error');
+        
+      }
+      
    })
+  }
+   
+   
   }
 
   onRatingChange(rating: number) {

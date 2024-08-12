@@ -22,6 +22,7 @@ export class UserFavComponent implements OnInit,OnDestroy {
     const userId=this.tokenService.getUser().id;
     this.eventService.getUserFavEvents(userId).subscribe(userFav=>{
       this.userFavEvents=userFav;
+      console.log(this.userFavEvents)
       this.sectionService.setActiveSection("userFavEvents")
       this.popupService.setisEventPageOpen(true);
     })
@@ -33,7 +34,7 @@ export class UserFavComponent implements OnInit,OnDestroy {
   }
 
   isActiveActivity(activity:string):boolean{
-    console.log(activity);
+
     return this.sectionService.getActiveActivity()==activity;
   }
 }
