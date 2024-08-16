@@ -11,6 +11,14 @@ export class OrderService {
 
   constructor(private http: HttpClient,private authService:AuthService){}
 
+  getAllOrders():Observable<OrderDTO[]>{
+    const headers = this.authService.createAuthHeaders();
+    const orderURL=`https://localhost:8080/order/getAllOrders`;
+
+    return this.http.get<OrderDTO[]>(orderURL,{headers});
+
+  }
+
   getUserOrders(idUser:string):Observable<OrderDTO[]>{
     const headers = this.authService.createAuthHeaders();
     const orderURL=`https://localhost:8080/order/getUsersOrders/${idUser}`;

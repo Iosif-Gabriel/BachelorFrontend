@@ -90,7 +90,6 @@ import { VerifyComponent } from './verify/verify.component';
     UserEventsComponent,
     UserFavComponent,
     UserReviewsComponent,
- 
     CancelComponent,
     SuccessComponent,
     VerifyComponent,

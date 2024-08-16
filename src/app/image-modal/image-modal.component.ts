@@ -44,7 +44,7 @@ export class ImageModalComponent implements OnInit{
           (response)=>{
             
             if(response){
-              this.modalMessage.openModal(this.viewContainerRef, 'Event edited succesfully!', "", 'Success');
+              this.modalMessage.openModal("images succ",this.viewContainerRef, 'Event edited succesfully!', "", 'Success');
               this.imageService.setImageListPath({});
               this.imageService.setImageList([]);
 
@@ -54,7 +54,7 @@ export class ImageModalComponent implements OnInit{
           error => {
             console.error('Error uploading images:', error);
             
-            this.modalMessage.openModal(this.viewContainerRef, 'Error', 'Error updating event. Please try again later.', 'Error');
+            this.modalMessage.openModal("images err",this.viewContainerRef, 'Error', 'Error updating event. Please try again later.', 'Error');
           }
       )
       
@@ -64,13 +64,13 @@ export class ImageModalComponent implements OnInit{
       
         if (response.message) {
           
-          this.modalMessage.openModal(this.viewContainerRef, 'Success', response.message, 'Success');
+          this.modalMessage.openModal("images succ2",this.viewContainerRef, 'Success', response.message, 'Success');
         }
       },
       error => {
         console.error('Error uploading images:', error);
         
-        this.modalMessage.openModal(this.viewContainerRef, 'Error', 'Error uploading images. Please try again later.', 'Error');
+        this.modalMessage.openModal("images err2",this.viewContainerRef, 'Error', 'Error uploading images. Please try again later.', 'Error');
       }
     );
   }

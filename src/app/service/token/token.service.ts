@@ -31,19 +31,22 @@ export class TokenService {
     return {};
   }
 
-
-  isLoggedIn(): boolean {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return true;
-    }
-    return false;
-  }
-
   saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
+
+  getTokenExpiration(): number | null {
+    const expiration =  window.sessionStorage.getItem(USER_KEY);
+    return expiration ? +expiration : 0;
+  }
+
+  isTokenExpired(): boolean {
+    const expiration = this.getTokenExpiration();
+    return !expiration || new Date().getTime() > expiration;
+  }
+
+
 
   
 }

@@ -77,10 +77,10 @@ export class CreateReviewComponent implements OnInit{
        
         if(res){
         
-          this.modalService.openModal(this.viewContainerRef, 'Thank you for your Feedback!', 'Review patched succesfully','Success');
+          this.modalService.openModal('createEvent succ',this.viewContainerRef, 'Thank you for your Feedback!', 'Review patched succesfully','Success');
          
         }else{
-          this.modalService.openModal(this.viewContainerRef, 'Thank you for your time!', 'Error, try again later!','Error');
+          this.modalService.openModal('createEvent err',this.viewContainerRef, 'Thank you for your time!', 'Error, try again later!','Error');
           
         }
       })
@@ -90,10 +90,10 @@ export class CreateReviewComponent implements OnInit{
    this.feedbackService.createFeedback(feedback).subscribe(res=>{
       if(res){
         
-        this.modalService.openModal(this.viewContainerRef, 'Thank you for your Feedback!', 'Review added succesfully','Success');
+        this.modalService.openModal('createEvent succ2',this.viewContainerRef, 'Thank you for your Feedback!', 'Review added succesfully','Success');
        
       }else{
-        this.modalService.openModal(this.viewContainerRef, 'Thank you for your time!', 'Error, try again later!','Error');
+        this.modalService.openModal('createEvent err2',this.viewContainerRef, 'Thank you for your time!', 'Error, try again later!','Error');
         
       }
       

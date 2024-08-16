@@ -116,7 +116,7 @@ export class PurchaseComponent implements OnInit {
         },
         (error) => {
           console.log('Error creating order', error);
-          this.modalService.openModal(this.viewContainerRef, 'Error', 'Purchasing does not work at the moment!', 'Error');
+          this.modalService.openModal('purchase err',this.viewContainerRef, 'Error', 'Purchasing does not work at the moment!', 'Error');
         }
       );
       

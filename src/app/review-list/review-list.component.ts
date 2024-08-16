@@ -72,12 +72,12 @@ export class ReviewListComponent implements OnInit{
     this.feedbackService.deleteUserFeedback(feedbackId).subscribe(
       resp => {
         console.log('Event deleted successfully:', resp);
-        this.modalService.openModal(this.viewContainerRef, 'Deletion Successful', 'Success','Success');
+        this.modalService.openModal("review dell succ",this.viewContainerRef, 'Deletion Successful', 'Success','Success');
         
       },
       error => {
         console.error('Failed to delete event:', error);
-        this.modalService.openModal(this.viewContainerRef, 'Deletion Error', 'Error','Error');
+        this.modalService.openModal("review dell err",this.viewContainerRef, 'Deletion Error', 'Error','Error');
 
       }
     );

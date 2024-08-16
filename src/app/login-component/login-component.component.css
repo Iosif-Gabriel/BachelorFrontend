@@ -1,6 +1,6 @@
 .loginDiv {
   width: 250px;
-  padding: 40px;
+  padding: 50px;
   border: 3px solid #ccc;
   border-radius: 20px;
   position: absolute;
@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 370px;
+  height: 380px;
   font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
   overflow: hidden;
@@ -75,8 +75,9 @@
 
 .closeButtonContainer {
   position: absolute;
-  top: 1px;
-  right: 5px;
+  top: -3px;
+  right: 9px;
+  width: 30px;
 }
 
 .closeButton {
@@ -103,10 +104,25 @@
 }
 
 
-.noAccountContent > p:nth-child(1) {
+.noAccountContent > p  {
   text-align: center;
   font-size: medium;
 }
+
+.clickable-text {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.clickable-text:hover {
+  color: darkblue;
+}
+.formLogin {
+  width: 280px;
+  }
 
 
 

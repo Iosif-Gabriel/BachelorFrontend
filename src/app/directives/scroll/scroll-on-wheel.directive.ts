@@ -7,10 +7,10 @@ export class ScrollOnWheelDirective {
 
   constructor(private el: ElementRef) { }
 
-  private lastY: number | undefined; // Definiți `lastY` ca fiind number sau undefined
+  private lastY: number | undefined; 
 
   @HostListener('wheel', ['$event']) onMouseWheel(event: WheelEvent) {
-    event.preventDefault(); // Opriți comportamentul implicit al evenimentului
+    event.preventDefault(); 
 
     if (this.el.nativeElement) {
       const scrollDistance = this.el.nativeElement.scrollWidth / this.el.nativeElement.children.length;
@@ -32,23 +32,23 @@ export class ScrollOnWheelDirective {
   }
 
   @HostListener('touchstart', ['$event']) onTouchStart(event: TouchEvent) {
-    event.preventDefault(); // Opriți comportamentul implicit al evenimentului de atingere
+    event.preventDefault(); 
 
     if (this.el.nativeElement) {
-      this.lastY = event.touches[0].clientY; // Salvați ultima poziție Y a atingerii
+      this.lastY = event.touches[0].clientY; 
     }
   }
 
   @HostListener('touchmove', ['$event']) onTouchMove(event: TouchEvent) {
-    event.preventDefault(); // Opriți comportamentul implicit al evenimentului de atingere
+    event.preventDefault(); 
 
     if (this.el.nativeElement && this.lastY !== undefined) {
-      const deltaY = event.touches[0].clientY - this.lastY; // Calculați distanța de deplasare în jos
-      this.lastY = event.touches[0].clientY; // Actualizați ultima poziție Y a atingerii
+      const deltaY = event.touches[0].clientY - this.lastY; 
+      this.lastY = event.touches[0].clientY; 
 
       const scrollDistance = this.el.nativeElement.scrollWidth / this.el.nativeElement.children.length;
 
-      // Derulați elementul în funcție de distanța de deplasare
+      
       this.el.nativeElement.scrollLeft += deltaY;
     }
   }

@@ -1,0 +1,137 @@
+.adminContent {
+    display: flex;
+  
+  }
+  
+  app-side-nav {
+    width: 96px; 
+    height: 100vh; 
+    background: #f4f4f4; 
+    position: fixed; 
+  }
+  
+  .mainContent {
+    margin-left: 96px; 
+    padding: 20px;
+    width: calc(100% - 96px); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    height: 100vh;
+    padding-left: 96px;
+    box-sizing: border-box;
+  }
+  
+  .dashboard {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .dashboard-header p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .numbersContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .stat {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .stat:hover {
+    background: #eaf4f4;
+    border-color: #a1c6c6; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.05); 
+  }
+  
+  .stat h2 {
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    transition: color 0.3s ease; 
+  }
+  
+  .stat:hover h2 {
+    color: #007bff; 
+  }
+  
+  .stat p {
+    font-size: 1.2rem;
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+  
+  .stat:hover p {
+    color: #555; 
+  }
+  
+  .additionalInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+    max-width: 1000px; 
+  }
+  
+  .info {
+    flex: 1;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 20px;
+    margin-right: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .info:last-child {
+    margin-right: 0;
+  }
+  
+  .info:hover {
+    background: #fff; 
+    border-color: #b5b5b5; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.03); 
+  }
+  
+  .info h2 {
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    transition: color 0.3s ease; 
+  }
+  
+  .info:hover h2 {
+    color: #007bff;
+  }
+  
+  .info p {
+    font-size: 1rem;
+    margin: 0;
+    transition: color 0.3s ease; 
+  }
+  
+  .info:hover p {
+    color: #333; 
+  }

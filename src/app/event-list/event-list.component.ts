@@ -267,12 +267,12 @@ fetchOrgEvents(): Observable<EventWithPicturesDTO[]> {
     this.eventService.deleteEvent(eventId).subscribe(
       resp => {
         console.log('Event deleted successfully:', resp);
-        this.modalService.openModal(this.viewContainerRef, 'Deletion Successful', 'Succes','Succes');
+        this.modalService.openModal("event del succ",this.viewContainerRef, 'Deletion Successful', 'Succes','Succes');
         
       },
       error => {
         console.error('Failed to delete event:', error);
-        this.modalService.openModal(this.viewContainerRef, 'Deletion Error', 'Error','Error');
+        this.modalService.openModal("event del err",this.viewContainerRef, 'Deletion Error', 'Error','Error');
 
       }
     );

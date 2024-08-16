@@ -34,7 +34,12 @@
         </form>
         <div class="noAccountContent">
             <p>Don't have an accout?</p>
+            <p class="clickable-text" (click)="openRegister()">Create one!</p>
         </div>
     </div>
 </body>
+
+<div class="veriyContainer" *ngIf="verify">
+    <app-verify></app-verify>
+</div>
 

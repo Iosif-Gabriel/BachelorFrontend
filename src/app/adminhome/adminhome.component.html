@@ -1,1 +1,46 @@
-<p>adminhome works!</p>
+<div class="adminContent">
+    <app-side-nav></app-side-nav>
+  
+    <div class="mainContent">
+      <div class="dashboard">
+     
+        <div class="dashboard-header">
+          <h1>Admin Dashboard</h1>
+          <p>Welcome to the admin panel. Here you can view real-time statistics and manage your data efficiently.</p>
+        </div>
+  
+      
+        <div class="numbersContainer">
+          <div class="stat">
+            <h2>Events</h2>
+            <p>Number of events: <span>{{ eventCount$ | async }}</span></p>
+          </div>
+          <div class="stat">
+            <h2>Users</h2>
+            <p>Number of users: <span>{{ userCount$ | async }}</span></p>
+          </div>
+          <div class="stat">
+            <h2>Orders</h2>
+            <p>Number of orders: <span>{{ orderCount$ | async }}</span></p>
+          </div>
+          <div class="stat">
+            <h2>Reviews</h2>
+            <p>Number of reviews: <span>{{ reviewCount$ | async }}</span></p>
+          </div>
+        </div>
+  
+        <!-- Additional Information Section -->
+        <div class="additionalInfo">
+          <div class="info">
+            <h2>Recent Activity</h2>
+            <p>Details about recent activities and updates.</p>
+          </div>
+          <div class="info">
+            <h2>Upcoming Events</h2>
+            <p>Details about upcoming events and deadlines.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

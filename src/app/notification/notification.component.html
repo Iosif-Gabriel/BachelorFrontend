@@ -7,7 +7,7 @@
     </div>
     <div class="notificationsContent">
         <div *ngIf="notifications.length === 0" class="notification">
-            <span class="notificationText">Nu există notificări disponibile.</span>
+            <span class="notificationText">You don't have any notifications.</span>
         </div>
         <div class="notification" *ngFor="let noti of notifications.slice().reverse()"   [ngStyle]="{
             'background-color': 

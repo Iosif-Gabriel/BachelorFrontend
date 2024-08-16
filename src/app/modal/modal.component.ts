@@ -8,9 +8,9 @@ import { PopupService } from '../service/popup/popup.service';
 })
 export class ModalComponent implements OnInit, OnDestroy,OnChanges  {
 
-  constructor(private popupService:PopupService) {}
+  constructor() {}
  
-
+  @Input() modalid: string = '';
   @Input() title: string = ' ';
   @Input() body: string = ' ';
   @Input() imagePath: string = ' '; 
@@ -20,16 +20,7 @@ export class ModalComponent implements OnInit, OnDestroy,OnChanges  {
   success:boolean=false;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['imagePath']) {
-    //   console.log('Image Path changed:', this.imagePath);
-    //   if (this.imagePath === 'Success') {
-    //     this.success = true;
-    //   } else if (this.imagePath === 'Error') {
-    //     this.success = false;
-    //   }
-      
-    // }
-    
+   
   }
   
 
@@ -45,11 +36,6 @@ export class ModalComponent implements OnInit, OnDestroy,OnChanges  {
 
   closeMe() {
      this.closeMeEvent.emit();
-    // this.popupService.isCreatEventOpen.subscribe(isOpen => {
-    //   if (isOpen === true) {
-    //     this.popupService.setCreatEventOpen(false);
-    //   }
-    // });
   }
   
 

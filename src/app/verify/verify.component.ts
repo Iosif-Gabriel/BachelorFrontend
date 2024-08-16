@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { VerifyService } from '../service/verify/verify.service';
+import { ModalService } from '../service/modal/modal.service';
+import { LoginComponentComponent } from '../login-component/login-component.component';
 
 @Component({
   selector: 'app-verify',
@@ -8,6 +11,9 @@ import { Component } from '@angular/core';
 export class VerifyComponent {
   isVisible: boolean = true;
   code: string[] = ['', '', '', '', '', ''];
+  isCodeInvalid: boolean = false;
+  messageMail:boolean=false;
+  constructor(private verifyService:VerifyService,private modalService:ModalService,private viewContainerRef: ViewContainerRef){}
 
   
   autoFocusNext(index: number, event: Event) {
@@ -18,12 +24,54 @@ export class VerifyComponent {
     }
   }
 
-  verifyCode() {
-    const enteredCode = this.code.join('');
-    console.log('Verification Code:', enteredCode);
+
+  isCodeCorrect(code: string, callback: (isCorrect: boolean) => void): void {
+    this.verifyService.verifyCode(code).subscribe(response => {
+        if (response.tokenType === 'VERIFICATION_VALID') {
+            //this.closePopup();
+            callback(true);
+        } else {
+            callback(false);
+        }
+    });
+}
+
+// verifyCode(): void {
+//     const enteredCode = this.code.join('');
     
-    this.closePopup();
+//     this.isCodeCorrect(enteredCode, (isCorrect: boolean) => {
+//         this.isCodeInvalid = !isCorrect;
+//     });
+// }
+
+handleCodeInput(): void {
+  const enteredCode = this.code.join('');
+  
+  if (enteredCode.length < 6) {
+      this.isCodeInvalid = false; 
+      return;
   }
+
+  this.verifyService.verifyCode(enteredCode).subscribe(response => {
+    console.log(response);
+      this.isCodeInvalid = response.tokenType !== 'VERIFICATION_VALID';
+      
+      if (!this.isCodeInvalid) {
+          this.closePopup();
+      }
+  });
+}
+
+sendMail(){
+  this.messageMail=true;
+  setTimeout(() => {
+    this.messageMail = false;
+  }, 3000);
+  this.verifyService.triggerFunction();
+}
+
+
+
 
   closePopup() {
     this.isVisible = false;

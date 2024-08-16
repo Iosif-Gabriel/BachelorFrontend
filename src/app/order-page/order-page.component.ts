@@ -70,12 +70,12 @@ export class OrderPageComponent implements OnInit {
         }
   
         
-        this.modalService.openModal(this.viewContainerRef, 'Deletion Successful', 'Success', 'Success');
+        this.modalService.openModal("order succ",this.viewContainerRef, 'Deletion Successful', 'Success', 'Success');
       },
       error => {
         console.error('Failed to delete event:', error);
         
-        this.modalService.openModal(this.viewContainerRef, 'Deletion Error', 'Error', 'Error');
+        this.modalService.openModal("order err",this.viewContainerRef, 'Deletion Error', 'Error', 'Error');
       }
     );
   }

@@ -4,6 +4,7 @@ import { TokenService } from '../token/token.service';
 import { Observable } from 'rxjs';
 import { UserDTO } from 'src/app/dtos/UserDTO';
 import { AuthenticationResponse } from 'src/app/dtos/AuthenticationResponse';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ import { AuthenticationResponse } from 'src/app/dtos/AuthenticationResponse';
 export class UserService {
 
   private userByToken='https://localhost:8080/user/getByToken'
-  private verifyTokenURL='https://localhost:8080/api/auth/verify'
-  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
+ 
+  constructor(private httpClient: HttpClient, private tokenService: TokenService,private authService:AuthService) { }
 
   getByToken():Observable<UserDTO>{
     let jwt=this.tokenService.getToken();
@@ -24,7 +25,13 @@ export class UserService {
     return this.httpClient.get<UserDTO>(this.userByToken, requestOptions);
   }
 
-  verifyToken(verif:String):Observable<AuthenticationResponse>{
-    return this.httpClient.post<AuthenticationResponse>(`${this.verifyTokenURL}/${verif}`, null);
+  getAllUsers():Observable<UserDTO[]>{
+    const headers = this.authService.createAuthHeaders();
+    const userURL=`https://localhost:8080/user/getAllUsers`;
+
+    return this.httpClient.get<UserDTO[]>(userURL,{headers});
+
   }
+
+
 }

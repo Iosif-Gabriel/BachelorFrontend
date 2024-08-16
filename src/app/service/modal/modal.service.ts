@@ -11,42 +11,63 @@ export class ModalService {
   private componentRef!: ComponentRef<ModalComponent>;
   componentSubscriber!: Subject<string>;
   registerEvent = new Subject<string>();
+  private activeModals: Map<string, ComponentRef<ModalComponent>> = new Map(); 
+  private modalCloseEvent = new Subject<string>();
   
   constructor(private resolver: ComponentFactoryResolver,private popupService: PopupService) {
     
   }
   
-  openModal(entry: ViewContainerRef, modalTitle: string, modalBody: string, imagePath?: string): Observable<string> {
-    const factory = this.resolver.resolveComponentFactory(ModalComponent);
-    this.componentRef = entry.createComponent(factory);
-    this.componentRef.instance.title = modalTitle;
-    this.componentRef.instance.body = modalBody;
-    this.componentRef.instance.imagePath = imagePath || '';
-    this.componentRef.instance.closeMeEvent.subscribe(() => this.closeModal());
-    
-    return this.registerEvent.asObservable();
+  openModal(modalId:string,entry: ViewContainerRef, modalTitle: string,modalBody: string, imagePath?: string): Observable<string> {
+    console.log(`Opening modal with ID: ${modalId}`);
+  const factory = this.resolver.resolveComponentFactory(ModalComponent);
+  const componentRef = entry.createComponent(factory);
+  
+  componentRef.instance.modalid = modalId;
+  componentRef.instance.title = modalTitle;
+  componentRef.instance.body = modalBody;
+  componentRef.instance.imagePath = imagePath || '';
+  componentRef.instance.closeMeEvent.subscribe(() => this.closeModal(modalId));
+  //componentRef.instance.confirmEvent.subscribe(() => this.handleConfirm(modalId));
+  
+  this.activeModals.set(modalId, componentRef);
+  return this.modalCloseEvent.asObservable();
+  }
+
+  isModalOpen(modalId: string): boolean {
+    return this.activeModals.has(modalId);
   }
   
   
-  closeModal() {
-    this.registerEvent.complete();
-    this.componentRef.destroy();
-  
+    
 
-    if(this.componentRef.instance.title==='Registration Successful' ){
+
+  closeModal(modalId: string) {
+    console.log(`Closing modal with ID: ${modalId}`)
+    const componentRef = this.activeModals.get(modalId);
+    if (componentRef) {
+      componentRef.destroy();
+      this.activeModals.delete(modalId);
+      this.modalCloseEvent.next(modalId);
+    if(componentRef.instance.title==='Registration Successful' ){
 
       this.popupService.closeRegisterPopup();
 
-    }else if(this.componentRef.instance.title==='Thank you for your Feedback!'){
+    }else if(componentRef.instance.title==='Thank you for your Feedback!'){
      
       this.popupService.closeCreateReview.emit();
 
-    }else if(this.componentRef.instance.title==='Event edited succesfully!'){
+    }else if(componentRef.instance.title==='Event edited succesfully!'){
       this.popupService.setCreatEventOpen(false);
     }
-
-    
+    } else {
+      console.error(`Modal with ID ${modalId} not found.`);
+    }
   }
+
+ 
+
+ 
 
   confirm() {
     this.componentSubscriber.next('confirm');

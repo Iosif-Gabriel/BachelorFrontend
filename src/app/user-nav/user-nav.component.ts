@@ -77,14 +77,7 @@ export class UserNavComponent implements OnInit {
 
   logoutUser(){
     
-    this.logoutService.logoutUser().subscribe( {
-      next: any => {
-        const user=this.tokenService.getUser();
-        this.tokenService.logout();
-        this.websocketService.disconnectWebSocket(user.id)
-        window.location.href = 'https://localhost:4200/home';
-      }
-    });
+    this.logoutService.logoutUserNow();
   }
 
   searchEvents(){

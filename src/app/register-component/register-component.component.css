@@ -1,12 +1,12 @@
 .registerDiv {
-  --width: 350px; /* Increase width */
-  --padding: 20px; /* Increase padding */
-  --height: 500px; /* Increase height */
-  --font-size: 20px; /* Increase font size */
-  --h5-font-size: 20px; /* Increase font size */
-  --input-font-size: 20px; /* Increase font size */
-  --close-button-size: 30px; /* Increase width and height */
-  --close-button-font-size: 16px; /* Increase font size */
+  --width: 375px;
+  --padding: 20px;
+  --height: 480px;
+  --font-size: 20px; 
+  --h5-font-size: 20px;
+  --input-font-size: 20px; 
+  --close-button-size: 15px;
+ 
   
   width: var(--width);
   margin: 0 auto;
@@ -41,15 +41,20 @@
 
 .registerDiv input[type="text"],
 .registerDiv input[type="password"],
+.registerDiv input[type="email"],
 .registerDiv button {
   width: 100%;
   padding: 15px;
   margin-bottom: 15px;
   box-sizing: border-box;
   border-radius: 20px;
-  font-size: var(--input-font-size);
+  font-size: 20px;
+  font-family: inherit;
 }
 
+input::placeholder{
+  font-size: medium;
+}
 .registerDiv button {
   background-color: #b60606;
   color: white;
@@ -78,12 +83,14 @@
   border: none;
   color: #c50808;
   font-size: var(--close-button-font-size);
-  width: var(--close-button-size);
-  height: var(--close-button-size);
+  /* width: var(--close-button-size);
+  height: var(--close-button-size); */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  width: 20px; 
+  height: 20px;
 }
 
 .closeButton:hover {
@@ -96,13 +103,15 @@
 
 .closeButtonContainer {
   position: absolute;
-  top: 1px;
-  right: 5px; 
+  top: -6px;
+  right: 9px;
+  width: 30px; 
 }
 
 .fa{
   cursor: pointer;
 }
+
 
 
 

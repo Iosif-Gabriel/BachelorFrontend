@@ -22,6 +22,13 @@ export class FeedbackService {
     return this.editFeedback;
   }
 
+  getAllFeedback():Observable<FeedbackDTO[]>{
+    const headers=this.auth.createAuthHeaders();
+    const getAllFeedbackURL='https://localhost:8080/feedback/getAllFeedback'
+
+    return this.http.get<FeedbackDTO[]>(getAllFeedbackURL,{headers});
+  }
+
 
   createFeedback(feedback:FeedbackDTO):Observable<FeedbackDTO>{
     const headers=this.auth.createAuthHeaders();

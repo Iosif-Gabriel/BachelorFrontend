@@ -63,3 +63,20 @@ p {
 .popup-buttons button:hover {
     background-color: #eb5d5d;;
 }
+
+.code-inputs input.invalid-input {
+    border: 1px solid red;
+    color: red;
+}
+
+.code-inputs input.valid-input{
+    border: 1px solid green;
+    color: green
+}
+
+.mailMessage {
+    color: green;
+    font-weight: bold;
+    width: 80px;
+  }
+  

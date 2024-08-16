@@ -10,6 +10,7 @@ import { UserDTO } from '../dtos/UserDTO';
 import { Router } from '@angular/router';
 import { ModalService } from '../service/modal/modal.service';
 import { WebSocketService } from '../service/websocket/web-socket.service';
+import { VerifyService } from '../service/verify/verify.service';
 
 @Component({
   selector: 'app-login-component',
@@ -20,7 +21,13 @@ export class LoginComponentComponent implements OnInit{
 
   loginPopupOpen: boolean = false;
   loginForm!: FormGroup;
-  constructor(private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {}
+  verify:boolean=false;
+  oldCode:string='';
+  constructor(private verifyService:VerifyService,private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {
+    this.verifyService.triggerFunction$.subscribe(() => {
+      this.sendCodeAgain();
+    });
+  }
 
   authReq:AuthenticationRequest ={
     username: '',
@@ -48,12 +55,14 @@ export class LoginComponentComponent implements OnInit{
 
 
   confirmLogin():void{
+    
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
     let user = new AuthenticationRequest();
     let user2=new UserDTO();
+    this.verify=false;
     user.username = this.loginForm.get('username')?.value;
     user.password = this.loginForm.get('password')?.value;
     this.loginService.login(user).subscribe({
@@ -75,18 +84,39 @@ export class LoginComponentComponent implements OnInit{
             }
           })
         }else if(token.tokenType==='VERIFICATION_EXPIRED'){
-          this.userService.verifyToken(token.tokenType);
+          console.log(token);
+          this.oldCode=token.token;
+          this.verify=true;
+          //this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
+         
 
         }else if (token.tokenType==='WRONG_PASSWORD'){
-          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
+          this.modalService.openModal("login wrong pass",this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
+        
+        }else if(token.tokenType==='VERIFICATION_PENDING'){
+          this.oldCode=token.token;
+          this.verify=true;
         }
       },
       error: (error) => {
        
-          this.modalService.openModal(this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
+          this.modalService.openModal("login wrong pass",this.viewContainerRef, 'Login Error', 'Username or Password incorrect','Error');
         
       }
     })
+  }
+
+  sendCodeAgain():void{
+    
+    this.verifyService.sendCode(this.oldCode).subscribe(response=>{
+      console.log(this.oldCode);
+      console.log(response);
+    })
+  }
+
+  openRegister():void{
+    this.popUpSerivce.closePopup();
+    this.popUpSerivce.openRegisterPopup();
   }
 
 

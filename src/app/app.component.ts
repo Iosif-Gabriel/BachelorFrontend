@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
+import { LogoutService } from './service/logout/logout.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +9,6 @@ import { loadStripe } from '@stripe/stripe-js';
 })
 export class AppComponent {
   title = 'eventMaker';
+  constructor(private logoutService: LogoutService){}
   
 }

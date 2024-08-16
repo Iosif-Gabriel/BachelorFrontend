@@ -49,6 +49,13 @@ export class EventService {
     return this.eventWithPicturesDTO;
   }
 
+  getAllEvents(): Observable<EventDTO[]>{
+    const headers=this.auth.createAuthHeaders();
+    const getAllEventsURL = `https://localhost:8080/event/getAllEvents`;
+    
+    return this.http.get<EventDTO[]>(getAllEventsURL,{headers});
+  }
+
   getCoverPhotos(): Observable<EventWithPicturesDTO[]> {
     const headers = this.auth.createAuthHeaders();
   
@@ -57,14 +64,14 @@ export class EventService {
         catchError(error => {
           if (error.status === 403 && error.url === 'https://localhost:8080/event/getAllEventsWithPictures') {
             console.error("403 error on specific endpoint. Logging out.");
-            this.logoutService.logoutUser().subscribe( {
-              next: any => {
-                const user=this.tokenService.getUser();
-                this.tokenService.logout();
-                this.websocketService.disconnectWebSocket(user.id)
-                window.location.href = 'https://localhost:4200/home';
-              }
-            });
+            // this.logoutService.logoutUser().subscribe( {
+            //   next: any => {
+            //     const user=this.tokenService.getUser();
+            //     this.tokenService.logout();
+            //     this.websocketService.disconnectWebSocket(user.id)
+            //     window.location.href = 'https://localhost:4200/home';
+            //   }
+            // });
           }
           return throwError(error); 
         })
