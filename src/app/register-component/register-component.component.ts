@@ -23,7 +23,8 @@ export class RegisterComponentComponent implements OnInit {
     email: '',
     address: '',
     username: '',
-    password: ''
+    password: '',
+    registrationDate:new Date(),
   };
   confirmPassword:string = "";
   passwordsMatchs: boolean = true;
@@ -81,6 +82,8 @@ export class RegisterComponentComponent implements OnInit {
 validateRegisterRequest(registerReq: RegisterRequest): boolean {
   const usernameMinLength = 4;
   const passwordMinLength = 8;
+
+ 
 
   if (!/^[a-zA-Z]+$/.test(registerReq.firstName)) {
     console.error('Invalid first name');

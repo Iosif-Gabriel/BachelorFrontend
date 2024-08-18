@@ -94,6 +94,13 @@
   color: var(--text-secondary);
 }
 
+.nav-link:hover,
+.nav-link.active-nav-link {
+  filter: none; 
+  background: var(--bg-secondary); 
+  color: var(--text-secondary); 
+}
+
 .link-text {
   display: flex;
   white-space: nowrap;
@@ -332,20 +339,14 @@ font-weight: 0;
 }
 
 
-/* #navbarFilter {
-  transition: height 0.4s ease;
-}
-
-#userfunctions {
-  transition: margin-top 0.4s ease;
-} */
-
 #navbarFilter {
-  height: 130px; /* Default height */
   transition: height 0.4s ease;
 }
 
 #userfunctions {
-  margin-top: 10px; /* Default margin */
   transition: margin-top 0.4s ease;
+}
+
+.dropDownContainer{
+  width: 20px;
 }

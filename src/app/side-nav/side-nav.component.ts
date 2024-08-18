@@ -7,6 +7,9 @@ import { LogoutService } from '../service/logout/logout.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent {
+openPage($event: MouseEvent) {
+throw new Error('Method not implemented.');
+}
 
   constructor(private logoutService:LogoutService) {
     

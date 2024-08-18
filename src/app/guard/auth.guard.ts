@@ -19,8 +19,7 @@ export class AuthGuard {
     if (this.tokenService.getUser().role == "ADMIN") {
       return true;
     } else {
-      console.log("user");
-      //this.router.navigate(['/userHome']);
+      //this.router.navigate(['/home']);
       return false;
     }
   }

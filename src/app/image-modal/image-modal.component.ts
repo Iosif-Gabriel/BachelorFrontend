@@ -64,13 +64,13 @@ export class ImageModalComponent implements OnInit{
       
         if (response.message) {
           
-          this.modalMessage.openModal("images succ2",this.viewContainerRef, 'Success', response.message, 'Success');
+          this.modalMessage.openModal("images succ2",this.viewContainerRef, 'Event created succesfully!', 'The event was created! Contratulations!', 'Success');
         }
       },
       error => {
         console.error('Error uploading images:', error);
         
-        this.modalMessage.openModal("images err2",this.viewContainerRef, 'Error', 'Error uploading images. Please try again later.', 'Error');
+        this.modalMessage.openModal("images err2",this.viewContainerRef, 'Error', 'Upload at least one image. Please try again later.', 'Error');
       }
     );
   }
@@ -84,7 +84,7 @@ export class ImageModalComponent implements OnInit{
 
   closeImage(){
     this.closeModalEvent.emit();
-    //this.popupService.setCreatEventOpen(false);
+    this.popupService.setCreatEventOpen(false);
    
   }
 

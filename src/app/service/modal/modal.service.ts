@@ -59,6 +59,10 @@ export class ModalService {
 
     }else if(componentRef.instance.title==='Event edited succesfully!'){
       this.popupService.setCreatEventOpen(false);
+
+    }else if(componentRef.instance.title==='Event created succesfully!'){
+        this.popupService.setCreatEventOpen(false);
+        this.popupService.setImageModalOpen(false);
     }
     } else {
       console.error(`Modal with ID ${modalId} not found.`);

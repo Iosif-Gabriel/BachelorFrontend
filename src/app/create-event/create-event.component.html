@@ -105,9 +105,18 @@
                         (onAddressChange)="handleAddressChange($event)">
                     <div
                         *ngIf="eventForm.get('location')?.invalid && (eventForm.get('location')?.dirty || eventForm.get('location')?.touched)">
-                        <div class="errorText" *ngIf="eventForm.get('location')!.errors!['required']">
-                            Location is required.
+                        <div *ngIf="eventForm.get('location')?.invalid && (eventForm.get('location')?.dirty || eventForm.get('location')?.touched)">
+                            <div class="errorText" *ngIf="eventForm.get('location')!.errors!['required']">
+                                Location is required.
+                            </div>
+                            <div class="errorText" *ngIf="eventForm.get('location')!.errors!['incompleteLocation']">
+                                Please select a location that includes both city and country.
+                            </div>
+                            <div class="errorText" *ngIf="eventForm.get('location')!.errors!['invalidAddress']">
+                                The address entered is invalid.
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

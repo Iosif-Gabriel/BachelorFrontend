@@ -10,6 +10,13 @@
     font-weight: 1000;
     font-style: large;
     position: relative;
+    height: 750px;
+    overflow-y: auto;
+    /* position: relative;  */
+    scrollbar-width: none;
+    transition: max-height 0.4s ease, padding 0.4s ease; 
+    max-height: 800; 
+
    
 }
 
@@ -209,6 +216,21 @@
    
 
   }
+
+
+  
+  /* @media only screen and (max-width: 1500px) {
+ 
+    .biggerDiv {
+        width: 400px;
+        height: 500px; 
+        overflow-y: auto;
+        position: relative; 
+        scrollbar-width: none;
+      }
+   
+
+  } */
 
 
   .preview-button[disabled] {

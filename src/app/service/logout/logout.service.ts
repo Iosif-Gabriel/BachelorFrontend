@@ -39,37 +39,40 @@ export class LogoutService {
     })
   }
 
-  private setupAutoLogout(): void {
-    if (this.tokenService.isTokenExpired()) {
-      this.logoutUserNow();
-    
-    } else {
-      const expirationTime = this.tokenService.getTokenExpiration();
-      console.log(expirationTime);
-      const safeExpirationTime = expirationTime ?? new Date().getTime() + 3600000;
-      const timeLeft = safeExpirationTime - new Date().getTime();
-  
-      if (timeLeft > 0) {
-        this.logoutTimer = setTimeout(() => {
+  public setupAutoLogout(): void {
+    const token = this.tokenService.getToken();
+    if (token) {
+      if (this.tokenService.isTokenExpired()) {
+      
+        this.logoutUserNow();
+      } else {
+        const expirationTime = this.tokenService.getTokenExpiration();
+        console.log('Expiration Time:', expirationTime);
+        
+        
+        const safeExpirationTime = expirationTime ?? new Date().getTime() + 3600000; 
+        
+        const timeLeft = safeExpirationTime - new Date().getTime();
+        
+        
+        if (timeLeft > 0) {
+          this.logoutTimer = setTimeout(() => {
+            this.tokenService.logout();
+          }, timeLeft);
+        } else {
+         
           this.tokenService.logout();
-        }, timeLeft);
+        }
       }
+    } else {
+      console.error('No token found.');
+     
     }
   }
   
+  
 
-  private resetTimer(): void {
-    if (this.logoutTimer) {
-      clearTimeout(this.logoutTimer);
-    }
-    this.setupAutoLogout();
-  }
-
-  @HostListener('window:mousemove', ['$event'])
-  @HostListener('window:keypress', ['$event'])
-  onUserActivity(): void {
-    this.resetTimer();
-  }
+ 
 
 
 }

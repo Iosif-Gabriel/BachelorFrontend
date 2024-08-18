@@ -6,4 +6,5 @@ export interface RegisterRequest{
     address:string;
     username:string;
     password:string;
+    registrationDate:Date;
 }

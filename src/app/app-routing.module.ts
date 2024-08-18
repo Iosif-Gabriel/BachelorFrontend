@@ -11,6 +11,9 @@ import { UserOrdersComponent } from './user-subpages/user-orders/user-orders.com
 import { UserReviewsComponent } from './user-subpages/user-reviews/user-reviews.component';
 import { SuccessComponent } from './payment/success/success.component';
 import { CancelComponent } from './payment/cancel/cancel.component';
+import { EventsChartComponent } from './admin-pages/events-chart/events-chart.component';
+import { UsersChartComponent } from './admin-pages/users-chart/users-chart.component';
+import { OrdersChartComponent } from './admin-pages/orders-chart/orders-chart.component';
 
 const routes: Routes = [
   { path: 'success', component: SuccessComponent },
@@ -23,6 +26,9 @@ const routes: Routes = [
   {path:'userOrders',component:UserOrdersComponent},
   {path:'userFeedback',component:UserReviewsComponent},
   {path:'adminHome',component:AdminhomeComponent,canActivate: [AuthGuard]},
+  {path:'eventsStats',component:EventsChartComponent,canActivate:[AuthGuard]},
+  {path:'usersStats',component:UsersChartComponent,canActivate:[AuthGuard]},
+  {path:'ordersStats',component:OrdersChartComponent,canActivate:[AuthGuard]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

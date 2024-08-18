@@ -33,5 +33,12 @@ export class UserService {
 
   }
 
+  getUserMonthlyStats():Observable<any[]>{
+    const headers = this.authService.createAuthHeaders();
+    const userURL=`https://localhost:8080/user/getUserMonthlyStats`;
+
+    return this.httpClient.get<any[]>(userURL,{headers});
+  }
+
 
 }

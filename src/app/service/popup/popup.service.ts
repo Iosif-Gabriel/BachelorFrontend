@@ -11,7 +11,7 @@ export class PopupService {
   private _isRegisterButtonPressed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isCreatEventOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _isEventPageOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  
+  private _isImagePageOpen:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   closeNotification: EventEmitter<void> = new EventEmitter<void>();
   closeCreateReview: EventEmitter<void> = new EventEmitter<void>();
   closeCreateEvent: EventEmitter<void>=new EventEmitter<void>();
@@ -51,6 +51,10 @@ export class PopupService {
 
  setCreatEventOpen(value: boolean): void {
   this._isCreatEventOpen.next(value);
+}
+
+setImageModalOpen(value:boolean):void{
+  this._isImagePageOpen.next(value);
 }
 
   get isRegisterButtonPressed():Observable<boolean>{

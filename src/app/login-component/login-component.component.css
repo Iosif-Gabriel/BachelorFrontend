@@ -125,4 +125,23 @@
   }
 
 
+.input-valid {
+  border-color: green;
+  border-width: 2px;
+  background-color: lightgreen;
+}
+
+.input-invalid {
+  border-color: red;
+  border-width: 2px;
+  background-color: #ff000059;
+}
+
+.input-empty {
+  border-color: white;
+  border-width: 2px;
+}
+
+
+
 

@@ -42,7 +42,6 @@ import {  StarRatingModule } from 'angular-star-rating';
 import {MatCardModule} from '@angular/material/card';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { RxStompService } from '@stomp/ng2-stompjs';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NotificationComponent } from './notification/notification.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { UserOrdersComponent } from './user-subpages/user-orders/user-orders.component';
@@ -54,6 +53,14 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { CancelComponent } from './payment/cancel/cancel.component';
 import { SuccessComponent } from './payment/success/success.component';
 import { VerifyComponent } from './verify/verify.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { EventsChartComponent } from './admin-pages/events-chart/events-chart.component';
+import { UsersChartComponent } from './admin-pages/users-chart/users-chart.component';
+import { OrdersChartComponent } from './admin-pages/orders-chart/orders-chart.component';
+import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 @NgModule({
@@ -93,6 +100,9 @@ import { VerifyComponent } from './verify/verify.component';
     CancelComponent,
     SuccessComponent,
     VerifyComponent,
+    EventsChartComponent,
+    UsersChartComponent,
+    OrdersChartComponent,
     
   ],
   imports: [
@@ -107,12 +117,14 @@ import { VerifyComponent } from './verify/verify.component';
     MatInputModule,
     ReactiveFormsModule,
     GooglePlaceModule,
+    NgxChartsModule,
     CommonModule,
     MatMenuModule,
     MatTableModule,
     StarRatingModule,
-    MatCardModule,
     FontAwesomeModule,
+    MatCardModule,
+    DropdownModule,
     SimpleNotificationsModule.forRoot(),
     NgxStripeModule.forRoot(),
     

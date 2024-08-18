@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ModalService } from '../service/modal/modal.service';
 import { WebSocketService } from '../service/websocket/web-socket.service';
 import { VerifyService } from '../service/verify/verify.service';
+import { LogoutService } from '../service/logout/logout.service';
 
 @Component({
   selector: 'app-login-component',
@@ -23,7 +24,7 @@ export class LoginComponentComponent implements OnInit{
   loginForm!: FormGroup;
   verify:boolean=false;
   oldCode:string='';
-  constructor(private verifyService:VerifyService,private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {
+  constructor(private logoutService:LogoutService,private verifyService:VerifyService,private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {
     this.verifyService.triggerFunction$.subscribe(() => {
       this.sendCodeAgain();
     });
@@ -42,8 +43,8 @@ export class LoginComponentComponent implements OnInit{
     });
 
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required], 
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
 
   }
@@ -58,6 +59,7 @@ export class LoginComponentComponent implements OnInit{
     
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.modalService.openModal("login empty",this.viewContainerRef,'Login Error', 'Please complete both fields.','Error')
       return;
     }
     let user = new AuthenticationRequest();
@@ -70,9 +72,11 @@ export class LoginComponentComponent implements OnInit{
         console.log("Login token " + token.tokenType);
         this.tokenService.saveToken(token.token);
         if(token.tokenType=="TOKEN"){
+        
           this.userService.getByToken().subscribe({
             next: any => {
               user2 = any;
+              //console.log(user2);
               this.tokenService.saveUser(any);
               if (user2.role === "ADMIN") {
                 this.router.navigateByUrl("/adminHome");
@@ -80,6 +84,7 @@ export class LoginComponentComponent implements OnInit{
                  this.router.navigateByUrl("/userHome");
                  const user=this.tokenService.getUser();
                  this.wesocketService.connectToWebSocket(user.id);
+                // this.logoutService.setupAutoLogout();
               }
             }
           })

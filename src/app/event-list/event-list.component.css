@@ -1,7 +1,7 @@
 .event-list {
   display: grid;
   gap: 20px 20px;
-  grid-template-columns: repeat(5, 0.15fr); /* Five columns */
+  grid-template-columns: repeat(3, 0.15fr); /* Five columns */
   justify-content: center;
 }
 
@@ -10,11 +10,11 @@
 }
 
 .app-event-card {
-  margin-bottom: 20px; /* Adjust the space between rows */
-  padding: 20px; /* Adjust padding to make cards more compact */
-  text-align: center; /* Center the content */
-  max-width: 300px; /* Limit the maximum width of the card */
-  width: 100%; /* Ensure the card occupies the entire width of the column */
+  margin-bottom: 20px; 
+  padding: 20px; 
+  text-align: center; 
+  max-width: 300px; 
+  width: 100%; 
 }
 
 

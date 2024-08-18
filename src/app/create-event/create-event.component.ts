@@ -121,30 +121,58 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
     }
   }
 
-  public handleAddressChange(address: Address) {
+  // public handleAddressChange(address: Address) {
   
+  //   if (address && address.address_components) {
+  //       const addressComponents = address.address_components;
+
+      
+  //       const cityComponent = addressComponents.find(comp => comp.types.includes('locality'));
+  //       const countryComponent = addressComponents.find(comp => comp.types.includes('country'));
+
+  //       if (cityComponent && countryComponent) {
+  //           this.locationDTO.address = address.formatted_address;
+  //           this.locationDTO.city = cityComponent.long_name;
+  //           this.locationDTO.country = countryComponent.long_name;
+
+            
+  //       } else {
+  //           console.error('Unable to find city or country components in address.');
+  //       }
+  //   } else {
+  //       console.error('Invalid address object.');
+  //   }
+
+   
+  // }
+
+  public handleAddressChange(address: Address) {
     if (address && address.address_components) {
         const addressComponents = address.address_components;
 
-      
         const cityComponent = addressComponents.find(comp => comp.types.includes('locality'));
         const countryComponent = addressComponents.find(comp => comp.types.includes('country'));
 
         if (cityComponent && countryComponent) {
+            // Set the location details
             this.locationDTO.address = address.formatted_address;
             this.locationDTO.city = cityComponent.long_name;
             this.locationDTO.country = countryComponent.long_name;
-
-            
+            this.eventForm.get('location')?.setErrors(null); // Clear any existing errors
         } else {
-            console.error('Unable to find city or country components in address.');
+            // If only a country is selected, or neither city nor country, set an error
+            this.locationDTO.address = '';
+            this.locationDTO.city = '';
+            this.locationDTO.country = '';
+            this.eventForm.get('location')?.setErrors({ 'incompleteLocation': true });
+            console.error('Please select a valid location that includes both city and country.');
         }
     } else {
         console.error('Invalid address object.');
+        this.eventForm.get('location')?.setErrors({ 'invalidAddress': true });
     }
+}
 
-   
-  }
 
 
     closeEventCreation():void{

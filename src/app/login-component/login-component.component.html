@@ -27,11 +27,26 @@
         <h5>Travel around the world</h5>
         <form [formGroup]="loginForm" class="formLogin" (ngSubmit)="confirmLogin()">
             <p>Username</p>
-            <input type="text" formControlName="username" placeholder="Username">
+            <input type="text" formControlName="username" placeholder="Username"
+                   [ngClass]="{
+                      'input-valid': loginForm.get('username')?.valid && loginForm.get('username')?.touched && loginForm.get('username')?.value,
+                      'input-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched && loginForm.get('username')?.value,
+                      'input-empty': !loginForm.get('username')?.value
+                   }">
+            
             <p>Password</p>
-            <input type="password" formControlName="password" placeholder="Password">
-            <button type="submit" name="login">Login</button>
-        </form>
+            <input type="password" formControlName="password" placeholder="Password"
+                   [ngClass]="{
+                      'input-valid': loginForm.get('password')?.valid && loginForm.get('password')?.touched && loginForm.get('password')?.value,
+                      'input-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched && loginForm.get('password')?.value,
+                      'input-empty': !loginForm.get('password')?.value
+                   }">
+            
+            <button type="submit" name="login" [disabled]="loginForm.invalid">Login</button>
+          </form>
+          
+          
+          
         <div class="noAccountContent">
             <p>Don't have an accout?</p>
             <p class="clickable-text" (click)="openRegister()">Create one!</p>

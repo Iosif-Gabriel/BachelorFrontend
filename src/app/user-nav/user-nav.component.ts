@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import {MatMenuModule} from '@angular/material/menu';
 import { EventService } from '../service/event/event.service';
 import { PopupService } from '../service/popup/popup.service';
@@ -16,27 +16,38 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './user-nav.component.html',
   styleUrls: ['./user-nav.component.css']
 })
-export class UserNavComponent implements OnInit {
+export class UserNavComponent implements OnInit,AfterViewInit {
 
   @ViewChild('popupContent', { read: TemplateRef }) popupContent!: TemplateRef<any>;
+  @ViewChild('AllFilter') specificNavItem!: ElementRef;
   dialogRef!: MatDialogRef<any>;
   dropdownOpen: boolean = false;
   createPop:boolean=false;
   isOnEventPage:boolean=false;
   searchTerm: string = '';
-  filterTerm?:string ='';
+  filterTerm?:string ='All';
   open:boolean=false;
 
 
   openNotif:boolean=false;
 
-  constructor(private viewContainerRef: ViewContainerRef,private tokenService: TokenService,private websocketService:WebSocketService,private logoutService:LogoutService,private searchService:SearchService,private sectionService: SectionService,private router:Router,private renderer: Renderer2, private elementRef: ElementRef,private popupService:PopupService) {
+  constructor(private viewContainerRef: ViewContainerRef,private tokenService: TokenService,private logoutService:LogoutService,private searchService:SearchService,private sectionService: SectionService,private router:Router,private renderer: Renderer2, private elementRef: ElementRef,private popupService:PopupService) {
     this.popupService.closeNotification.subscribe(() => {
       
      this.togglePopup();
     });
 
-    
+  
+  }
+  ngAfterViewInit(): void {
+    if (this.specificNavItem) {
+      const navItem = this.specificNavItem.nativeElement;
+      console.log(navItem);
+      this.renderer.addClass(navItem,"active-nav-link");
+
+    } else {
+      console.error('Element not found!');
+    }
   }
 
   ngOnInit(): void {
@@ -46,6 +57,8 @@ export class UserNavComponent implements OnInit {
       this.open = isOpen;
       this.updateNavbarSize(); 
     });
+
+  
   }
   
   
@@ -93,17 +106,31 @@ export class UserNavComponent implements OnInit {
 
   
 
+  // handleItemClick(event: MouseEvent) {
+  //   const target = event.currentTarget as HTMLElement;
+  //   const span = target.querySelector('.link-text');
+  //   if (span) {
+
+  //     this.filterTerm=span.textContent as string;
+  //     this.searchService.setFilterTerm(this.filterTerm)
+      
+
+  //   }
+  // }
   handleItemClick(event: MouseEvent) {
     const target = event.currentTarget as HTMLElement;
-    const span = target.querySelector('.link-text');
-    if (span) {
+    const allNavLinks = document.querySelectorAll('.nav-link') as NodeListOf<HTMLElement>;
+    allNavLinks.forEach(link => link.classList.remove('active-nav-link'));
 
-      this.filterTerm=span.textContent as string;
-      this.searchService.setFilterTerm(this.filterTerm)
-     
-     
+    target.classList.add('active-nav-link');
+
+    const span = target.querySelector('.link-text') as HTMLElement;
+    if (span) {
+      this.filterTerm = span.textContent?.trim() as string;
+      this.searchService.setFilterTerm(this.filterTerm);
     }
   }
+
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { VerifyService } from '../service/verify/verify.service';
 import { ModalService } from '../service/modal/modal.service';
-import { LoginComponentComponent } from '../login-component/login-component.component';
+
 
 @Component({
   selector: 'app-verify',
