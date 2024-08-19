@@ -39,7 +39,7 @@ export class ImageModalComponent implements OnInit{
 
     if(this.sectionService.getActiveActivity()==='editEvent'){
       console.log(this.imageList);
-
+      console.log(this.eventDTO);
       this.eventService.patchEvent(this.eventDTO,this.imageList).subscribe(
           (response)=>{
             

@@ -39,6 +39,7 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
     nrGuests:0,
     available:false,
   }
+  
 
   locationDTO:LocationDTO={
     address: '',
@@ -121,30 +122,7 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
     }
   }
 
-  // public handleAddressChange(address: Address) {
-  
-  //   if (address && address.address_components) {
-  //       const addressComponents = address.address_components;
 
-      
-  //       const cityComponent = addressComponents.find(comp => comp.types.includes('locality'));
-  //       const countryComponent = addressComponents.find(comp => comp.types.includes('country'));
-
-  //       if (cityComponent && countryComponent) {
-  //           this.locationDTO.address = address.formatted_address;
-  //           this.locationDTO.city = cityComponent.long_name;
-  //           this.locationDTO.country = countryComponent.long_name;
-
-            
-  //       } else {
-  //           console.error('Unable to find city or country components in address.');
-  //       }
-  //   } else {
-  //       console.error('Invalid address object.');
-  //   }
-
-   
-  // }
 
   public handleAddressChange(address: Address) {
     if (address && address.address_components) {
@@ -154,13 +132,13 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
         const countryComponent = addressComponents.find(comp => comp.types.includes('country'));
 
         if (cityComponent && countryComponent) {
-            // Set the location details
+          
             this.locationDTO.address = address.formatted_address;
             this.locationDTO.city = cityComponent.long_name;
             this.locationDTO.country = countryComponent.long_name;
-            this.eventForm.get('location')?.setErrors(null); // Clear any existing errors
+            this.eventForm.get('location')?.setErrors(null); 
         } else {
-            // If only a country is selected, or neither city nor country, set an error
+          
             this.locationDTO.address = '';
             this.locationDTO.city = '';
             this.locationDTO.country = '';
@@ -215,6 +193,7 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
         this.eventDTO.endTime = this.eventForm.get("endDate")?.value;
         this.eventDTO.idEventType = this.eventForm.get("eventType")?.value;
         this.eventDTO.nrGuests = this.eventForm.get("nrGuests")?.value;
+        this.eventService.setEventDTO(this.eventDTO);
       }
    
     }

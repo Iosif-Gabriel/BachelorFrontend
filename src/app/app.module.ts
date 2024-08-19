@@ -58,8 +58,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { EventsChartComponent } from './admin-pages/events-chart/events-chart.component';
 import { UsersChartComponent } from './admin-pages/users-chart/users-chart.component';
 import { OrdersChartComponent } from './admin-pages/orders-chart/orders-chart.component';
-import { faFontAwesome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 

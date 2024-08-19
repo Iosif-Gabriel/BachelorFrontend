@@ -17,12 +17,12 @@
 }
 
 .createReviewContainer h4 {
-    margin-bottom: 10px; /* Add some space below each heading */
+    margin-bottom: 10px; 
 }
 
 .titleReviewContainer,
 .descriptionReviewContainer {
-    margin-bottom: 15px; /* Add space between each input section */
+    margin-bottom: 15px; 
 }
 
 input[type="text"],
@@ -32,13 +32,13 @@ textarea {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    margin-top: 5px; /* Add some space above the input fields */
+    margin-top: 5px;
 }
 
 .submitbutton {
     display: flex;
     justify-content: center;
-    align-items: center; /* Center vertically */
+    align-items: center;
 }
 
 
@@ -91,4 +91,21 @@ textarea {
     resize:vertical;
     width: 100%;
     
+}
+
+.error {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+}
+
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched {
+    border-color: red;
+}
+
+
+input.ng-valid.ng-touched, 
+textarea.ng-valid.ng-touched {
+    border-color: green;
 }

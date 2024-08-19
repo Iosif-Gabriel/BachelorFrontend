@@ -9,17 +9,34 @@ import { EventService } from 'src/app/service/event/event.service';
 export class EventsChartComponent {
 
   data = [];
-  showLegend = true;
+  showXAxis = true;
+  showYAxis = true;
   gradient = false;
-  colorScheme = 'cool'
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Month';
+  showYAxisLabel = true;
+  yAxisLabel = 'Event numbers';
+  colorScheme = 'cool';
 
   constructor(private eventService:EventService){
     this.eventService.getMonthlyStats().subscribe(stats => {
+      console.log(stats);
       this.data = stats.map((item: any) => ({
-        name: item.month,
+        name: this.formatMonth(item.month),
         value: Math.round(item.count)
       }));
     });
   }
+
+  formatMonth(item: any): string {
+    let parts = item.split(' ');
+    return parts[0]; // This returns the month part
+  }
+
+  formatTicks(value: number): string {
+    return Math.floor(value) === value ? value.toString() : '';
+  }
+  
 
 }

@@ -53,5 +53,12 @@ export class OrderService {
       })
     );
   }
+
+  getOrdersMonthlyStats():Observable<any>{
+    const headers = this.authService.createAuthHeaders();
+    const getOrdersStatsURL=`https://localhost:8080/order/getOrdersMonthlyStats`
+
+    return this.http.get(getOrdersStatsURL,{headers});
+  }
   
 }

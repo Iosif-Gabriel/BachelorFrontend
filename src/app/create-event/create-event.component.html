@@ -56,7 +56,7 @@
                         <div class="errorText" *ngIf="eventForm.get('nrGuests')!.errors!['required']">
                             Number of guests is required.
                         </div>
-                        <div  class="errorText"*ngIf="eventForm.get('nrGuests')!.errors!['min']">
+                        <div class="errorText" *ngIf="eventForm.get('nrGuests')!.errors!['min']">
                             Number of guests must be at least 1.
                         </div>
                     </div>
@@ -78,34 +78,15 @@
                     </div>
                 </div>
 
-                <div class="enterDate"
-                [ngClass]="{ 'invalid-input': eventForm.get('startDate')?.hasError('invalidStartDate') && (eventForm.get('startDate')?.dirty || eventForm.get('startDate')?.touched) }">
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate" formControlName="startDate">
-                <div class="errorText" *ngIf="eventForm.get('startDate')?.hasError('invalidStartDate')">
-                    Start date cannot be greater than current date.
-                </div>
-           </div>
-           
-           <div class="enterDate"
-                [ngClass]="{ 'invalid-input': eventForm.get('endDate')?.hasError('invalidRange') && (eventForm.get('endDate')?.dirty || eventForm.get('endDate')?.touched) }">
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate" name="endDate" formControlName="endDate">
-                <div class="errorText" *ngIf="eventForm.get('endDate')?.hasError('invalidRange')">
-                    End date cannot be less than start date.
-                </div>
-           </div>
-           
-           
-
                 <div class="enterLocation"
                     [ngClass]="{ 'invalid-input': eventForm.get('location')?.invalid && (eventForm.get('location')?.dirty || eventForm.get('location')?.touched) }">
                     <label>Location:</label>
-                    <input type='text' ngx-google-places-autocomplete #placesRef="ngx-places" formControlName="location"
-                        (onAddressChange)="handleAddressChange($event)">
+                    <input type='text' ngx-google-places-autocomplete ngx-places #placesRef="ngx-places"
+                        formControlName="location" (onAddressChange)="handleAddressChange($event)">
                     <div
                         *ngIf="eventForm.get('location')?.invalid && (eventForm.get('location')?.dirty || eventForm.get('location')?.touched)">
-                        <div *ngIf="eventForm.get('location')?.invalid && (eventForm.get('location')?.dirty || eventForm.get('location')?.touched)">
+                        <div
+                            *ngIf="eventForm.get('location')?.invalid && (eventForm.get('location')?.dirty || eventForm.get('location')?.touched)">
                             <div class="errorText" *ngIf="eventForm.get('location')!.errors!['required']">
                                 Location is required.
                             </div>
@@ -116,9 +97,30 @@
                                 The address entered is invalid.
                             </div>
                         </div>
-                        
                     </div>
                 </div>
+
+                <div class="enterDate"
+                    [ngClass]="{ 'invalid-input': eventForm.get('startDate')?.hasError('invalidStartDate') && (eventForm.get('startDate')?.dirty || eventForm.get('startDate')?.touched) }">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" formControlName="startDate">
+                    <div class="errorText" *ngIf="eventForm.get('startDate')?.hasError('invalidStartDate')">
+                        Start date cannot be greater than current date.
+                    </div>
+                </div>
+
+                <div class="enterDate"
+                    [ngClass]="{ 'invalid-input': eventForm.get('endDate')?.hasError('invalidRange') && (eventForm.get('endDate')?.dirty || eventForm.get('endDate')?.touched) }">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" formControlName="endDate">
+                    <div class="errorText" *ngIf="eventForm.get('endDate')?.hasError('invalidRange')">
+                        End date cannot be less than start date.
+                    </div>
+                </div>
+
+
+
+
             </div>
         </div>
     </form>

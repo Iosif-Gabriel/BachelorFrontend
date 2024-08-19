@@ -129,7 +129,8 @@ export class PurchaseComponent implements OnInit {
         type: 'order',
         eventId: this.event.id,
         seen:false,
-        sentAt:''
+        sentAt:'',
+        eventName:this.event.eventName,
       }
       this.websocketService.sendNotification(this.event?.idUser,notif);
      }

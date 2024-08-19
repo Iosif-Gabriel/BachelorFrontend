@@ -3,17 +3,50 @@
         <button class="closeButtonReview" (click)="closePopup()">X</button>
     </div>
     <h4>Give rating for {{eventData.eventName}}:</h4>
-    <app-star-rating [(rating)]="parentRating"></app-star-rating>
-    <div class="titleReviewContainer">
-        <h4>Title:</h4>
-        <input placeholder="Enter title..." type="text" [(ngModel)]="reviewDTO.subject">
-    </div>
-    <div class="descriptionReviewContainer">
-        <h4>Description:</h4>
-        <textarea placeholder="Enter honest opinion..." name="reviewDescription" id="" [(ngModel)]="reviewDTO.description"></textarea>
-    </div>
-    <div class="submitbutton">
-        <button type="button" (click)="submitReview()">Submit Review</button>
-    </div>
+    
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+        
+        <div class="ratingContainer">
+            <app-star-rating 
+            [rating]="reviewForm.get('rating')?.value"
+            (ratingChange)="reviewForm.get('rating')?.setValue($event)">
+          </app-star-rating>
+            <div class="error" *ngIf="showRatingError">
+                Rating is required.
+            </div>
+        </div>
+
+        <div class="titleReviewContainer">
+            <h4>Title:</h4>
+            <input 
+                placeholder="Enter title..." 
+                type="text" 
+                formControlName="subject"
+                [ngClass]="{'error': reviewForm.get('subject')?.invalid && reviewForm.get('subject')?.touched}">
+            <div *ngIf="reviewForm.get('subject')?.invalid && reviewForm.get('subject')?.touched" class="error">
+                Title is required.
+            </div>
+        </div>
+
+        <div class="descriptionReviewContainer">
+            <h4>Description:</h4>
+            <textarea 
+                placeholder="Enter honest opinion..." 
+                formControlName="description"
+                [ngClass]="{'error': reviewForm.get('description')?.invalid && reviewForm.get('description')?.touched}">
+            </textarea>
+            <div *ngIf="reviewForm.get('description')?.invalid && reviewForm.get('description')?.touched" class="error">
+                Description is required.
+            </div>
+        </div>
+
+
+   
+        <div class="submitbutton">
+            <button type="button" (click)="submitReview()">Submit Review</button>
+        </div>
+    </form>
+   
 
 </div>

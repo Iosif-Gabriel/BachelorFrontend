@@ -56,28 +56,6 @@ export class EventService {
     return this.http.get<EventDTO[]>(getAllEventsURL,{headers});
   }
 
-  // getCoverPhotos(): Observable<EventWithPicturesDTO[]> {
-  //   const headers = this.auth.createAuthHeaders();
-  
-  //   return this.http.get<EventWithPicturesDTO[]>(this.getCoverPhotosURL, { headers })
-  //     .pipe(
-  //       catchError(error => {
-  //         if (error.status === 403 && error.url === 'https://localhost:8080/event/getAllEventsWithPictures') {
-  //           console.error("403 error on specific endpoint. Logging out.");
-  //           // this.logoutService.logoutUser().subscribe( {
-  //           //   next: any => {
-  //           //     const user=this.tokenService.getUser();
-  //           //     this.tokenService.logout();
-  //           //     this.websocketService.disconnectWebSocket(user.id)
-  //           //     window.location.href = 'https://localhost:4200/home';
-  //           //   }
-  //           // });
-  //         }
-  //         return throwError(error); 
-  //       })
-  //     );
-  // }
-
   getCoverPhotos(): Observable<EventWithPicturesDTO[]>{
     const headers = this.auth.createAuthHeaders();
     const url=`https://localhost:8080/event/getAllEventsWithPictures`;

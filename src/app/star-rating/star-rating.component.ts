@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -19,12 +19,18 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ])
   ]
 })
-export class StarRatingComponent {
+export class StarRatingComponent implements OnInit {
   @Input() rating!: number;
   @Output() ratingChange: EventEmitter<number> = new EventEmitter<number>();
   stars: boolean[] = [];
 
   constructor() { }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['rating']) {
+      this.highlightStars(this.rating - 1);
+    }
+  }
 
   ngOnInit() {
     this.stars = Array(5).fill(false);

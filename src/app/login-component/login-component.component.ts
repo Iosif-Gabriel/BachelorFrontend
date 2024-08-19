@@ -44,7 +44,7 @@ export class LoginComponentComponent implements OnInit{
 
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
 
   }
@@ -59,7 +59,7 @@ export class LoginComponentComponent implements OnInit{
     
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      this.modalService.openModal("login empty",this.viewContainerRef,'Login Error', 'Please complete both fields.','Error')
+      this.modalService.openModal("login empty",this.viewContainerRef,'Login Error', 'Please complete both fields accordingly.','Error')
       return;
     }
     let user = new AuthenticationRequest();

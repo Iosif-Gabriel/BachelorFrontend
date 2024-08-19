@@ -2,9 +2,20 @@
   <app-side-nav></app-side-nav>
   <div class="content">
     <h1 class="title">Events 2024 Overview</h1>
+    <p class="description">Number of created events for each month</p>
     <div class="chart-container">
-      <ngx-charts-pie-grid [results]="data" [scheme]="colorScheme">
-      </ngx-charts-pie-grid>
+      <ngx-charts-bar-vertical
+      [results]="data"
+      [showDataLabel]="true"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [yAxisTickFormatting]="formatTicks"
+      >
+    </ngx-charts-bar-vertical>
     </div>
   </div>
 </div>

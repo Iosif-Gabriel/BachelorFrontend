@@ -7,5 +7,6 @@ export interface NotificationDTO{
     eventId:string;
     seen:boolean;
     sentAt:string;
+    eventName:string;
 
 }

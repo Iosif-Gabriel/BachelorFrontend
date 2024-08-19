@@ -42,10 +42,12 @@ export class NotificationComponent implements OnInit {
     if(noti.seen!==true){
       if(noti.type==='review'){
         this.reviewB=true;
+       
         this.eventData={
           eventId:noti.eventId,
-          eventName:noti.eventName
+          eventName:noti.message.replace("Please review",'')
         }
+        console.log(this.eventData);
        }
     }
   

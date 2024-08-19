@@ -9,7 +9,7 @@
 
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" name="endDate" formControlName="endDate">
-      <!-- Afisarea mesajului de eroare pentru endDate -->
+      
       <div *ngIf="this.invalidRange" class="error-message">
         Invalid date range
       </div>

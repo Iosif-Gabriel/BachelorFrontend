@@ -46,7 +46,7 @@ export class UserNavComponent implements OnInit,AfterViewInit {
       this.renderer.addClass(navItem,"active-nav-link");
 
     } else {
-      console.error('Element not found!');
+      console.log('Element not found!');
     }
   }
 

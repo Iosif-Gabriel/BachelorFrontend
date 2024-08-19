@@ -15,7 +15,8 @@
     /* position: relative;  */
     scrollbar-width: none;
     transition: max-height 0.4s ease, padding 0.4s ease; 
-    max-height: 800; 
+    max-height: 800;
+     
 
    
 }
@@ -40,7 +41,7 @@
 .left-column,
 .right-column {
     padding: 10px;
-    width: 80%; /* Imparte containerul pe două coloane */
+    width: 80%; 
 }
 
 .createEventContent label {
@@ -246,4 +247,8 @@
   
   .errorText{
     color: #ca2626;
+  }
+  .pac-container{
+    position: relative;
+    background-color: #ca2626;
   }
