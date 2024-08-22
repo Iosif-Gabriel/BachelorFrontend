@@ -78,6 +78,7 @@
   width: 30px;
   /* height: 50px; */
   cursor: pointer;
+
 }
 
 .price{
@@ -85,7 +86,7 @@
 }
 
 .svgheart{
-  filter: brightness(0) invert(1);
+  filter: grayscale(100%);
 }
 
 
@@ -220,6 +221,7 @@
 .buttonColor{
   filter: grayscale(100%);
   width: 50px;
+  
 }
 
 .buttonSpan:hover {
