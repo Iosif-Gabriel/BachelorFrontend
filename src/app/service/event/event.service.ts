@@ -104,9 +104,7 @@ export class EventService {
 
   getEventById(eventId:string): Observable<EventWithPicturesDTO> {
     const headers = this.auth.createAuthHeaders();
-   
     const getEventWithGalleryURL=`https://localhost:8080/event/getEventByIdWithGallery/${eventId}`;
-
     
     return this.http.get<EventWithPicturesDTO>(getEventWithGalleryURL,{headers})
   }

@@ -1,0 +1,103 @@
+<body class="registerDiv">
+    <div class="closeButtonContainer" *ngIf="registerPopupOpen">
+        <button class="closeButton" (click)="closePopup()">X</button>
+    </div>
+    <div class="registerContent">
+        <h2>Welcome to Event Maker</h2>
+        
+        
+        <form class="registerFormC" (ngSubmit)="confirmRegister()" #registerForm="ngForm">
+            <p>First Name </p>
+            <input
+                type="text"
+                name="firstName"
+                [(ngModel)]="registerReq.firstName"
+                (keypress)="keyPressLetters($event)"
+                placeholder="First Name"
+                required
+            />
+            
+            <p>Last Name</p>
+            <input
+                type="text"
+                name="lastName"
+                [(ngModel)]="registerReq.lastName"
+                (keypress)="keyPressLetters($event)"
+                placeholder="Last Name"
+                required
+            />
+            
+            <p>Phone Number <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter a valid phone number'"></i></p>
+            <input
+                type="text"
+                name="phoneNumber"
+                [(ngModel)]="registerReq.phoneNumber"
+                (keypress)="keyPressNumbers($event)"
+                [ngStyle]="{
+                    'background-color': (registerReq.phoneNumber.length === 0) ? 'white' : 
+                                        (registerReq.phoneNumber.length < 10) ? '#FFCCCC' : 
+                                        (registerReq.phoneNumber.length > 10) ? 'red' : 
+                                        'lightgreen'
+                  }"
+                placeholder="Phone number"
+                maxlength="10"
+                pattern="[0-9]*"
+                required
+            />
+            
+            <p>Email <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter a valid email'"></i></p>
+            <input
+            type="email"
+            name="email"
+            [(ngModel)]="registerReq.email"
+            #email="ngModel"
+            placeholder="Email address"
+            required
+            [ngStyle]="{
+                'background-color': email.value === '' ? 'white' : 
+                                     (email.valid && email.touched ? 'lightgreen' : 
+                                     (email.invalid && email.touched ? '#FFCCCC' : 'white'))
+            }"
+            (ngModelChange)="validateEmail(email)"
+         />
+            <p>Username <i class="fa fa-info-circle" appToolTip [appToolTip]="'Username must be at least 4 characters'"></i></p>
+            <input
+                type="text"
+                name="username"
+                [(ngModel)]="registerReq.username"
+                [ngStyle]="{'background-color': (registerReq.username.length==0) ?'white': ( registerReq.username.length < 4) ? '#FFCCCC' : (registerReq.username.length >= 4 ? 'lightgreen' : 'white')}"
+                placeholder="Username"
+                required
+            />
+            
+            <p>Password <i class="fa fa-info-circle" appToolTip [appToolTip]="'Password must be at least 8 characters'"></i></p>
+            <input
+                type="password"
+                name="password"
+                [(ngModel)]="registerReq.password"
+                (input)="passwordsMatch()"
+                [ngStyle]="{'background-color': (registerReq.password.length === 0) ? 'white' : ((registerReq.password !== confirmPassword)||registerReq.password.length < 8) ? '#FFCCCC' : 'lightgreen'}"
+                placeholder="Password"
+                minlength="8"
+                required
+            />
+            
+            <p>Confirm Password</p>
+            <input
+                type="password"
+                name="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                (input)="passwordsMatch()"
+                [ngStyle]="{'background-color': (confirmPassword.length === 0) ? 'white' : (registerReq.password !== confirmPassword || confirmPassword.length < 8) ? '#FFCCCC' : 'lightgreen'}"
+                placeholder="Confirm password"
+                minlength="8"
+                required
+            />
+
+            <span *ngIf="!passwordsMatchs" style="color: red;">Passwords do not match</span>
+            <span *ngIf="passwordsMatchs" style="color: green;">Passwords match</span>
+
+            <button class="registerButton" type="submit" [disabled]="!passwordsMatchs">Register</button>
+        </form>
+    </div>
+</body>

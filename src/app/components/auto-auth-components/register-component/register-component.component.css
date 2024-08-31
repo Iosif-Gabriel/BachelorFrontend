@@ -1,0 +1,126 @@
+.registerDiv {
+  --width: 375px;
+  --padding: 20px;
+  --height: 480px;
+  --font-size: 20px; 
+  --h5-font-size: 20px;
+  --input-font-size: 20px; 
+  --close-button-size: 15px;
+ 
+  
+  width: var(--width);
+  margin: 0 auto;
+  padding: var(--padding);
+  border: 3px solid #ccc;
+  border-radius: 20px;
+  position: absolute; 
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
+  background-color: white;
+  height: var(--height);
+  font-family: "Josefin Sans", sans-serif;
+  font-size: var(--font-size);
+}
+
+.registerDiv h3 {
+  text-align: center;
+}
+
+.registerDiv h5 {
+  text-align: center;
+  font-size: var(--h5-font-size);
+  color: gray;
+}
+
+.registerDiv p {
+  margin: 15px 0;
+  font-size: var(--input-font-size);
+  text-align: left;
+}
+
+.registerDiv input[type="text"],
+.registerDiv input[type="password"],
+.registerDiv input[type="email"],
+.registerButton {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  font-size: 20px;
+  font-family: inherit;
+}
+
+input::placeholder{
+  font-size: medium;
+}
+.registerDiv button {
+  background-color: #b60606;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.registerDiv button:hover {
+  background-color: #eb5d5d;
+}
+
+.registerDiv a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.registerDiv a:hover {
+  text-decoration: underline;
+}
+
+.closeButton {
+  cursor: pointer;
+  border: none;
+  color: #c50808;
+  font-size: small;
+  font-weight: bolder;
+  /* width: var(--close-button-size);
+  height: var(--close-button-size); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 30px; 
+  height: 30px;
+}
+
+
+.registerContent {
+  text-align: center;
+}
+
+.closeButtonContainer {
+  position: absolute;
+  top: -10px;
+  right: 5px;
+  width: 30px; 
+}
+
+.fa{
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1600px) {
+  .registerFormC input{
+    font-size: 15px !important;
+  }
+
+  .registerDiv{
+    --width:326px;
+    --height:410px;
+  }
+}
+
+
+
+

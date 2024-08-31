@@ -1,0 +1,42 @@
+ <body  id='loginDiv' class="loginDiv" #loginDiv>
+    <div class="closeButtonContainer" *ngIf="loginPopupOpen">
+        <button class="closeButton" (click)="closePopup()">X</button>
+    </div>
+    <div class="loginContent" #loginContent>
+        <div class="welcomeTitle">
+            <h2>Welcome to Event Maker</h2>
+        </div>
+        <h3 class="travelText">Travel around the world</h3>
+        <form [formGroup]="loginForm" class="formLogin" (ngSubmit)="confirmLogin()">
+            <p class="label">Username</p>
+            <input type="text" formControlName="username" placeholder="Username"
+                   [ngClass]="{
+                      'input-valid': loginForm.get('username')?.valid && loginForm.get('username')?.touched && loginForm.get('username')?.value,
+                      'input-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched && loginForm.get('username')?.value,
+                      'input-empty': !loginForm.get('username')?.value
+                   }">
+            
+            <p class="label">Password</p>
+            <input type="password" formControlName="password" placeholder="Password"
+                   [ngClass]="{
+                      'input-valid': loginForm.get('password')?.valid && loginForm.get('password')?.touched && loginForm.get('password')?.value,
+                      'input-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched && loginForm.get('password')?.value,
+                      'input-empty': !loginForm.get('password')?.value
+                   }">
+            
+            <button type="submit" name="login" >Login</button>
+          </form>
+          
+          
+          
+        <div class="noAccountContent" >
+            <p>Don't have an accout?</p>
+            <p class="clickable-text" (click)="openRegister()">Create one!</p>
+        </div>
+    </div>
+</body>
+
+<div class="veriyContainer" *ngIf="verify">
+    <app-verify></app-verify>
+</div>
+

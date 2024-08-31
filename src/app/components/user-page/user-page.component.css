@@ -1,0 +1,103 @@
+.containerUser {
+  display: flex;
+  flex-direction: row;
+  flex-direction: column;
+  background: whitesmoke;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: 1000; */
+  font-style: xx-large;
+  height: 100%;
+}
+
+.contentUser {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.wrapper-mainPage {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-top: 110px;
+
+}
+
+
+@media only screen and (max-width: 1600px) {
+
+  .wrapper-mainPage {
+    max-width: 900px;
+  }
+
+
+}
+
+.side-nav {
+  background-color: var(--bg-primary);
+  transition: left 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.eventList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  /* text-align: center; */
+}
+
+.eventList .messageContainer {
+  text-align: center;
+}
+
+.createEventOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup-overlayUser {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.popup-wrapperUser {
+  position: fixed;
+  width: 80%;
+  max-width: 450px;
+  z-index: 1990;
+}
+
+
+.listTitleEvents {
+  margin-left: 45px;
+  /* margin-bottom: 20px; */
+}
+
+.myEventsTitle {
+  margin-top: 100px;
+}
+
+.messageContainer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

@@ -27,7 +27,7 @@ export class NextRouteService {
   // }
 
   getNextRoute(): string {
-    // Returnează următoarea rută
+    
     return this.nextRoute;
   }
 }

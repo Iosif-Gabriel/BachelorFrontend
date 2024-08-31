@@ -1,0 +1,85 @@
+nav {
+  background-color: #000000;
+  overflow: hidden;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight:normal;
+  font-style: normal;
+  z-index: 999;
+}
+
+.Navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: rgb(207, 207, 207);
+}
+
+.Navigation a {
+  font-size: 18px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-top: 5px;
+  display: inline-block;
+  margin: 5px;
+  font-size: small;
+}
+
+nav li:nth-last-child(1) {
+  float: right;
+  margin: 5px;
+  min-width: 50px;
+}
+
+nav a.loginA {
+  background-color: rgb(163, 163, 163);
+  color: black;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+nav a.signinA {
+  background-color: rgb(209, 1, 1);
+  color: white;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+nav a.signinA:hover {
+  background-color: rgb(240, 112, 112);
+}
+
+nav li:nth-last-child(2) {
+  float: right;
+  margin: 5px;
+  color: white;
+}
+
+nav a {
+  color: black;
+  display: block;
+  padding: 10px 10px;
+  text-decoration: none;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+nav a:hover {
+  background-color: #e2e2e2;
+}

@@ -1,0 +1,178 @@
+.loginDiv {
+  width: 250px;
+  padding: 50px;
+  border: 3px solid #ccc;
+  border-radius: 20px;
+  position: absolute;
+  top: 60%;
+  right: 10%;
+  transform: translateY(-50%);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 380px;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  overflow: hidden;
+}
+
+.welcomeTitle {
+  text-align: center;
+  font-size: 20px;
+}
+
+.travelText {
+  text-align: center;
+  font-size: 20px;
+  color: gray;
+}
+
+.label {
+  margin: 10px 0;
+  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.loginDiv input[type="text"],
+.loginDiv input[type="password"],
+.loginDiv button {
+  width: 100%;
+  padding: 15px; 
+  /* margin-bottom: 15px;  */
+  box-sizing: border-box;
+  border-radius: 20px; 
+  cursor: pointer;
+  font-family: "Josefin Sans", sans-serif;
+  /* border: 2px solid gray; */
+  
+}
+
+
+.loginDiv button {
+  width: 100%;
+  background-color: #b60606;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.loginDiv button:hover {
+  background-color: #eb5d5d;
+}
+
+.loginDiv a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.loginDiv a:hover {
+  text-decoration: underline;
+}
+
+.closeButtonContainer {
+  position: absolute;
+  top: -10px;
+  right: 5px;
+  width: 30px;
+}
+
+.closeButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #000;
+  font-size: small; 
+  width: 30px; 
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+}
+
+.closeButton:hover {
+  color: red;
+}
+
+.loginContent {
+  text-align: center;
+}
+
+.noAccountContent{
+  margin-top:10px
+}
+
+.noAccountContent > p  {
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
+ 
+}
+
+.clickable-text {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.clickable-text:hover {
+  color: darkblue;
+}
+.formLogin {
+  width: 280px;
+  }
+
+
+.input-valid {
+  border-color: green;
+  border-width: 2px;
+  /* background-color: lightgreen; */
+}
+
+.input-invalid {
+  border-color: red;
+  border-width: 2px;
+  /* background-color: #ff000059; */
+}
+
+.input-empty {
+  border-color: white;
+  border-width: 2px;
+}
+
+@media only screen and (max-width: 1600px) {
+ 
+  .loginDiv {
+    width: 230px;
+    height: 320px;
+    padding: 45px;
+    font-size: 15px;
+  }
+
+  .welcomeTitle{
+    font-size: 15px;
+  }
+
+  .travelText{
+    font-size: 15px;
+  }
+
+  .loginDiv{
+    font-size: 15px;
+  }
+
+  .label{
+    font-size: 15px;
+  }
+
+}
+
+
+

@@ -40,5 +40,18 @@ export class UserService {
     return this.httpClient.get<any[]>(userURL,{headers});
   }
 
+  getUserbyId(userId:string):Observable<any>{
+    const headers=this.authService.createAuthHeaders();
+    const userURL=`https://localhost:8080/user/getUserById/${userId}`;
+
+    return this.httpClient.get<any>(userURL,{headers});
+  }
+
+  updateUserDetails(userDTO:any):Observable<any>{
+    const headers=this.authService.createAuthHeaders();
+    const userURL=`https://localhost:8080/user/updateUser`;
+
+    return this.httpClient.patch<any>(userURL,userDTO,{headers});
+  }
 
 }

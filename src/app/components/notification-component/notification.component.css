@@ -1,0 +1,153 @@
+.notificationContiner{
+    background-color: rgb(221, 221, 221);
+    width: 450px;
+    height: 280px;
+    border-radius: 20px;
+    padding: 30px;
+    border: 3px solid #9b9b9b;
+    font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  position: relative; 
+}
+
+.closeButtonNotificationContainer {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  
+  .closeNotificationButton {
+    cursor: pointer;
+    background-color: #b60606;
+    border: none;
+    color: #ffffff;
+    font-size: small;
+    font-weight: bold;
+    width: 30px; 
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .closeNotificationButton:hover {
+    background-color: #eb5d5d;
+  }
+
+
+  .titleNotifications{
+    margin-top: -15px;
+  }
+
+  .notificationsContent {
+    width: 350px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 100%; 
+    height: calc(100% - 40px); 
+    overflow-y: auto; 
+    padding: 15px; 
+    box-sizing: border-box; 
+    scrollbar-width: none;
+
+  }
+  
+  .notification {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    /* margin-top: 5px; */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    transition: all 0.3s ease; 
+    overflow-y: auto;
+  }
+  
+  .notification:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .notificationIcon {
+    margin-right: 15px;
+    font-size: 20px; 
+  }
+  
+  .notificationText {
+    font-size: 18px; 
+    color: #000000;
+  }
+
+  .checkContainer {
+    position: absolute; 
+    bottom: 0px; 
+    right: 15px; 
+  }
+  
+  .checkButton {
+   
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-bottom:11px;
+    margin-right: 5px;
+  }
+  
+  .checkButton:hover{
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .trashButton{
+   opacity: 0; 
+   transition: opacity 0.3s ease;
+   cursor: pointer;
+   margin-bottom: 10px;
+
+  }
+
+ .trashButton:hover{
+  transform: scale(1.3);
+  } 
+  
+
+  .notification:hover .checkButton  {
+    opacity: 10; 
+    
+  }
+
+  .notification:hover  .trashButton {
+    opacity: 10; 
+    
+    
+  }
+
+
+
+  .overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+
+  }
+  
+  
+  

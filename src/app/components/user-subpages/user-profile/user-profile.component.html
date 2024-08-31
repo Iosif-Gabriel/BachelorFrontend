@@ -1,0 +1,80 @@
+<div class="profileContainer">
+    <div class="userProfileContainer">
+        <div class="userNavBar">
+            <app-user-nav></app-user-nav>
+        </div>
+        <div class="profileContent wrapperMainProfile">
+            <div class="titleContainerProfile">
+                <h2 class="myEventsTitle">Hello, {{ user.firstName }}!</h2>
+            </div>
+
+        
+            <form [formGroup]="emailForm" (ngSubmit)="changeEmail()">
+                <div class="emailChangeContainer">
+                    <h3>Change Email</h3>
+                    <div class="userDetailsContainer">
+                        <p>Email <i class="fa fa-info-circle" appToolTip [appToolTip]="'Please enter a valid email'"></i></p>
+                        <input
+                            formControlName="email"
+                            type="email"
+                            placeholder="Email address"
+                            [ngStyle]="{
+                                'background-color': emailForm.get('email')?.value === '' ? 'white' : 
+                                                     (emailForm.get('email')?.valid && emailForm.get('email')?.touched ? 'lightgreen' : 
+                                                     (emailForm.get('email')?.invalid && emailForm.get('email')?.touched ? '#FFCCCC' : 'white'))
+                            }"
+                        />
+                        <span *ngIf="isEmailInvalid()" style="color: red;">Please enter a valid email</span>
+                        <span *ngIf="isEmailEmpty()" style="color: red;">Email is required</span>
+                    </div>
+                    <div class="containerSaveButton">
+                        <button type="submit" class="saveButton">Change Email</button>
+                    </div>
+                </div>
+            </form>
+            
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+                <div class="userDetailsContainer">
+                  <h3>Change Password</h3>
+                  
+                  <p>Password 
+                    <i class="fa fa-info-circle" appToolTip [appToolTip]="'Password must be at least 8 characters'"></i>
+                  </p>
+                  <input
+                    formControlName="password"
+                    type="password"
+                    placeholder="Password"
+                    [ngStyle]="{
+                      'background-color': passwordForm.get('password')?.value === '' ? 'white' : 
+                                           (passwordForm.get('password')?.invalid && passwordForm.get('password')?.touched) ? '#FFCCCC' : 'lightgreen'
+                    }"
+                  />
+                  <span *ngIf="isFieldEmpty('password')" style="color: red;">Password is required</span>
+                  
+                  <p>Confirm Password</p>
+                  <input
+                    formControlName="confirmPassword"
+                    type="password"
+                    placeholder="Confirm password"
+                    [ngStyle]="{
+                      'background-color': passwordForm.get('confirmPassword')?.value === '' ? 'white' : 
+                                           (passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched) ? '#FFCCCC' : 'lightgreen'
+                    }"
+                  />
+                  <span *ngIf="isFieldEmpty('confirmPassword')" style="color: red;">Confirm password is required</span>
+              
+          
+                  <span *ngIf="hasPasswordMismatch()" style="color: red;">Passwords do not match</span>
+                </div>
+                
+                <div class="containerSaveButton">
+                  <button type="submit" class="saveButton">Change Password</button>
+                </div>
+              </form>
+              
+              
+
+            
+        </div>
+    </div>
+</div>

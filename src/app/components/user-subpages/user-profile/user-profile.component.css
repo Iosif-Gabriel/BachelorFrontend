@@ -1,0 +1,91 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    background: whitesmoke;
+    font-family: "Josefin Sans", sans-serif;
+    height: 100vh;
+}
+
+
+.profileContent {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 135px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titleContainerProfile {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.myEventsTitle {
+    font-size: 24px;
+    color: #333;
+}
+
+.userDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.passwordContainer {
+    margin-bottom: 10px;
+}
+
+.passwordError {
+    color: red;
+    font-size: 14px;
+}
+
+.passwordSuccess {
+    color: green;
+    font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 250px;
+    padding: 15px;
+    border-radius: 20px;
+    border: 2px solid #ccc;
+    font-size: 15px;
+}
+
+input[type="password"]::placeholder {
+    color: #999;
+}
+
+input[type="password"]:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.containerSaveButton {
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px; 
+}
+
+.saveButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #c50808;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: small;
+
+}
+
+.saveButton:hover {
+    background-color: #eb5d5d;;
+}
+

@@ -1,0 +1,24 @@
+.cancel-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh; 
+}
+
+.svgContainer {
+    margin: 20px 0;
+}
+
+.cancelTitle {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #FF6465; 
+}
+
+.cancelMessage {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+

@@ -16,13 +16,13 @@ export class ScrollOnWheelDirective {
       const scrollDistance = this.el.nativeElement.scrollWidth / this.el.nativeElement.children.length;
 
       if (event.deltaY < 0) {
-        // În sus
+        
         this.el.nativeElement.scrollBy({
           left: -scrollDistance + 20,
           behavior: 'smooth'
         });
       } else {
-        // În jos
+        
         this.el.nativeElement.scrollBy({
           left: scrollDistance - 20,
           behavior: 'smooth'

@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, ComponentRef, EventEmitter, Injectable, Input, OnDestroy, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ModalComponent } from 'src/app/modal/modal.component';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { PopupService } from '../popup/popup.service';
 
 @Injectable({
