@@ -52,7 +52,7 @@ import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifi
 import { NgxStripeModule } from 'ngx-stripe';
 import { CancelComponent } from './components/payment-pages/cancel/cancel.component';
 import { SuccessComponent } from './components/payment-pages/success/success.component';
-import { VerifyComponent } from './components/auto-auth-components/verify/verify.component';
+import { VerifyComponent } from './components/auto-auth-components/verify-component/verify.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { EventsChartComponent } from './components/admin-pages/events-chart/events-chart.component';

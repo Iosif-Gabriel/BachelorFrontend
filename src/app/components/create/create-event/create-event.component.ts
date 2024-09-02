@@ -9,6 +9,7 @@ import { PopupService } from '../../../service/popup/popup.service';
 import { TokenService } from '../../../service/token/token.service';
 import { SectionService } from '../../../service/section/section.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-create-event',
@@ -35,9 +36,11 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
     nrGuests:0,
     available:false,
   }
+  locationEvent:any;
   
 
   locationDTO:LocationDTO={
+    id:'',
     address: '',
     city: '',
     country: ''
@@ -80,16 +83,16 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
         const eventWithPictures=this.eventService.getEventWithPictures()
        
         if(eventWithPictures){
-          this.editEvent=true;
+        this.editEvent=true;
         this.eventForm.get("eventDescription")?.setValue(eventWithPictures.description);
         this.eventForm.get("eventTitle")?.setValue(eventWithPictures.eventName);
         this.eventForm.get("ticketPrice")?.setValue(eventWithPictures.price);
         this.eventForm.get("startDate")?.setValue(eventWithPictures.startTime);
         this.eventForm.get("endDate")?.setValue(eventWithPictures.endTime);
         this.eventForm.get("eventType")?.setValue(eventWithPictures.idEventType);
-        this.eventForm.get("location")?.setValue(eventWithPictures.idLocation);
+        this.eventForm.get("location")?.setValue(eventWithPictures.location);
         this.eventForm.get("nrGuests")?.setValue(eventWithPictures.nrGuests);
-       
+        this.locationEvent=eventWithPictures.idLocation
         }
       }else{
         this.editEvent=false;
@@ -165,13 +168,17 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
     
     previewEvent(): void {
       this.onOpenModal();
-    
+      
       this.locationService.createLocation(this.locationDTO).subscribe(
-        id => {
-          console.log('Locația a fost inserată cu succes în baza de date:', id);
-          this.eventDTO.idLocation = String(id);
-        
+        response => {
           this.populateEventDTO();
+          console.log('Locația a fost inserată cu succes în baza de date:', response);
+          
+          if(response===0){
+            this.eventDTO.idLocation=this.locationEvent;
+          }else{
+            this.eventDTO.idLocation = String(response);
+          }          
         },
         error => {
           console.error('Eroare la inserarea locației:', error);
@@ -228,7 +235,10 @@ export class CreateEventComponent implements OnInit,AfterContentChecked   {
         this.eventForm.get('nrGuests')?.value !== undefined &&
         this.eventForm.get('ticketPrice')?.value !== undefined &&
         this.eventForm.get('startDate')?.value &&
-        this.eventForm.get('endDate')?.value
+        this.eventForm.get("startDate")?.valid&&
+        this.eventForm.get("endDate")?.valid&&
+        this.eventForm.get('endDate')?.value &&
+        this.eventForm.get('location')?.value
       );
     }
     

@@ -5,6 +5,7 @@ export class EventWithPicturesDTO{
     description!:string;
     startTime!:string;
     endTime!:string;
+    location!:string;
     idLocation!:string;
     idEventType!:string;
     idUser!:string;

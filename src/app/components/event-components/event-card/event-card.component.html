@@ -13,7 +13,7 @@
                <div class="price-container">
                   <h3 *ngIf="!isOrgEventOpen">
                      <ng-container *ngIf="event?.available; else unavailable">
-                        Price: {{event?.price}}
+                        Price: {{ event?.price | currency:'USD':'symbol':'1.0-0' }}
                      </ng-container>
                      <ng-template #unavailable>
                         Event unavailable

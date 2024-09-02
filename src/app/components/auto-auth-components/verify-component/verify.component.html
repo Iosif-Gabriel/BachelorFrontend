@@ -1,0 +1,21 @@
+<div class="popup" *ngIf="isVisible">
+  <div class="popup-content">
+    <h2>Enter Verification Code</h2>
+    <p>Please enter the 6-digit code sent to your email or phone.</p>
+    
+    <div class="code-inputs">
+      <input type="text" maxlength="1" [(ngModel)]="code[0]" (input)="handleCodeInput()" [ngClass]="{'invalid-input': isCodeInvalid}">
+      <input type="text" maxlength="1" [(ngModel)]="code[1]" (input)="handleCodeInput()" [ngClass]="{'invalid-input': isCodeInvalid}">
+      <input type="text" maxlength="1" [(ngModel)]="code[2]" (input)="handleCodeInput()" [ngClass]="{'invalid-input': isCodeInvalid}">
+      <input type="text" maxlength="1" [(ngModel)]="code[3]" (input)="handleCodeInput()" [ngClass]="{'invalid-input': isCodeInvalid}">
+      <input type="text" maxlength="1" [(ngModel)]="code[4]" (input)="handleCodeInput()" [ngClass]="{'invalid-input': isCodeInvalid}">
+      <input type="text" maxlength="1" [(ngModel)]="code[5]" (input)="handleCodeInput()" [ngClass]="{'invalid-input': isCodeInvalid}">
+    </div>
+    
+    <div class="popup-buttons">
+      <button (click)="sendMail()">Send Code</button>
+      <div class="mailMessage" *ngIf="messageMail">New code sent</div>
+      <button (click)="closePopup()">Cancel</button>
+    </div>
+  </div>
+</div>

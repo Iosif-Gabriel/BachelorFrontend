@@ -1,0 +1,82 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.code-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.code-inputs input {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-buttons button {
+    background-color:#b60606;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.popup-buttons button:hover {
+    background-color: #eb5d5d;;
+}
+
+.code-inputs input.invalid-input {
+    border: 1px solid red;
+    color: red;
+}
+
+.code-inputs input.valid-input{
+    border: 1px solid green;
+    color: green
+}
+
+.mailMessage {
+    color: green;
+    font-weight: bold;
+    width: 80px;
+  }
+  

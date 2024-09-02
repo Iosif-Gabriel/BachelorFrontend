@@ -270,26 +270,11 @@
     background-color: black;
   }
 
-  /* body {
-    display: flex;
-    justify-content: center;
-    background-color: #eee;
-    font-family: 'peacock';
-    align-items: center;
-    flex-direction: column;
-  }
-   */
+
   h1 {
     font-size: 30vh;
   }
   
-
-  
-  /* .fadeIn {
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fadeInFromBottomAnimation 3s infinite alternate;
-  } */
   
   @keyframes fadeInFromBottomAnimation {
     from {

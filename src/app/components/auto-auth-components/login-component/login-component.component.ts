@@ -10,8 +10,8 @@ import { UserDTO } from '../../../dtos/UserDTO';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../service/modal/modal.service';
 import { WebSocketService } from '../../../service/websocket/web-socket.service';
-import { VerifyService } from '../../../service/verify/verify.service';
-import { LogoutService } from '../../../service/logout/logout.service';
+import { VerifyAccountService } from '../../../service/verifyAccout/verifyAccount.service';
+
 
 @Component({
   selector: 'app-login-component',
@@ -27,7 +27,7 @@ export class LoginComponentComponent implements OnInit{
   @ViewChild('loginDiv', { static: true }) loginDiv!: ElementRef;
   @ViewChild('loginContent',{static:true}) loginContent!:ElementRef;
   
-  constructor(private renderer: Renderer2,private verifyService:VerifyService,private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {
+  constructor(private renderer: Renderer2,private verifyService:VerifyAccountService,private wesocketService:WebSocketService,private router:Router,private tokenService:TokenService,private popUpSerivce: PopupService, private loginService:LoginServiceService,private formBuilder: FormBuilder,private modalService:ModalService,private viewContainerRef: ViewContainerRef,private userService:UserService) {
     this.verifyService.triggerFunction$.subscribe(() => {
       this.sendCodeAgain();
     });
@@ -155,11 +155,4 @@ export class LoginComponentComponent implements OnInit{
   }
 
 
-  get username() {
-    return this.loginForm.get('username');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
-  }
 }

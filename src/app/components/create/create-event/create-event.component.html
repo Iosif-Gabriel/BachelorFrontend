@@ -100,6 +100,8 @@
                     </div>
                 </div>
 
+    
+
                 <div class="enterDate"
                     [ngClass]="{ 'invalid-input': eventForm.get('startDate')?.hasError('invalidStartDate') && (eventForm.get('startDate')?.dirty || eventForm.get('startDate')?.touched) }">
                     <label for="startDate">Start Date:</label>
@@ -123,15 +125,16 @@
 
             </div>
         </div>
+        <div class="previewPage">
+            <div class="overlay" *ngIf="isModalOpen"></div>
+            <button *ngIf="!editEvent" class="preview-button" [disabled]="!isFormValid()"
+                (click)="previewEvent()">Preview</button>
+            <button *ngIf="editEvent" class="preview-button" [disabled]="!isFormValid()"
+                (click)="previewEvent()">Edit</button>
+        </div>
     </form>
 
-    <div class="previewPage">
-        <div class="overlay" *ngIf="isModalOpen"></div>
-        <button *ngIf="!editEvent" class="preview-button" [disabled]="!isFormValid()"
-            (click)="previewEvent()">Preview</button>
-        <button *ngIf="editEvent" class="preview-button" [disabled]="!isFormValid()"
-            (click)="previewEvent()">Edit</button>
-    </div>
+ 
 </div>
 <div class="image-modal-container" *ngIf="this.isModalOpen">
     <app-image-modal class="image-modal" (closeModalEvent)="onCloseModal()"></app-image-modal>
