@@ -210,4 +210,25 @@ export class UserNavComponent implements OnInit,AfterViewInit {
     });
   }
 
+
+  prevSet() {
+    const reviewList = document.querySelector('.navbar-nav') as HTMLElement;
+    const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
+    console.log(scrollDistance);
+    reviewList.scrollBy({
+      left: -scrollDistance + 1, 
+      behavior: 'smooth'
+    });
+  }
+  
+  nextSet() {
+    const reviewList = document.querySelector('.navbar-nav') as HTMLElement;
+    const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
+    console.log(scrollDistance);
+    reviewList.scrollBy({
+      left: scrollDistance - 1,
+      behavior: 'smooth'
+    });
+  }
+
 }

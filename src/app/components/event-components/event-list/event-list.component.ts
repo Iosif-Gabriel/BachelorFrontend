@@ -67,10 +67,7 @@ export class EventListComponent implements OnInit {
     
    
     }   
-    
-   
-     
-    
+
 
   }
 
@@ -248,7 +245,11 @@ fetchOrgEvents(): Observable<EventWithPicturesDTO[]> {
   addToFavorites(eventId: string) {
     console.log(eventId);
     const eventToUpdate = this.eventsWithPictures.find(event => event.id === eventId);
-    console.log(eventToUpdate);
+    if(this.sectionService.getActiveSection()==='userFavEvents'){
+      this.liveDelete(eventId);
+    }
+ 
+
     if (eventToUpdate) {
     
       eventToUpdate.fav = !eventToUpdate.fav;
@@ -258,11 +259,15 @@ fetchOrgEvents(): Observable<EventWithPicturesDTO[]> {
     
   }
 
-  deleteEvent(eventId:string){
-    const index = this.searchResult.findIndex(event => event.id === eventId);
+  private liveDelete(eventId: string) {
+    const index = this.eventsWithPictures.findIndex(event => event.id === eventId);
     if (index !== -1) {
-      this.searchResult.splice(index, 1);
+      this.eventsWithPictures.splice(index, 1);
     }
+  }
+
+  deleteEvent(eventId:string){
+    this.liveDelete(eventId);
 
     this.eventService.deleteEvent(eventId).subscribe(
       resp => {

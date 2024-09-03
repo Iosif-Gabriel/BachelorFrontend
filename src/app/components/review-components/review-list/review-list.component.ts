@@ -45,7 +45,7 @@ export class ReviewListComponent implements OnInit{
   prevSet() {
     const reviewList = document.querySelector('.review-list') as HTMLElement;
     const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
-    
+    console.log(scrollDistance);
     reviewList.scrollBy({
       left: -scrollDistance + 1, 
       behavior: 'smooth'
@@ -55,7 +55,7 @@ export class ReviewListComponent implements OnInit{
   nextSet() {
     const reviewList = document.querySelector('.review-list') as HTMLElement;
     const scrollDistance = reviewList.scrollWidth / reviewList.children.length;
-    
+    console.log(reviewList);
     reviewList.scrollBy({
       left: scrollDistance - 1,
       behavior: 'smooth'

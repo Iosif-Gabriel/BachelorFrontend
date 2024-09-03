@@ -102,7 +102,9 @@
                     </div>
 
                     <div class="ratingSlide">
+                        <div class="reviewContainer">
                         <h3 class="subTitles">Reviews</h3>
+                        <div class="reviewContent">
                         <ng-container *ngIf="feedbacks.length > 0; else noReviews">
                             <app-review-list [reviews]="feedbacks"></app-review-list>
                         </ng-container>
@@ -110,6 +112,8 @@
                         <ng-template #noReviews>
                             <p>There are no reviews yet...</p>
                         </ng-template>
+                    </div>
+                    </div>
                     </div>
                 </div>
                 <div class="purchaseContainer">

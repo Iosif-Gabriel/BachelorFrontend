@@ -60,6 +60,7 @@ import { UsersChartComponent } from './components/admin-pages/users-chart/users-
 import { OrdersChartComponent } from './components/admin-pages/orders-chart/orders-chart.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserProfileComponent } from './components/user-subpages/user-profile/user-profile.component';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -126,6 +127,7 @@ import { UserProfileComponent } from './components/user-subpages/user-profile/us
     FontAwesomeModule,
     MatCardModule,
     DropdownModule,
+    MatSortModule,
     SimpleNotificationsModule.forRoot(),
     NgxStripeModule.forRoot(),
     

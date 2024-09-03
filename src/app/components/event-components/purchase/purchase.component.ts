@@ -28,7 +28,7 @@ export class PurchaseComponent implements OnInit {
     this.purchaseForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      nrGuests: [{ value: '', disabled: this.invalidRange }, Validators.required] // Setați inițial starea controlului aici
+      nrGuests: [{ value: '', disabled: this.invalidRange }, Validators.required]
         }, { validators: this.dateRangeValidator });
 
   }

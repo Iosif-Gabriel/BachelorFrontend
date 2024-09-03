@@ -1,7 +1,7 @@
 <div class="cardPurchase">
   <div class="purchaseContainer2" [formGroup]="purchaseForm">
     <div class="priceContainer">
-      <h3 class="price">{{ event?.price | currency:'USD':'symbol' }} per night</h3>
+      <h3 class="price">{{ event?.price | currency:'USD':'symbol' }} per guest</h3>
     </div>
     <div class="dateSelection">
       <label for="startDate">Start Date:</label>
@@ -16,7 +16,7 @@
     </div>
     <div class="nrGuests dateSelection">
       <label for="nrGuests">Number of Guests:</label>
-      <input [attr.disabled]="!invalidRange ? false : true" type="number" id="nrGuests" name="nrGuests"
+      <input  type="number" id="nrGuests" name="nrGuests"
         formControlName="nrGuests" step="1" min="1" placeholder="Enter number of Guests..."
         (input)="checkMaxValue($event)">
       <div *ngIf="tooManyGuests && inputHasValue" class="error-message">

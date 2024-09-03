@@ -64,7 +64,7 @@
 
                 <div class="enterTicket"
                     [ngClass]="{ 'invalid-input': eventForm.get('ticketPrice')?.invalid && (eventForm.get('ticketPrice')?.dirty || eventForm.get('ticketPrice')?.touched) }">
-                    <label for="ticketPrice">Price per day:</label>
+                    <label for="ticketPrice">Price:</label>
                     <input type="number" id="ticketPrice" name="ticketPrice" step="1" min="0"
                         placeholder="Enter ticket price" formControlName="ticketPrice">
                     <div

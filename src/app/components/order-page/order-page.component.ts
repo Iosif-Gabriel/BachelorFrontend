@@ -1,18 +1,20 @@
 // order-page.component.ts
-import { ChangeDetectorRef, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { OrderDTO } from '../../dtos/OrderDTO';
 import { TokenService } from '../../service/token/token.service';
 import { OrderService } from '../../service/order/order.service';
 import { SectionService } from '../../service/section/section.service';
 import { ModalService } from '../../service/modal/modal.service';
 import { formatDate } from 'date-fns';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-order-page',
   templateUrl: './order-page.component.html',
   styleUrls: ['./order-page.component.css']
 })
-export class OrderPageComponent implements OnInit {
+export class OrderPageComponent implements OnInit,AfterViewInit {
 
   @Input() selectedOrders:OrderDTO[]=[]
   @Input() type:string=''
@@ -20,8 +22,14 @@ export class OrderPageComponent implements OnInit {
   isEditOpen:boolean=false;
   orders!: OrderDTO[];
   displayedColumns: string[] = [ 'eventId', 'orderedAt', 'startDate', 'endDate', 'nrOfGuests', 'totalPrice'];
+  dataSource!: MatTableDataSource<OrderDTO>;
+
+  @ViewChild(MatSort) sort!: MatSort;
   
   constructor(  private cdr: ChangeDetectorRef,private viewContainerRef: ViewContainerRef,private modalService:ModalService,private sectionService: SectionService,private tokenService:TokenService,private orderService:OrderService){}
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
 
   ngOnInit(): void {
     const user=this.tokenService.getUser();
@@ -31,6 +39,7 @@ export class OrderPageComponent implements OnInit {
      
       this.orders=this.selectedOrders;
      console.log(this.orders);
+     this.dataSource = new MatTableDataSource(this.orders);
       this.sectionService.setOrders(this.orders);
    // })
   }

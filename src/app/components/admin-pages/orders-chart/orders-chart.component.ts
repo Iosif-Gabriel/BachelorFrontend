@@ -16,7 +16,7 @@ export class OrdersChartComponent {
   showXAxisLabel = true;
   xAxisLabel = 'Month';
   showYAxisLabel = true;
-  yAxisLabel = 'Event numbers';
+  yAxisLabel = 'Order numbers';
   colorScheme = 'cool';
 
   constructor(private orderService:OrderService){
